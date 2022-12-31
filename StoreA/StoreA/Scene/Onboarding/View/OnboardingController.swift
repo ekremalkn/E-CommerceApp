@@ -86,7 +86,13 @@ final class OnboardingController: UIViewController {
                 logInLbl.isHidden = false
                 logInButton.isHidden = false
                 contiuneButton.setTitle("Get Started", for: .normal)
+                contiuneButton.snp.updateConstraints { make in
+                    make.width.equalTo(270)
+                }
             } else {
+                contiuneButton.snp.updateConstraints { make in
+                    make.width.equalTo(119)
+                }
                 logInLbl.isHidden = true
                 logInButton.isHidden = true
                 skipButton.isHidden = false
@@ -136,6 +142,8 @@ final class OnboardingController: UIViewController {
     @objc private func contiuneButtonTapped() {
         if currentPage == slides.count - 1 {
             print("last page - show sign up screen")
+            let signUpVC = SignUpController()
+            navigationController?.pushViewController(signUpVC, animated: true)
         } else {
             collection.isPagingEnabled = false
             currentPage += 1
@@ -148,12 +156,13 @@ final class OnboardingController: UIViewController {
     
     
     @objc private func skipButtonTapped() {
-        print("Skip button tapped show log in")
-        
+        let signInVC = SignInController()
+        navigationController?.pushViewController(signInVC, animated: true)
     }
     
     @objc private func logInButtonTapped() {
-        print("log in button tapped show log in")
+        let signInVC = SignInController()
+        navigationController?.pushViewController(signInVC, animated: true)
     }
     
 }
@@ -202,16 +211,16 @@ extension OnboardingController {
     }
     
     private func setupConstraints() {
-        collectionConstraint()
-        pageControlConstraint()
-        contiuneButtonConstraint()
-        skipButtonConstraint()
-        logInLblConstraint()
-        logInButtonConstraint()
+        collectionConstraints()
+        pageControlConstraints()
+        contiuneButtonConstraints()
+        skipButtonConstraints()
+        logInLblConstraints()
+        logInButtonConstraints()
         
     }
     
-    private func collectionConstraint() {
+    private func collectionConstraints() {
         collection.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.equalTo(view.safeAreaLayoutGuide)
@@ -219,7 +228,7 @@ extension OnboardingController {
         }
     }
     
-    private func pageControlConstraint() {
+    private func pageControlConstraints() {
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(collection.snp.bottom)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(50)
@@ -228,7 +237,7 @@ extension OnboardingController {
         }
     }
     
-    private func contiuneButtonConstraint() {
+    private func contiuneButtonConstraints() {
         contiuneButton.snp.makeConstraints { make in
             make.width.equalTo(119)
             make.height.equalTo(56)
@@ -237,7 +246,7 @@ extension OnboardingController {
         }
     }
     
-    private func skipButtonConstraint() {
+    private func skipButtonConstraints() {
         skipButton.snp.makeConstraints { make in
             make.width.equalTo(119)
             make.height.equalTo(44)
@@ -246,14 +255,14 @@ extension OnboardingController {
         }
     }
     
-    private func logInLblConstraint() {
+    private func logInLblConstraints() {
         logInLbl.snp.makeConstraints { make in
             make.top.equalTo(contiuneButton.snp.bottom).offset(35)
             make.centerX.equalTo(contiuneButton.snp.centerX)
         }
     }
     
-    private func logInButtonConstraint() {
+    private func logInButtonConstraints() {
         logInButton.snp.makeConstraints { make in
             make.top.equalTo(logInLbl.snp.bottom).offset(5)
             make.centerX.equalTo(logInLbl.snp.centerX)

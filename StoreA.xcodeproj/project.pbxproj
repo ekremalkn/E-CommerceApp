@@ -15,6 +15,8 @@
 		F03FB081295F2D1800884E84 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F03FB080295F2D1800884E84 /* SnapKit */; };
 		F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FB082295F437300884E84 /* OnboardingSlide.swift */; };
 		F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FB086295F43EE00884E84 /* OnboardingCell.swift */; };
+		F055AA9A29606734005A2DE7 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055AA9929606734005A2DE7 /* SignUpController.swift */; };
+		F055AA9D2960A533005A2DE7 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055AA9C2960A533005A2DE7 /* SignInController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		F03FB07D295F2B4600884E84 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		F03FB082295F437300884E84 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
 		F03FB086295F43EE00884E84 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
+		F055AA9929606734005A2DE7 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		F055AA9C2960A533005A2DE7 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +101,7 @@
 		F03FB079295F2B1800884E84 /* StoreA */ = {
 			isa = PBXGroup;
 			children = (
-				F03FB07A295F2B2200884E84 /* Onboarding */,
+				F055AA8E29606666005A2DE7 /* Scene */,
 			);
 			path = StoreA;
 			sourceTree = "<group>";
@@ -142,6 +146,56 @@
 				F03FB086295F43EE00884E84 /* OnboardingCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F055AA8E29606666005A2DE7 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				F055AA94296066ED005A2DE7 /* SignInUp */,
+				F03FB07A295F2B2200884E84 /* Onboarding */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		F055AA94296066ED005A2DE7 /* SignInUp */ = {
+			isa = PBXGroup;
+			children = (
+				F055AA95296066FB005A2DE7 /* SignIn */,
+				F055AA9629606700005A2DE7 /* SignUp */,
+			);
+			path = SignInUp;
+			sourceTree = "<group>";
+		};
+		F055AA95296066FB005A2DE7 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				F055AA9B2960A51A005A2DE7 /* View */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		F055AA9629606700005A2DE7 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				F055AA972960670C005A2DE7 /* View */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		F055AA972960670C005A2DE7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F055AA9929606734005A2DE7 /* SignUpController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F055AA9B2960A51A005A2DE7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F055AA9C2960A533005A2DE7 /* SignInController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,9 +276,11 @@
 			files = (
 				F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */,
 				F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */,
+				F055AA9D2960A533005A2DE7 /* SignInController.swift in Sources */,
 				F03FB063295F2A7000884E84 /* AppDelegate.swift in Sources */,
 				F03FB065295F2A7000884E84 /* SceneDelegate.swift in Sources */,
 				F03FB07E295F2B4600884E84 /* OnboardingController.swift in Sources */,
+				F055AA9A29606734005A2DE7 /* SignUpController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

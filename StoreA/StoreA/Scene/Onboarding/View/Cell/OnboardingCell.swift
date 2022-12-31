@@ -36,7 +36,7 @@ class OnboardingCell: UICollectionViewCell {
     private var slideDescLbl: UILabel = {
         let label = UILabel()
         label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .systemGray
         label.textAlignment = .center
