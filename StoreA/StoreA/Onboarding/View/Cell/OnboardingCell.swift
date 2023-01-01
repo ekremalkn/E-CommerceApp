@@ -44,6 +44,15 @@ class OnboardingCell: UICollectionViewCell {
         return label
     }()
     
+    private var slideLblStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 45
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     
     //MARK: - override method
     
@@ -51,6 +60,7 @@ class OnboardingCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview()
         setupConstraint()
+        addSlideLblsToStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -65,6 +75,13 @@ class OnboardingCell: UICollectionViewCell {
         slideDescLbl.text = data.description
     }
     
+    //MARK: - StackView AddSubviews
+
+    private func addSlideLblsToStackView() {
+        slideLblStackView.addArrangedSubview(slideTitleLbl)
+        slideLblStackView.addArrangedSubview(slideDescLbl)
+    }
+    
     
     //MARK: - UI Elements Constraints
     
@@ -72,38 +89,29 @@ class OnboardingCell: UICollectionViewCell {
         addSubview(onboardingImage)
         addSubview(slideTitleLbl)
         addSubview(slideDescLbl)
+        addSubview(slideLblStackView)
     }
     
     private func setupConstraint() {
         onboardinImageConstraint()
-        slideTitleLblConstraint()
-        slideDescLblConstraint()
+        slideLblStackViewConstraints()
     }
     
     private func onboardinImageConstraint() {
         onboardingImage.snp.makeConstraints { make in
-            make.height.width.equalTo(300)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width)
             make.top.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-250)
             make.leading.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
     
-    private func slideTitleLblConstraint() {
-        slideTitleLbl.snp.makeConstraints { make in
+    private func slideLblStackViewConstraints() {
+        slideLblStackView.snp.makeConstraints { make in
             make.top.equalTo(onboardingImage.snp.bottom).offset(30)
-            make.leading.equalTo(onboardingImage.snp.leading)
-            make.trailing.equalTo(onboardingImage.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-150)
-        }
-    }
-    
-    private func slideDescLblConstraint() {
-        slideDescLbl.snp.makeConstraints { make in
-            make.top.equalTo(slideTitleLbl.snp.bottom).offset(10)
-            make.leading.equalTo(slideTitleLbl.snp.leading)
-            make.trailing.equalTo(slideTitleLbl.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-50)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(15)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
+            make.bottom.equalTo(slideDescLbl.snp.bottom)
         }
     }
 }

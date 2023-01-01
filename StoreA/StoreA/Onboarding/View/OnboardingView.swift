@@ -1,14 +1,24 @@
 //
-//  OnboardingController.swift
+//  OnboardingView.swift
 //  StoreA
 //
-//  Created by Ekrem Alkan on 30.12.2022.
+//  Created by Ekrem Alkan on 1.01.2023.
 //
 
 import UIKit
 import SnapKit
 
-final class OnboardingController: UIViewController {
+//MARK: - OnboardingViewInterface Protocol
+
+protocol OnboardingViewInterface: AnyObject {
+    func onboardingView(_ view: OnboardingView, didTapContiuneButton button: UIButton)
+    func onboardingView(_ view: OnboardingView, didTapSkipButton button: UIButton)
+    func onboardingView(_ view: OnboardingView, didTapSignInButton button: UIButton)
+}
+
+final class OnboardingView: UIView {
+    
+    weak var interface: OnboardingViewInterface?
     
     //MARK: -  Creating UI Elements
     
@@ -50,11 +60,19 @@ final class OnboardingController: UIViewController {
         return button
     }()
     
-    private var logInLbl: UILabel = {
+    private var pageControlButtonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 44
+        stackView.translatesAutoresizingMaskIntoConstraints =  false
+        return stackView
+    }()
+    
+    private var signInLbl: UILabel = {
         let label = UILabel()
         label.text = "Already have an account?"
-        label.isHidden = true
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = .systemGray
         label.textAlignment = .center
@@ -62,18 +80,47 @@ final class OnboardingController: UIViewController {
         return label
     }()
     
-    private var logInButton: UIButton = {
+    private var signInButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Login", for: .normal)
-        button.isHidden = true
+        button.setTitle("Sign In", for: .normal)
         button.setTitleColor(.systemOrange, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
+    private var signInStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.isHidden = true
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    //MARK: - Init Methods
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        collection.delegate = self
+        collection.dataSource = self
+        collectionCellRegister()
+        backgroundColor = .white
+        addSubview()
+        setupConstraints()
+        addSignInElementsToStackView()
+        addPageControlButtonsToStackView()
+        setSlides()
+        addTarget()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: - Onboarding Model Array
-
+    
     private var slides: [OnboardingSlide] = []
     
     //MARK: - PageControl CurrentPage
@@ -83,42 +130,18 @@ final class OnboardingController: UIViewController {
             pageControl.currentPage = currentPage
             if currentPage == slides.count - 1 {
                 skipButton.isHidden = true
-                logInLbl.isHidden = false
-                logInButton.isHidden = false
-                contiuneButton.setTitle("Get Started", for: .normal)
-                contiuneButton.snp.updateConstraints { make in
-                    make.width.equalTo(270)
-                }
+                signInStackView.isHidden = false
+                contiuneButton.setTitle("Sign Up", for: .normal)
             } else {
-                contiuneButton.snp.updateConstraints { make in
-                    make.width.equalTo(119)
-                }
-                logInLbl.isHidden = true
-                logInButton.isHidden = true
+                signInStackView.isHidden = true
                 skipButton.isHidden = false
                 contiuneButton.setTitle("Contiune", for: .normal)
             }
         }
     }
     
-    
-    //MARK: -  ViewDidLoad Method
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collection.delegate = self
-        collection.dataSource = self
-        collectionCellRegister()
-        view.backgroundColor = .white
-        addSubview()
-        setupConstraints()
-        setSlides()
-        addTarget()
-    }
-    
-    
     //MARK: - Register Custom Collection Cell
-
+    
     private func collectionCellRegister() {
         collection.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         
@@ -130,46 +153,53 @@ final class OnboardingController: UIViewController {
                   OnboardingSlide(title: "Confirm Your Purchase", description: "Make the final purchase and get the quick delivery.", image: UIImage(named: "onboardingSlide2")!)]
     }
     
-    
     //MARK: - Button Actions
     
     private func addTarget() {
         contiuneButton.addTarget(self, action: #selector(contiuneButtonTapped), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
-        logInButton.addTarget(self, action: #selector(logInButtonTapped), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func contiuneButtonTapped() {
+    @objc private func contiuneButtonTapped(_ button: UIButton) {
         if currentPage == slides.count - 1 {
-            print("last page - show sign up screen")
-            let signUpVC = SignUpController()
-            navigationController?.pushViewController(signUpVC, animated: true)
+            interface?.onboardingView(self, didTapContiuneButton: button)
         } else {
             collection.isPagingEnabled = false
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)
             collection.scrollToItem(at: indexPath, at: .right, animated: true)
             collection.isPagingEnabled = true
-            
         }
     }
     
-    
-    @objc private func skipButtonTapped() {
-        let signInVC = SignInController()
-        navigationController?.pushViewController(signInVC, animated: true)
+    @objc private func skipButtonTapped(_ button: UIButton) {
+        interface?.onboardingView(self, didTapSkipButton: button)
     }
     
-    @objc private func logInButtonTapped() {
-        let signInVC = SignInController()
-        navigationController?.pushViewController(signInVC, animated: true)
+    @objc private func signInButtonTapped(_ button: UIButton) {
+        interface?.onboardingView(self, didTapSignInButton: button)
     }
     
+    //MARK: - StackView AddSubview
+    
+    private func addSignInElementsToStackView() {
+        signInStackView.addArrangedSubview(signInLbl)
+        signInStackView.addArrangedSubview(signInButton)
+    }
+    
+    private func addPageControlButtonsToStackView() {
+        pageControlButtonsStackView.addArrangedSubview(pageControl)
+        pageControlButtonsStackView.addArrangedSubview(contiuneButton)
+        pageControlButtonsStackView.addArrangedSubview(skipButton)
+        pageControlButtonsStackView.addArrangedSubview(signInStackView)
+        
+    }
 }
 
 //MARK: - CollectionView Methods
 
-extension OnboardingController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension OnboardingView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return slides.count
     }
@@ -189,85 +219,80 @@ extension OnboardingController: UICollectionViewDelegate, UICollectionViewDataSo
 
 //MARK: - ScrollView Method
 
-extension OnboardingController {
+extension OnboardingView {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let witdh = scrollView.frame.width
         currentPage = Int(scrollView.contentOffset.x / witdh)
     }
 }
 
-
 //MARK: - UI Elements Constraints
 
-extension OnboardingController {
+extension OnboardingView {
     
     private func addSubview() {
-        view.addSubview(collection)
-        view.addSubview(pageControl)
-        view.addSubview(contiuneButton)
-        view.addSubview(skipButton)
-        view.addSubview(logInLbl)
-        view.addSubview(logInButton)
+        addSubview(collection)
+        addSubview(pageControl)
+        addSubview(contiuneButton)
+        addSubview(skipButton)
+        addSubview(pageControlButtonsStackView)
+        addSubview(signInLbl)
+        addSubview(signInButton)
+        addSubview(signInStackView)
     }
     
     private func setupConstraints() {
         collectionConstraints()
-        pageControlConstraints()
         contiuneButtonConstraints()
         skipButtonConstraints()
-        logInLblConstraints()
-        logInButtonConstraints()
+        pageControlButtonStackViewConstraints()
+        signInStackViewConstraints()
         
     }
     
     private func collectionConstraints() {
         collection.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.leading.equalTo(view.safeAreaLayoutGuide)
-            make.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    
-    private func pageControlConstraints() {
-        pageControl.snp.makeConstraints { make in
-            make.top.equalTo(collection.snp.bottom)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(50)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-50)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-180)
+            make.height.equalTo(self.snp.height).multipliedBy(0.5)
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalTo(safeAreaLayoutGuide)
+            
         }
     }
     
     private func contiuneButtonConstraints() {
         contiuneButton.snp.makeConstraints { make in
-            make.width.equalTo(119)
             make.height.equalTo(56)
-            make.top.equalTo(pageControl.snp.bottom).offset(30)
-            make.centerX.equalTo(pageControl.snp.centerX)
+            make.width.equalTo(116)
         }
     }
     
     private func skipButtonConstraints() {
         skipButton.snp.makeConstraints { make in
-            make.width.equalTo(119)
-            make.height.equalTo(44)
-            make.top.equalTo(contiuneButton.snp.bottom).offset(15)
+            make.height.equalTo(56)
+            make.width.equalTo(116)
+        }
+    }
+    
+    private func signInStackViewConstraints() {
+        signInStackView.snp.makeConstraints { make in
+            make.height.equalTo(56)
+            make.width.equalTo(116)
             make.centerX.equalTo(contiuneButton.snp.centerX)
         }
     }
     
-    private func logInLblConstraints() {
-        logInLbl.snp.makeConstraints { make in
-            make.top.equalTo(contiuneButton.snp.bottom).offset(35)
-            make.centerX.equalTo(contiuneButton.snp.centerX)
+    private func pageControlButtonStackViewConstraints() {
+        pageControlButtonsStackView.snp.makeConstraints { make in
+            make.top.equalTo(collection.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(50)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-50)
+            make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
-    
-    private func logInButtonConstraints() {
-        logInButton.snp.makeConstraints { make in
-            make.top.equalTo(logInLbl.snp.bottom).offset(5)
-            make.centerX.equalTo(logInLbl.snp.centerX)
-            
-            
-        }
-    }
+ 
 }
+
+
+
+
