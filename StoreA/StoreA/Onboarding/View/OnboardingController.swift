@@ -30,6 +30,8 @@ final class OnboardingController: UIViewController {
  
 }
 
+//MARK: - OnboardingViewInterface Methods
+
 extension OnboardingController: OnboardingViewInterface {
     func onboardingView(_ view: OnboardingView, didTapContiuneButton button: UIButton) {
         let signUpVC = SignUpController()

@@ -16,7 +16,6 @@
 		F025CCB92961B52700C32472 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCB82961B52700C32472 /* SignInView.swift */; };
 		F025CCBB2961C5B000C32472 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCBA2961C5B000C32472 /* OnboardingView.swift */; };
 		F025CCBF2961CC3E00C32472 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCBE2961CC3E00C32472 /* Alert.swift */; };
-		F025CCC22961D9CB00C32472 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCC12961D9CB00C32472 /* User.swift */; };
 		F03FB063295F2A7000884E84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FB062295F2A7000884E84 /* AppDelegate.swift */; };
 		F03FB065295F2A7000884E84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FB064295F2A7000884E84 /* SceneDelegate.swift */; };
 		F03FB06C295F2A7000884E84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F03FB06B295F2A7000884E84 /* Assets.xcassets */; };
@@ -27,6 +26,12 @@
 		F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FB086295F43EE00884E84 /* OnboardingCell.swift */; };
 		F055AA9A29606734005A2DE7 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055AA9929606734005A2DE7 /* SignUpController.swift */; };
 		F055AA9D2960A533005A2DE7 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055AA9C2960A533005A2DE7 /* SignInController.swift */; };
+		F0FC91AA2961F31A00351C96 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91A92961F31A00351C96 /* NetworkManager.swift */; };
+		F0FC91AD2961F3D500351C96 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F0FC91AC2961F3D500351C96 /* Alamofire */; };
+		F0FC91B02961FC4000351C96 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91AF2961FC4000351C96 /* WebService.swift */; };
+		F0FC91B32961FE5200351C96 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91B22961FE5200351C96 /* Product.swift */; };
+		F0FC91B82961FFF600351C96 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91B72961FFF600351C96 /* HomeController.swift */; };
+		F0FC91BA296200C900351C96 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91B9296200C900351C96 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +41,6 @@
 		F025CCB82961B52700C32472 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F025CCBA2961C5B000C32472 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F025CCBE2961CC3E00C32472 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		F025CCC12961D9CB00C32472 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F03FB05F295F2A7000884E84 /* StoreA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F03FB062295F2A7000884E84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F03FB064295F2A7000884E84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +52,11 @@
 		F03FB086295F43EE00884E84 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		F055AA9929606734005A2DE7 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		F055AA9C2960A533005A2DE7 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
+		F0FC91A92961F31A00351C96 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		F0FC91AF2961FC4000351C96 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		F0FC91B22961FE5200351C96 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		F0FC91B72961FFF600351C96 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		F0FC91B9296200C900351C96 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0FC91AD2961F3D500351C96 /* Alamofire in Frameworks */,
 				F025CCB129619E2E00C32472 /* FirebaseDatabase in Frameworks */,
 				F025CCB329619E2E00C32472 /* FirebaseFirestore in Frameworks */,
 				F03FB081295F2D1800884E84 /* SnapKit in Frameworks */,
@@ -116,14 +126,6 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		F025CCC02961D9C100C32472 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F025CCC12961D9CB00C32472 /* User.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		F03FB056295F2A7000884E84 = {
 			isa = PBXGroup;
 			children = (
@@ -143,8 +145,9 @@
 		F03FB061295F2A7000884E84 /* StoreA */ = {
 			isa = PBXGroup;
 			children = (
-				F025CCBC2961CC1000C32472 /* Features */,
 				F03FB079295F2B1800884E84 /* StoreA */,
+				F0FC91A72961F2EC00351C96 /* Network */,
+				F025CCBC2961CC1000C32472 /* Features */,
 				F03FB076295F2AA400884E84 /* App */,
 				F03FB077295F2AAB00884E84 /* Resources */,
 				F03FB078295F2AB400884E84 /* Support */,
@@ -182,6 +185,7 @@
 		F03FB079295F2B1800884E84 /* StoreA */ = {
 			isa = PBXGroup;
 			children = (
+				F0FC91B42961FFD000351C96 /* Home */,
 				F03FB07A295F2B2200884E84 /* Onboarding */,
 				F055AA8E29606666005A2DE7 /* Auth */,
 			);
@@ -234,11 +238,69 @@
 		F055AA8E29606666005A2DE7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				F025CCC02961D9C100C32472 /* Model */,
 				F025CCAA29619CDE00C32472 /* ViewModel */,
 				F025CCA629619CB700C32472 /* View */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		F0FC91A72961F2EC00351C96 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91B12961FD7500351C96 /* Model */,
+				F0FC91AE2961FC0400351C96 /* Service */,
+				F0FC91A82961F2FF00351C96 /* Core */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		F0FC91A82961F2FF00351C96 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91A92961F31A00351C96 /* NetworkManager.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F0FC91AE2961FC0400351C96 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91AF2961FC4000351C96 /* WebService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F0FC91B12961FD7500351C96 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91B22961FE5200351C96 /* Product.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F0FC91B42961FFD000351C96 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91B62961FFE100351C96 /* ViewModel */,
+				F0FC91B52961FFDD00351C96 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		F0FC91B52961FFDD00351C96 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91B72961FFF600351C96 /* HomeController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0FC91B62961FFE100351C96 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0FC91B9296200C900351C96 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +324,7 @@
 				F025CCAE29619E2E00C32472 /* FirebaseAuth */,
 				F025CCB029619E2E00C32472 /* FirebaseDatabase */,
 				F025CCB229619E2E00C32472 /* FirebaseFirestore */,
+				F0FC91AC2961F3D500351C96 /* Alamofire */,
 			);
 			productName = StoreA;
 			productReference = F03FB05F295F2A7000884E84 /* StoreA.app */;
@@ -294,6 +357,7 @@
 			packageReferences = (
 				F03FB07F295F2D1800884E84 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F025CCAD29619E2E00C32472 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F0FC91AB2961F3D500351C96 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F03FB060295F2A7000884E84 /* Products */;
 			projectDirPath = "";
@@ -322,16 +386,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F025CCC22961D9CB00C32472 /* User.swift in Sources */,
+				F0FC91BA296200C900351C96 /* HomeViewModel.swift in Sources */,
 				F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */,
 				F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */,
+				F0FC91B32961FE5200351C96 /* Product.swift in Sources */,
+				F0FC91B02961FC4000351C96 /* WebService.swift in Sources */,
 				F055AA9D2960A533005A2DE7 /* SignInController.swift in Sources */,
+				F0FC91AA2961F31A00351C96 /* NetworkManager.swift in Sources */,
 				F03FB063295F2A7000884E84 /* AppDelegate.swift in Sources */,
 				F025CCB92961B52700C32472 /* SignInView.swift in Sources */,
 				F025CCAC29619CEE00C32472 /* AuthViewModel.swift in Sources */,
 				F025CCBF2961CC3E00C32472 /* Alert.swift in Sources */,
 				F03FB065295F2A7000884E84 /* SceneDelegate.swift in Sources */,
 				F03FB07E295F2B4600884E84 /* OnboardingController.swift in Sources */,
+				F0FC91B82961FFF600351C96 /* HomeController.swift in Sources */,
 				F025CCB72961B2C800C32472 /* SignUpView.swift in Sources */,
 				F055AA9A29606734005A2DE7 /* SignUpController.swift in Sources */,
 				F025CCBB2961C5B000C32472 /* OnboardingView.swift in Sources */,
@@ -562,6 +630,14 @@
 				kind = branch;
 			};
 		};
+		F0FC91AB2961F3D500351C96 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -584,6 +660,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F03FB07F295F2D1800884E84 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		F0FC91AC2961F3D500351C96 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0FC91AB2961F3D500351C96 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

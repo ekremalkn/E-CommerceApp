@@ -64,7 +64,9 @@ extension SignInController: AuthViewModelDelegate {
     }
     
     func didSignInSuccessful() {
-        Alert.alertMessage(title: "Succesfull", message: "", vc: self)
+        
+        let homeVC = HomeController()
+        navigationController?.pushViewController(homeVC, animated: true)
         print("sign in succesful go to home")
     }
     

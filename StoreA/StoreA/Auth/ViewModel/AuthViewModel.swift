@@ -8,6 +8,8 @@
 import Foundation
 import Firebase
 
+//MARK: - AutViewModelDelegate Protocol
+
 protocol AuthViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didSignUpSuccessful()
@@ -20,10 +22,10 @@ final class AuthViewModel {
     
     private let database = Database.database().reference()
     
-    
+    //MARK: - SignUp Method
+
     func signUp(email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authData, error in
-            
             if let error = error {
                 self.delegate?.didOccurError(error)
                 return
@@ -33,9 +35,10 @@ final class AuthViewModel {
         }
     }
     
+    //MARK: - SignIn Method
+
     func signIn(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { authData, error in
-            
             if let error = error {
                 self.delegate?.didOccurError(error)
                 return
