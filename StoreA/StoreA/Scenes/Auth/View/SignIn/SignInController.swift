@@ -64,10 +64,9 @@ extension SignInController: AuthViewModelDelegate {
     }
     
     func didSignInSuccessful() {
-        
-        let homeVC = HomeController()
-        navigationController?.pushViewController(homeVC, animated: true)
-        print("sign in succesful go to home")
+        let tabBar = MainTabBarController()
+        tabBar.modalPresentationStyle = .fullScreen
+        present(tabBar, animated: true)
     }
     
     

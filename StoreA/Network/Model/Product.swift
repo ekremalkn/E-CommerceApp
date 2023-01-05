@@ -8,7 +8,9 @@
 import Foundation
 
 // MARK: - Product
-struct Product: Codable {
+struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellProtocol {
+    
+
     let id: Int?
     let title: String?
     let price: Double?
@@ -22,6 +24,45 @@ struct Product: Codable {
         case productDescription = "description"
         case category, image, rating
     }
+    
+    //MARK: - SpecialCollectionCellProtocol
+
+    var specialImage: String {
+        image ?? ""
+    }
+    
+    var specialTitle: String {
+        title ?? ""
+    }
+    
+    var specialDetail: String {
+        productDescription ?? ""
+    }
+    
+    //MARK: - ProductCollectionCellProtocol
+    
+    var productImage: String {
+        image ?? ""
+    }
+    
+    var productTitle: String {
+        title ?? ""
+    }
+    
+    var productRatingCount: String {
+        "\(rating?.rate ?? 0)"
+    }
+    
+    var productSalesAmount: String {
+        "\(rating?.count ?? 0) sold"
+    }
+    
+    var productPrice: String {
+        "$\(price ?? 0)"
+    }
+    
+
+    
 }
 
 enum Category: String, Codable {
@@ -36,4 +77,6 @@ struct Rating: Codable {
     let rate: Double?
     let count: Int?
 }
+
+
 

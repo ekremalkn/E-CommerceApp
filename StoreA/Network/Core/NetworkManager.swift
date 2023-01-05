@@ -7,6 +7,8 @@
 
 import Alamofire
 
+//MARK: - NetworkManager
+
 final class NetworkManager {
     static let shared = NetworkManager()
 
@@ -16,7 +18,6 @@ final class NetworkManager {
                 return
             }
             onSuccess(model)
-            
         }
     }
     

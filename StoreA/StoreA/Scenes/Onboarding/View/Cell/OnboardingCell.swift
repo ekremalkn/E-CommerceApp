@@ -53,7 +53,6 @@ class OnboardingCell: UICollectionViewCell {
         return stackView
     }()
     
-    
     //MARK: - override method
     
     override init(frame: CGRect) {
@@ -76,12 +75,11 @@ class OnboardingCell: UICollectionViewCell {
     }
     
     //MARK: - StackView AddSubviews
-
+    
     private func addSlideLblsToStackView() {
         slideLblStackView.addArrangedSubview(slideTitleLbl)
         slideLblStackView.addArrangedSubview(slideDescLbl)
     }
-    
     
     //MARK: - UI Elements Constraints
     

@@ -34,7 +34,6 @@ final class OnboardingView: UIView {
     
     private var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.numberOfPages = 2
         pageControl.currentPageIndicatorTintColor = .blue
         pageControl.pageIndicatorTintColor = .systemGray
         return pageControl
@@ -103,25 +102,21 @@ final class OnboardingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        collection.delegate = self
-        collection.dataSource = self
-        collectionCellRegister()
         backgroundColor = .white
+        collectionCellRegister()
+        setupDelegates()
         addSubview()
         setupConstraints()
         addSignInElementsToStackView()
         addPageControlButtonsToStackView()
         setSlides()
+        pageControl.numberOfPages = slides.count
         addTarget()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Onboarding Model Array
-    
-    private var slides: [OnboardingSlide] = []
     
     //MARK: - PageControl CurrentPage
     
@@ -140,17 +135,29 @@ final class OnboardingView: UIView {
         }
     }
     
+    //MARK: - Onboarding Model Array
+    
+    var slides: [OnboardingSlide] = []
+    
+    //MARK: - SetSlides
+    
+    func setSlides() {
+        slides = [OnboardingSlide(title: "Explore Best Products", description: "Browse products and find your desire product.", image: UIImage(named: "onboardingSlide1")!),
+                  OnboardingSlide(title: "Confirm Your Purchase", description: "Make the final purchase and get the quick delivery.", image: UIImage(named: "onboardingSlide2")!)]
+    }
+    
     //MARK: - Register Custom Collection Cell
     
     private func collectionCellRegister() {
         collection.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
         
     }
-    //MARK: - SetSlides
     
-    private func setSlides() {
-        slides = [OnboardingSlide(title: "Explore Best Products", description: "Browse products and find your desire product.", image: UIImage(named: "onboardingSlide1")!),
-                  OnboardingSlide(title: "Confirm Your Purchase", description: "Make the final purchase and get the quick delivery.", image: UIImage(named: "onboardingSlide2")!)]
+    //MARK: - Setup Delegates
+    
+    private func setupDelegates() {
+        collection.delegate = self
+        collection.dataSource = self
     }
     
     //MARK: - Button Actions
@@ -193,7 +200,15 @@ final class OnboardingView: UIView {
         pageControlButtonsStackView.addArrangedSubview(contiuneButton)
         pageControlButtonsStackView.addArrangedSubview(skipButton)
         pageControlButtonsStackView.addArrangedSubview(signInStackView)
-        
+    }
+}
+
+//MARK: - ScrollView Method
+
+extension OnboardingView {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let witdh = scrollView.frame.width
+        currentPage = Int(scrollView.contentOffset.x / witdh)
     }
 }
 
@@ -217,15 +232,26 @@ extension OnboardingView: UICollectionViewDelegate, UICollectionViewDataSource, 
     
 }
 
-//MARK: - ScrollView Method
+//MARK: - OnboardingViewInterface Methods
 
-extension OnboardingView {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let witdh = scrollView.frame.width
-        currentPage = Int(scrollView.contentOffset.x / witdh)
+extension OnboardingController: OnboardingViewInterface {
+    func onboardingView(_ view: OnboardingView, didTapContiuneButton button: UIButton) {
+        let signUpVC = SignUpController()
+        navigationController?.pushViewController(signUpVC, animated: true)
     }
+    
+    func onboardingView(_ view: OnboardingView, didTapSkipButton button: UIButton) {
+        let signUpVC = SignUpController()
+        navigationController?.pushViewController(signUpVC, animated: true)
+    }
+    
+    func onboardingView(_ view: OnboardingView, didTapSignInButton button: UIButton) {
+        let signInVC = SignInController()
+        navigationController?.pushViewController(signInVC, animated: true)
+    }
+    
+    
 }
-
 //MARK: - UI Elements Constraints
 
 extension OnboardingView {
@@ -290,7 +316,7 @@ extension OnboardingView {
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
- 
+    
 }
 
 

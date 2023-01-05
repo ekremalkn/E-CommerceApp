@@ -35,6 +35,8 @@ final class SignUpController: UIViewController {
         configureViewController()
     }
     
+    //MARK: - Configure ViewController
+
     private func configureViewController() {
         view = signUpView
         signUpView.interface = self

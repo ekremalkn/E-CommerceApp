@@ -209,8 +209,8 @@ final class SignInView: UIView {
         labelStackView.snp.makeConstraints { make in
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.3)
             make.top.equalTo(safeAreaLayoutGuide)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(30)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-30)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(20)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-20)
         }
     }
     
