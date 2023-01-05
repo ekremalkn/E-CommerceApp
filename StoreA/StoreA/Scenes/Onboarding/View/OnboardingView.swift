@@ -98,6 +98,10 @@ final class OnboardingView: UIView {
         return stackView
     }()
     
+    //MARK: - Onboarding Model Array
+    
+    var slides: [OnboardingSlide] = []
+    
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -135,9 +139,7 @@ final class OnboardingView: UIView {
         }
     }
     
-    //MARK: - Onboarding Model Array
-    
-    var slides: [OnboardingSlide] = []
+ 
     
     //MARK: - SetSlides
     

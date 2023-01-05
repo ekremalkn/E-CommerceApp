@@ -33,7 +33,14 @@ final class HomeController: UIViewController {
 
     }
     
-    //MARK: - Register Custom CollectinCell
+    //MARK: - Configure ViewController
+    
+    private func configureViewController() {
+        view = homeView
+    }
+    
+    
+    //MARK: - Register Custom Cell
     
     private func collectionCellRegister() {
         homeView.specialCollection.register(SpecialCollectionCell.self, forCellWithReuseIdentifier: "SpecialCollectionCell")
@@ -54,22 +61,15 @@ final class HomeController: UIViewController {
         homeView.productCollection.delegate = self
         homeView.productCollection.dataSource = self
     }
-    
-    
-    //MARK: - Configure ViewController
-    
-    private func configureViewController() {
-        view = homeView
-    }
-    
-
-    
+  
 }
 
+//MARK: - SerchBar Methods
 
 extension HomeController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-     
+     let searchVC = SearchController()
+        navigationController?.pushViewController(searchVC, animated: true)
     }
     
 }
@@ -143,7 +143,7 @@ extension HomeController: HomeViewModelDelegate {
         print(error.localizedDescription)
     }
     
-    func didFetchItemsSuccesful() {
+    func didFetchItemsSuccessful() {
         homeView.pageControl.numberOfPages = homeViewModel.allProducts.count
         homeView.specialCollection.reloadData()
         homeView.productCollection.reloadData()

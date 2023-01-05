@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HomeView: UIView {
+final class HomeView: UIView {
     
     //MARK: - Properties
     private let homeViewModel = HomeViewModel()

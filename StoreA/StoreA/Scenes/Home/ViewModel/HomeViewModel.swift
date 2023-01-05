@@ -9,7 +9,7 @@ import Foundation
 
 protocol HomeViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
-    func didFetchItemsSuccesful()
+    func didFetchItemsSuccessful()
 }
 
 final class HomeViewModel {
@@ -18,14 +18,14 @@ final class HomeViewModel {
     
     let manager = Service.shared
     
-    var allProducts = [Product]()
+    var allProducts: [Product] = []
     var allCategories = Categories()
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
             if let products = products {
                 self.allProducts = products
-                self.delegate?.didFetchItemsSuccesful()
+                self.delegate?.didFetchItemsSuccessful()
             }
         } onError: { error in
             self.delegate?.didOccurError(error)
@@ -37,7 +37,7 @@ final class HomeViewModel {
         manager.fetchCategory { categories in
             if let categories = categories {
                 self.allCategories = categories
-                self.delegate?.didFetchItemsSuccesful()
+                self.delegate?.didFetchItemsSuccessful()
             }
                 
         } onError: { error in

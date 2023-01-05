@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class OnboardingCell: UICollectionViewCell {
+final class OnboardingCell: UICollectionViewCell {
     
     //MARK: - Cell's Identifier
     
