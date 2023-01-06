@@ -10,12 +10,12 @@ import SnapKit
 
 final class SearchView: UIView {
     
-    var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchTextField.placeholder = "Search Products"
-        searchBar.showsBookmarkButton = true
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
+    var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil )
+        searchController.searchBar.searchTextField.placeholder = "Search Products"
+        searchController.searchBar.showsBookmarkButton = true
+        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchController
     }()
     
     private var searchResultsLabel: UILabel = {
@@ -64,7 +64,7 @@ final class SearchView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .systemGray6
         configureSearchBar()
         addSubview()
         setupConstraint()
@@ -82,7 +82,7 @@ final class SearchView: UIView {
     //MARK: - Configure SearchBar
     
     private func configureSearchBar() {
-        searchBar.setImage(UIImage(systemName: "slider.horizontal.3"), for: .bookmark, state: .normal)
+        searchController.searchBar.setImage(UIImage(systemName: "slider.horizontal.3"), for: .bookmark, state: .normal)
     }
     
     //MARK: - AddSearchResultLabelsToStackView
@@ -99,7 +99,7 @@ extension SearchView {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(searchBar)
+        addSubview(searchController.searchBar)
         addSubview(searchResultsLabel)
         addSubview(searchResultCountLabel)
         addSearchResultLabelsToStackView()
@@ -118,27 +118,25 @@ extension SearchView {
     //MARK: - UI Elements Constraints
     
     private func searchBarConstraint() {
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide)
-            make.leading.equalTo(10)
-            make.trailing.equalTo(-10)
+        searchController.searchBar.snp.makeConstraints { make in
+          
         }
     }
     
     private func searchLabelStackViewConstraints()  {
         searchResultLabelsStackView.snp.makeConstraints { make in
             make.height.equalTo(searchResultCountLabel.snp.height)
-            make.top.equalTo(searchBar.snp.bottom).offset(10)
-            make.leading.equalTo(searchBar.snp.leading)
-            make.trailing.equalTo(searchBar.snp.trailing)
+            make.top.equalTo(safeAreaLayoutGuide).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
     
     private func searchCollectionConsraints() {
         searchCollection.snp.makeConstraints { make in
             make.top.equalTo(searchResultLabelsStackView.snp.bottom).offset(10)
-            make.leading.equalTo(searchBar.snp.leading)
-            make.trailing.equalTo(searchBar.snp.trailing)
+            make.leading.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalTo(safeAreaLayoutGuide)
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }

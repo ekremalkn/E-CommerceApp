@@ -26,35 +26,35 @@ class MainTabBarController: UITabBarController {
         tabBar.tintColor = .black
     }
     
-    private func homeController() -> UIViewController {
+    private func homeController() -> UINavigationController {
         let homeVC = HomeController()
         homeVC.title = "Home"
         homeVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
         
-        return homeVC
+        return UINavigationController(rootViewController: homeVC)
     }
     
-    private func searchController() -> UIViewController {
+    private func searchController() -> UINavigationController {
         let searchVC = SearchController()
         searchVC.title = "Search"
         searchVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
-        return searchVC
+        return UINavigationController(rootViewController: searchVC)
     }
     
-    private func cartController() -> UIViewController {
+    private func cartController() -> UINavigationController {
         let cartVC = CartController()
         cartVC.title = "Cart"
         cartVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill" ))
         
-        return cartVC
+        return UINavigationController(rootViewController: cartVC)
     }
     
-    private func profileController() -> UIViewController {
+    private func profileController() -> UINavigationController {
         let profileVC = ProfileController()
         profileVC.title = "Profile"
         profileVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person" ), selectedImage: UIImage(systemName: "person.fill"))
         
-        return profileVC
+        return UINavigationController(rootViewController: profileVC)
     }
 
 }

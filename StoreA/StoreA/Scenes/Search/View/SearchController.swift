@@ -12,11 +12,17 @@ final class SearchController: UIViewController {
     //MARK: - Properties
     private let searchViewModel = SearchViewModel()
     private let searchView = SearchView()
+    private var searchController: UISearchController? {
+        return searchView.searchController
+    }
+    private var searchBar: UISearchBar? {
+        return searchView.searchController.searchBar
+    }
     
     var filteredProducts: [Product] = []
     
     var isSearchBarEmpty: Bool {
-        return searchView.searchBar.text?.isEmpty ?? true
+        return searchBar?.text?.isEmpty ?? true
     }
     
     override func viewDidLoad() {
@@ -36,24 +42,23 @@ final class SearchController: UIViewController {
     
     private func configureViewController() {
         view = searchView
+        navigationItem.searchController = searchController
     }
     
     //MARK: - FilterForSearchText
     
     private func filterForSearchText(_ searchText: String) {
             if isSearchBarEmpty {
-                searchViewModel.allProducts = filteredProducts
-                searchView.searchCollection.reloadData()
+                searchView.searchResultLabelsStackView.isHidden = true
             } else {
                 filteredProducts = searchViewModel.allProducts.filter { Product in
                     Product.title!.lowercased().contains(searchText.lowercased())
                 }
                 searchView.searchResultLabelsStackView.isHidden = false
                 searchView.configure(searchText: searchText, count: filteredProducts.count)
-                searchView.searchCollection.reloadData()
+                
             }
-            
-        
+        searchView.searchCollection.reloadData()
     }
 
     
@@ -68,7 +73,8 @@ final class SearchController: UIViewController {
     private func setupDelegates() {
         searchViewModel.delegate = self
         
-        searchView.searchBar.delegate = self
+        searchBar?.delegate = self
+        searchController?.searchResultsUpdater = self
         
         searchView.searchCollection.delegate = self
         searchView.searchCollection.dataSource = self
@@ -80,11 +86,12 @@ final class SearchController: UIViewController {
 
 //MARK: - SearchBar Methods
 
-extension SearchController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+extension SearchController: UISearchBarDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchBar?.text else { return }
         filterForSearchText(searchText)
     }
-    
+  
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         print("category filter")
     }
@@ -96,14 +103,25 @@ extension SearchController: UISearchBarDelegate {
 
 extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredProducts.count
+        if isSearchBarEmpty {
+            return searchViewModel.allProducts.count
+        } else {
+            return filteredProducts.count
+        }
+        
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = searchView.searchCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as! ProductCollectionCell
-        cell.configure(data: filteredProducts[indexPath.row])
-        return cell
+        if isSearchBarEmpty {
+            cell.configure(data: searchViewModel.allProducts[indexPath.row])
+            return cell
+        } else {
+            cell.configure(data: filteredProducts[indexPath.row])
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -121,7 +139,7 @@ extension SearchController: SearchViewModelDelegate {
     
     func didFetchFilteredItemsSuccessful() {
         searchView.searchCollection.reloadData()
-        filteredProducts = searchViewModel.allProducts
+
     }
     
     
