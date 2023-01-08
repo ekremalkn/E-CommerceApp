@@ -8,9 +8,8 @@
 import Foundation
 
 // MARK: - Product
-struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellProtocol {
-    
-
+struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellProtocol, ProductDetailViewProtocol {
+   
     let id: Int?
     let title: String?
     let price: Double?
@@ -60,6 +59,51 @@ struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellPro
     var productPrice: String {
         "$\(price ?? 0)"
     }
+    
+    //MARK: - ProductDetailViewProtocol
+    
+    var productDetailImage: String {
+        if let image = image {
+            return image
+        }
+        return ""
+    }
+    
+    var productDetailTitle: String {
+        if let title = title {
+            return title
+        }
+        return ""
+    }
+    
+    var productDetailSalesAmount: String {
+        if let salesAmount = rating?.count {
+            return "\(salesAmount) sold"
+        }
+        return ""
+    }
+    
+    var productDetailRatingCount: String {
+        if let ratingCount = rating?.rate {
+            return "\(ratingCount)"
+        }
+        return ""
+    }
+    
+    var productDetailDescription: String {
+        if let description = productDescription {
+            return description
+        }
+        return ""
+    }
+    
+    var productDetailPrice: String {
+        if let price = price {
+            return "$\(price)"
+        }
+        return ""
+    }
+
     
 
     

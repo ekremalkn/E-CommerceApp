@@ -10,8 +10,9 @@ import UIKit
 final class HomeController: UIViewController {
     
     //MARK: - Properties
-    private let homeViewModel = HomeViewModel()
+    private let homeViewModel = ProductsViewModel()
     private let homeView = HomeView()
+    //private let productDetailView = ProductDetailView()
     
     //MARK: - ViewWillAppper Method
 
@@ -87,7 +88,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         case homeView.productCollection:
             return homeViewModel.allProducts.count
         default:
-            return 1
+            return 0
         }
         
     }
@@ -95,20 +96,34 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
         case homeView.specialCollection:
-            let cell = homeView.specialCollection.dequeueReusableCell(withReuseIdentifier: "SpecialCollectionCell", for: indexPath) as! SpecialCollectionCell
+            guard let cell = homeView.specialCollection.dequeueReusableCell(withReuseIdentifier: "SpecialCollectionCell", for: indexPath) as? SpecialCollectionCell else { return UICollectionViewCell() }
             cell.configure(data: homeViewModel.allProducts[indexPath.row])
             return cell
         case homeView.categoryCollection:
-            let cell = homeView.categoryCollection.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath) as! CategoryCollectionCell
+            guard let cell = homeView.categoryCollection.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath) as? CategoryCollectionCell else { return UICollectionViewCell()}
             cell.configure(data: homeViewModel.allCategories, indexPath: indexPath)
             return cell
         case homeView.productCollection:
-            let cell = homeView.productCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as! ProductCollectionCell
-            
+            guard let cell = homeView.productCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
             cell.configure(data: homeViewModel.allProducts[indexPath.row])
             return cell
         default:
             return UICollectionViewCell()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch collectionView {
+        case homeView.specialCollection:
+            guard let productId = homeViewModel.allProducts[indexPath.row].id else { return }
+            homeViewModel.fetchSingleProduct(productId: productId)
+        case homeView.categoryCollection:
+            return
+        case homeView.productCollection:
+            guard let productId = homeViewModel.allProducts[indexPath.row].id else { return }
+            homeViewModel.fetchSingleProduct(productId: productId)
+        default:
+            return
         }
     }
     
@@ -136,14 +151,19 @@ extension HomeController {
 
 
 
-//MARK: - HomeViewModelDelegate
+//MARK: - ProductsViewModelDelegate
 
-extension HomeController: HomeViewModelDelegate {
+extension HomeController: ProductsViewModelDelegate {
+    func didFetchSingleProduct(_ product: Product) {
+        let controller = ProductDetailController(product: product)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
     
-    func didFetchItemsSuccessful() {
+    func didFetchAllProductsSuccessful() {
         homeView.pageControl.numberOfPages = homeViewModel.allProducts.count
         homeView.specialCollection.reloadData()
         homeView.productCollection.reloadData()

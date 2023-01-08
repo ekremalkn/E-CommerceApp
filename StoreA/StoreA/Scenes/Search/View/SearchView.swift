@@ -110,18 +110,11 @@ extension SearchView {
     //MARK: - SetupConstraints
     
     private func setupConstraint() {
-        searchBarConstraint()
         searchLabelStackViewConstraints()
         searchCollectionConsraints()
     }
     
     //MARK: - UI Elements Constraints
-    
-    private func searchBarConstraint() {
-        searchController.searchBar.snp.makeConstraints { make in
-          
-        }
-    }
     
     private func searchLabelStackViewConstraints()  {
         searchResultLabelsStackView.snp.makeConstraints { make in

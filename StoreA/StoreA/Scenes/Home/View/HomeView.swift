@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import SnapKit
 
 final class HomeView: UIView {
     
     //MARK: - Properties
-    private let homeViewModel = HomeViewModel()
+    private let homeViewModel = ProductsViewModel()
     
     //MARK: - Creating UI Elements
     
@@ -181,9 +180,7 @@ final class HomeView: UIView {
         searcBar.barTintColor = .systemGray6
         addSubview()
         setupConstraints()
-        addTopLabelsToStackView()
-        addTopButtonsToStackView()
-        addSpecialLblSeeBtnToStackView()
+        
         configureSearchBar()
     }
     
@@ -233,20 +230,20 @@ extension HomeView {
     
     private func addSubview() {
         addSubview(profilePhotoImage)
-        addSubview(hiLabel)
-        addSubview(userEmailLabel)
+        addTopLabelsToStackView()
         addSubview(labelStackView)
-        addSubview(notificationButton)
-        addSubview(cartButton)
+        addTopButtonsToStackView()
         addSubview(buttonStackView)
         addSubview(searcBar)
-        addSubview(specialProductsLabel)
-        addSubview(seeAllButton)
+        addSpecialLblSeeBtnToStackView()
         addSubview(specialLblSeeBtnStackView)
         addSubview(specialCollection)
         addSubview(pageControl)
         addSubview(categoryCollection)
         addSubview(productCollection)
+        
+      
+        
     }
     
     //MARK: - Setup Constraints

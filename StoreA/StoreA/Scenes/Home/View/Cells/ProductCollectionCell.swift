@@ -23,7 +23,7 @@ class ProductCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private let productImageView: UIImageView = {
+    private var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +40,7 @@ class ProductCollectionCell: UICollectionViewCell {
         return button
     }()
     
-    private let titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .black
@@ -58,7 +58,7 @@ class ProductCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let ratingCountLabel: UILabel = {
+    private var ratingCountLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         label.textColor = .black
@@ -76,7 +76,7 @@ class ProductCollectionCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let salesAmountLabel: UILabel = {
+    private var salesAmountLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .black
@@ -95,7 +95,7 @@ class ProductCollectionCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let priceLabel: UILabel = {
+    private var priceLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .black
@@ -173,17 +173,11 @@ class ProductCollectionCell: UICollectionViewCell {
     
     private func addSubview() {
         addSubview(productImageView)
-        addSubview(addButton)
         addButtonToImageView()
-        addSubview(titleLabel)
-        addSubview(ratingCountImageView)
-        addSubview(ratingCountLabel)
         addSubview(ratingCountStackView)
         addRatingElementsToStackView()
-        addSubview(salesAmountLabel)
         addSubview(ratingSalesInfoStackView)
         addRatingSalesInfoToStackView()
-        addSubview(priceLabel)
         addSubview(productInfoStackView)
         addProductInfoToStackView()
     }
@@ -193,7 +187,6 @@ class ProductCollectionCell: UICollectionViewCell {
         addButtonConstraints()
         ratingCountImageConstraints()
         ratingCountStackViewConstraints()
-
         productInfoStackViewConstraints()
     }
     

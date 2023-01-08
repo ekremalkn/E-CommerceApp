@@ -98,8 +98,6 @@ extension SpecialCollectionCell {
     
     private func addSubview() {
         addSubview(specialImage)
-        addSubview(specialTitleLabel)
-        addSubview(specialDetailLabel)
         addSubview(specialLabelStackView)
     }
 

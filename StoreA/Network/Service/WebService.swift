@@ -8,25 +8,21 @@
 import Alamofire
 
 protocol ServiceProtocol {
-    func fetchProducts(type: WebEndPoint ,onSuccess: @escaping ([Product]?) -> (), onError: @escaping (AFError) -> ())
+    func fetchProducts(type: AllProductsWebEndPoint ,onSuccess: @escaping ([Product]?) -> (), onError: @escaping (AFError) -> ())
     func fetchCategory(onSuccess: @escaping (Categories?) -> (), onError: @escaping (AFError) -> ())
+    func fetchSingleProduct(type: SingleProductWebEndPoint, onSuccess:@escaping (Product?) -> (), onError: @escaping (AFError) -> ())
 }
 
 final class Service: ServiceProtocol {
     
-    
     static let shared = Service()
     
-    func fetchProducts(type: WebEndPoint ,onSuccess: @escaping ([Product]?) -> (), onError: @escaping (AFError) -> ()) {
+    func fetchProducts(type: AllProductsWebEndPoint ,onSuccess: @escaping ([Product]?) -> (), onError: @escaping (AFError) -> ()) {
         var url = ""
         
         switch type {
         case.fetchAllProducts:
-            url = WebEndPoint.fetchAllProducts.path
-        case .fetchSingleProducts(let id):
-            url = WebEndPoint.fetchSingleProducts(id).path
-        case .fetchCategoryProducts(let category):
-            url = WebEndPoint.fetchCategoryProducts(category).path
+            url = AllProductsWebEndPoint.fetchAllProducts.path
         }
         
         NetworkManager.shared.request(path: url) { (response: [Product]) in
@@ -36,6 +32,24 @@ final class Service: ServiceProtocol {
         }
 
     }
+    
+    func fetchSingleProduct(type: SingleProductWebEndPoint, onSuccess: @escaping (Product?) -> (), onError: @escaping (Alamofire.AFError) -> ()) {
+        var url = ""
+        
+        switch type {
+            
+        case .fetchSingleProducts(id: let id):
+            url = SingleProductWebEndPoint.fetchSingleProducts(id: id).path
+        }
+        
+        NetworkManager.shared.request(path: url) { (response: Product) in
+            onSuccess(response)
+        } onError: { error in
+            onError(error)
+        }
+
+    }
+    
     
     func fetchCategory(onSuccess: @escaping (Categories?) -> (), onError: @escaping (Alamofire.AFError) -> ()) {
         NetworkManager.shared.request(path: "https://fakestoreapi.com/products/categories") { (response: Categories) in
