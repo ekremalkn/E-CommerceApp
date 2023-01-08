@@ -7,9 +7,11 @@
 
 import UIKit
 
-class ProductDetailController: UIViewController {
+
+final class ProductDetailController: UIViewController {
 
     //MARK: - Properties
+    private let productDetailViewModel = ProductDetailViewModel()
     private let productDetailView = ProductDetailView()
     var product: Product
     
@@ -23,8 +25,11 @@ class ProductDetailController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Lifecycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        productDetailView.interface = self
         configureViewController()
     }
     
@@ -32,6 +37,7 @@ class ProductDetailController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
     }
+  
     
     //MARK: - ConfigureViewControler
     
@@ -41,4 +47,15 @@ class ProductDetailController: UIViewController {
     }
 
 }
+
+extension ProductDetailController: ProductDetailViewInterface {
+    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton) {
+        guard let id = product.id else { return }
+        productDetailViewModel.updateCart(productId: id)
+    }
+    
+    
+}
+
+
 

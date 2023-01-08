@@ -16,16 +16,24 @@ final class SignUpController: UIViewController {
     
     //MARK: - Gettable Properties
     
+    var username: String {
+        guard let username = signUpView.usernameTextField.text else { return ""}
+        return username
+    }
+    
     var email: String {
-        signUpView.emailTextField.text ?? ""
+        guard let email = signUpView.emailTextField.text else { return ""}
+        return email
     }
     
     var password: String {
-        signUpView.passwordTextField.text ?? ""
+        guard let password = signUpView.passwordTextField.text else { return ""}
+        return password
     }
     
     var confirmPassword: String {
-        signUpView.confirmPasswordTextField.text ?? ""
+        guard let confirmPassword = signUpView.passwordTextField.text else { return ""}
+        return confirmPassword
     }
 
     //MARK: - ViewDidLoad Method
@@ -56,7 +64,7 @@ extension SignUpController: SignUpViewInterface {
         
         guard checkPasswordMatch() == true else { return }
         
-        authViewModel.signUp(email: email, password: password)
+        authViewModel.signUp(username: username, email: email, password: password)
     }
     
     func signUpView(_ view: SignUpView, didTapSignInButton button: UIButton) {

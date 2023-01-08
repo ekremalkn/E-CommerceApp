@@ -18,8 +18,6 @@ protocol OnboardingViewInterface: AnyObject {
 
 final class OnboardingView: UIView {
     
-    weak var interface: OnboardingViewInterface?
-    
     //MARK: -  Creating UI Elements
     
     private var collection: UICollectionView = {
@@ -97,6 +95,11 @@ final class OnboardingView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    //MARK: - Properties
+    
+    weak var interface: OnboardingViewInterface?
+
     
     //MARK: - Onboarding Model Array
     

@@ -6,6 +6,13 @@
 //
 
 import UIKit
+//MARK: - ProductDetailViewInterface Protocol
+
+protocol ProductDetailViewInterface: AnyObject {
+    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton)
+}
+
+//MARK: - ProductDetailViewProtocol
 
 protocol ProductDetailViewProtocol {
     var productDetailImage: String { get }
@@ -16,7 +23,7 @@ protocol ProductDetailViewProtocol {
     var productDetailPrice: String { get }
 }
 
-class ProductDetailView: UIView {
+final class ProductDetailView: UIView {
 
     //MARK: - Creating UI Elements
 
@@ -187,7 +194,7 @@ class ProductDetailView: UIView {
         return stackView
     }()
     
-    private let addToCartButton: UIButton = {
+     let addToCartButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
         button.backgroundColor = .black
@@ -215,6 +222,9 @@ class ProductDetailView: UIView {
         return stackView
     }()
     
+    //MARK: - Properties
+    weak var interface: ProductDetailViewInterface?
+    
     //MARK: - Init Methods
 
     override init(frame: CGRect) {
@@ -222,10 +232,21 @@ class ProductDetailView: UIView {
         backgroundColor = .white
         addSubview()
         setupConstraints()
+        addTarget()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - AddAction
+    
+    private func addTarget() {
+        addToCartButton.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func addToCartButtonTapped(_ button: UIButton) {
+        self.interface?.productDetailView(self, didTapAddToCartButton: button)
     }
     
      func configure(data: ProductDetailViewProtocol) {

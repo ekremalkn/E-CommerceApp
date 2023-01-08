@@ -52,6 +52,23 @@ final class SignUpView: UIView {
         return stackView
     }()
     
+    var usernameTextField: UITextField = {
+        let textField = UITextField()
+        textField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
+        textField.autocapitalizationType = .none
+        textField.textColor = .black
+        textField.backgroundColor = .white
+        textField.leftViewMode = .always
+        let imageView = UIImageView()
+        let image = UIImage(systemName: "person")
+        imageView.image = image
+        imageView.tintColor = .systemGray
+        textField.leftView = imageView
+        textField.layer.cornerRadius = 10
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     var emailTextField: UITextField = {
         let textField = UITextField()
         textField.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
@@ -191,6 +208,7 @@ final class SignUpView: UIView {
     }
     
     private func addTextFieldsToStackView() {
+        textFieldButtonStackView.addArrangedSubview(usernameTextField)
         textFieldButtonStackView.addArrangedSubview(emailTextField)
         textFieldButtonStackView.addArrangedSubview(passwordTextField)
         textFieldButtonStackView.addArrangedSubview(confirmPasswordTextField)
@@ -208,6 +226,7 @@ final class SignUpView: UIView {
     private func addSubviews() {
         addSubview(titleLabel)
         addSubview(descLabel)
+        addSubview(usernameTextField)
         addSubview(emailTextField)
         addSubview(passwordTextField)
         addSubview(confirmPasswordTextField)
