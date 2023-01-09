@@ -49,9 +49,14 @@ final class ProductDetailController: UIViewController {
 }
 
 extension ProductDetailController: ProductDetailViewInterface {
+    func productDetailView(_ view: ProductDetailView, didStepperValueChanged quantity: Int) {
+        guard let id = product.id else { return }
+        productDetailViewModel.updateCart(productId: id, quantity: quantity)
+    }
+
     func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton) {
         guard let id = product.id else { return }
-        productDetailViewModel.updateCart(productId: id)
+        productDetailViewModel.updateCart(productId: id, quantity: 1)
     }
     
     

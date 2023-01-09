@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProductDetailViewInterface: AnyObject {
     func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton)
+    func productDetailView(_ view: ProductDetailView, didStepperValueChanged quantity: Int)
 }
 
 //MARK: - ProductDetailViewProtocol
@@ -194,6 +195,78 @@ final class ProductDetailView: UIView {
         return stackView
     }()
     
+    private var quantityLabel: UILabel = {
+        let label = UILabel()
+        label.isHidden = true
+        label.text = "Quantity"
+        label.numberOfLines = 0
+        label.textColor = .black
+        label.backgroundColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let stepperPlusButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .black
+        button.backgroundColor = .systemGray6
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+        return button
+    }()
+    
+    private let stepperLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1"
+        label.numberOfLines = 0
+        label.textColor = .black
+        label.backgroundColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let stepperMinusButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .black
+        button.backgroundColor = .systemGray6
+        button.setImage(UIImage(systemName: "minus"), for: .normal)
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+        return button
+    }()
+    
+    
+    private let stepperStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.isHidden = true
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fill
+        
+        
+        stackView.snp.makeConstraints { make in
+            make.width.equalTo(120)
+            make.height.equalTo(40)
+        }
+        return stackView
+    }()
+    
      let addToCartButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
@@ -213,6 +286,12 @@ final class ProductDetailView: UIView {
         return button
     }()
     
+    let stepper: UIStepper = {
+        let stepper = UIStepper()
+        
+        return stepper
+    }()
+    
     private let cartBtnPriceLblStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -221,6 +300,27 @@ final class ProductDetailView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    //MARK: - Swifty
+
+    var quantity = 1 {
+        didSet {
+            switch quantity {
+            case ..<1 :
+                stepperStackView.isHidden = true
+                quantityLabel.isHidden = true
+                quantity = 0
+                
+            case 10..<1111 :
+                quantity = 10
+            default:
+                print("31")
+            }
+            stepperLabel.text = String(quantity)
+            interface?.productDetailView(self, didStepperValueChanged: quantity)
+        }
+    }
+    
     
     //MARK: - Properties
     weak var interface: ProductDetailViewInterface?
@@ -243,10 +343,25 @@ final class ProductDetailView: UIView {
     
     private func addTarget() {
         addToCartButton.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
+        stepperPlusButton.addTarget(self, action: #selector(stepperPlusButtonTapped), for: .touchUpInside)
+        stepperMinusButton.addTarget(self, action: #selector(stepperMinusButtonTapped), for: .touchUpInside)
     }
     
     @objc private func addToCartButtonTapped(_ button: UIButton) {
+        stepperStackView.isHidden = false
+        quantityLabel.isHidden = false
+        quantity = 1
         self.interface?.productDetailView(self, didTapAddToCartButton: button)
+    }
+    
+    //MARK: - CustomStepper Actions
+
+    @objc private func stepperPlusButtonTapped(_ button: UIButton) {
+        quantity = quantity + 1
+    }
+    
+    @objc private func stepperMinusButtonTapped(_ button: UIButton) {
+            quantity = quantity - 1
     }
     
      func configure(data: ProductDetailViewProtocol) {
@@ -300,6 +415,14 @@ final class ProductDetailView: UIView {
         cartBtnPriceLblStackView.addArrangedSubview(priceStackView)
         cartBtnPriceLblStackView.addArrangedSubview(addToCartButton)
     }
+    
+    //MARK: - AddCustomStepperElementsToStackView
+
+    private func addStepperElementsToStackView() {
+        stepperStackView.addArrangedSubview(stepperPlusButton)
+        stepperStackView.addArrangedSubview(stepperLabel)
+        stepperStackView.addArrangedSubview(stepperMinusButton)
+    }
 
 }
 
@@ -319,6 +442,9 @@ extension ProductDetailView {
         addSubview(seperatorView)//0.75 height
         addSubview(descriptionView)
         addDescriptionLabelsToView()
+        addSubview(quantityLabel)
+        addSubview(stepperStackView)
+        addStepperElementsToStackView()
         addSubview(seperatorView2)//0.75 height
         addSubview(priceStackView)
         addPriceLabelsToStackView()
@@ -340,6 +466,8 @@ extension ProductDetailView {
         descriptionViewConstraints()
         descriptionTitleConstraints()
         descriptionLabelConstraints()
+        quantityLabelConstraints()
+        stepperElementsStackViewConstraints()
         seperatorView2Constraints()
         cartBtnPriceLblStackViewConstraints()
     }
@@ -425,7 +553,21 @@ extension ProductDetailView {
             make.top.equalTo(descriptionTitle.snp.bottom).offset(10)
             make.leading.equalTo(descriptionView.snp.leading)
             make.trailing.equalTo(descriptionView.snp.trailing)
-            make.height.lessThanOrEqualTo(descriptionView.snp.height).offset(-37)
+            make.height.lessThanOrEqualTo(descriptionView.snp.height).offset(-67)
+        }
+    }
+    
+    private func quantityLabelConstraints() {
+        quantityLabel.snp.makeConstraints { make in
+            make.leading.equalTo(descriptionView.snp.leading)
+            make.bottom.equalTo(seperatorView2.snp.top).offset(-20)
+        }
+    }
+    
+    private func stepperElementsStackViewConstraints() {
+        stepperStackView.snp.makeConstraints { make in
+            make.centerY.equalTo(quantityLabel.snp.centerY)
+            make.leading.equalTo(quantityLabel.snp.trailing).offset(10)
         }
     }
     
@@ -438,6 +580,7 @@ extension ProductDetailView {
         }
     }
     
+
     private func cartBtnPriceLblStackViewConstraints() {
         cartBtnPriceLblStackView.snp.makeConstraints { make in
             make.height.equalTo(addToCartButton.snp.height)
@@ -446,5 +589,7 @@ extension ProductDetailView {
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
+    
+    
     
 }

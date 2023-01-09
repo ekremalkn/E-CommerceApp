@@ -23,14 +23,29 @@ final class ProductDetailViewModel {
     
     
     
-    func updateCart(productId: Int) {
+    func updateCart(productId: Int, quantity: Int) {
         guard let currentUser = currentUser else { return }
         
         let userRef = database.collection("Users").document(currentUser.uid)
         
-        userRef.updateData(["\(productId)" : 5]) { error in
-            if let error = error { self.delegate?.didOccurError(error) } else { self.delegate?.didUpdateCartSuccessful() }
+        if quantity > 0 {
+            userRef.updateData(["cart.\(productId)" : quantity]) { error in
+                if let error = error {
+                    self.delegate?.didOccurError(error)
+                } else {
+                    self.delegate?.didUpdateCartSuccessful()
+                }
+            }
+        } else {
+            userRef.updateData(["cart.\(productId)" : FieldValue.delete()]) { error in
+                if let error = error {
+                    self.delegate?.didOccurError(error)
+                } else {
+                    self.delegate?.didUpdateCartSuccessful()
+                }
+            }
         }
+        
             
             
         
