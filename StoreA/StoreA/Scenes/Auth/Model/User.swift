@@ -12,5 +12,4 @@ struct User: Codable {
         var username: String?
         var email: String?
         var cart: [Int : Int]?
-    
 }

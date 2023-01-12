@@ -9,6 +9,9 @@ import UIKit
 
 
 class CategoryCollectionCell: UICollectionViewCell {
+    deinit {
+        print("deinit categorycell")
+    }
     
     //MARK: - Creating UI Elements
     

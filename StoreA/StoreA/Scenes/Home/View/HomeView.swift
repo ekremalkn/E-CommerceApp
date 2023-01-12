@@ -8,9 +8,11 @@
 import UIKit
 
 final class HomeView: UIView {
+    deinit {
+        print("deinit home view")
+    }
     
-    //MARK: - Properties
-    private let homeViewModel = ProductsViewModel()
+
     
     //MARK: - Creating UI Elements
     
@@ -85,7 +87,7 @@ final class HomeView: UIView {
         return stackView
     }()
     
-     var searcBar: UISearchBar = {
+     lazy var searcBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.placeholder = "Search Products"
         searchBar.showsBookmarkButton = true
@@ -180,7 +182,6 @@ final class HomeView: UIView {
         searcBar.barTintColor = .systemGray6
         addSubview()
         setupConstraints()
-        
         configureSearchBar()
     }
     

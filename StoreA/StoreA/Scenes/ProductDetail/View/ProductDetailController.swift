@@ -9,6 +9,9 @@ import UIKit
 
 
 final class ProductDetailController: UIViewController {
+    deinit {
+        print("deinit product detail controller")
+    }
 
     //MARK: - Properties
     private let productDetailViewModel = ProductDetailViewModel()
@@ -49,16 +52,15 @@ final class ProductDetailController: UIViewController {
 }
 
 extension ProductDetailController: ProductDetailViewInterface {
+    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton, quantity: Int) {
+        guard let id = product.id else { return }
+        productDetailViewModel.updateCart(productId: id, quantity: quantity)
+    }
+    
     func productDetailView(_ view: ProductDetailView, didStepperValueChanged quantity: Int) {
         guard let id = product.id else { return }
         productDetailViewModel.updateCart(productId: id, quantity: quantity)
     }
-
-    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton) {
-        guard let id = product.id else { return }
-        productDetailViewModel.updateCart(productId: id, quantity: 1)
-    }
-    
     
 }
 

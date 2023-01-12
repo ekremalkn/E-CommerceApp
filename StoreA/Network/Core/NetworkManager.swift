@@ -10,6 +10,9 @@ import Alamofire
 //MARK: - NetworkManager
 
 final class NetworkManager {
+    deinit {
+        print("deinit networkmanager")
+    }
     static let shared = NetworkManager()
 
     func request<T>(path: String, onSuccess: @escaping (T) -> (), onError: @escaping (AFError) -> ()) where T:Codable {

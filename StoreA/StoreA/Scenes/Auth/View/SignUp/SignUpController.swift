@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 final class SignUpController: UIViewController {
+    deinit {
+        print("deinit signup controller")
+    }
     
     //MARK: - Properties
     private let authViewModel = AuthViewModel()

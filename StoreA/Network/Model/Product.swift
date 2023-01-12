@@ -8,8 +8,8 @@
 import Foundation
 
 // MARK: - Product
-struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellProtocol, ProductDetailViewProtocol {
-   
+struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellProtocol, ProductDetailViewProtocol, CartCollectionCellProtocol {
+
     let id: Int?
     let title: String?
     let price: Double?
@@ -27,37 +27,62 @@ struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellPro
     //MARK: - SpecialCollectionCellProtocol
 
     var specialImage: String {
-        image ?? ""
+        if let image = image {
+            return image
+        }
+        return ""
     }
     
     var specialTitle: String {
-        title ?? ""
+        if let title = title {
+            return title
+        }
+        return ""
     }
     
     var specialDetail: String {
-        productDescription ?? ""
+        if let productDescription = productDescription {
+            return productDescription
+        }
+        return ""
     }
     
     //MARK: - ProductCollectionCellProtocol
     
     var productImage: String {
-        image ?? ""
+        if let image = image {
+            return image
+        }
+        return ""
     }
     
     var productTitle: String {
-        title ?? ""
+        if let title = title {
+            return title
+        }
+        return ""
     }
     
     var productRatingCount: String {
-        "\(rating?.rate ?? 0)"
+        if let rating = rating?.rate {
+            return "\(rating)"
+        }
+        return ""
+       
     }
     
     var productSalesAmount: String {
-        "\(rating?.count ?? 0) sold"
+        if let salesAmount = rating?.count {
+            return "\(salesAmount) sold"
+        }
+        return ""
     }
     
     var productPrice: String {
-        "$\(price ?? 0)"
+        if let price = price {
+            return "$\(price)"
+        }
+        return ""
     }
     
     //MARK: - ProductDetailViewProtocol
@@ -103,9 +128,36 @@ struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellPro
         }
         return ""
     }
-
     
-
+    //MARK: - CartCollectionCellProtocol
+    
+    var cartCellImage: String {
+        if let image = image {
+            return image
+        }
+        return ""
+    }
+    
+    var cartCellTitle: String {
+        if let title = title {
+            return title
+        }
+        return ""
+    }
+    
+    var cartCellPrice: String {
+        if let price = price {
+            return "$\(price)"
+        }
+        return ""
+    }
+    
+    var cartCellProductId: Int {
+        if let id = id {
+            return id
+        }
+        return 0
+    }
     
 }
 

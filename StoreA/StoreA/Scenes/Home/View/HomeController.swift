@@ -9,6 +9,10 @@ import UIKit
 
 final class HomeController: UIViewController {
     
+    deinit {
+        print("deinit home controller")
+    }
+    
     //MARK: - Properties
     private let homeViewModel = ProductsViewModel()
     private let homeView = HomeView()

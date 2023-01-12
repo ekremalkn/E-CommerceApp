@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
 
 protocol ProductsViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
@@ -19,6 +21,8 @@ final class ProductsViewModel {
     
     let manager = Service.shared
     
+    private let database = Firestore.firestore()
+    
     var allProducts: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
@@ -27,6 +31,7 @@ final class ProductsViewModel {
         manager.fetchProducts(type: .fetchAllProducts){ products in
             if let products = products {
                 self.allProducts = products
+                self.allProductsToFirestore(products: products)
                 self.delegate?.didFetchAllProductsSuccessful()
             }
         } onError: { error in
@@ -59,6 +64,20 @@ final class ProductsViewModel {
             self.delegate?.didOccurError(error)
         }
 
+    }
+    
+    func allProductsToFirestore(products: [Product]?) {
+        guard let products = products else { return }
+        
+        products.forEach { product in
+            guard let id = product.id else { return }
+            database.collection("products").document("\(id)").setData(product.dictionary) { error in
+                if let error = error {
+                    self.delegate?.didOccurError(error)
+                }
+            }
+            
+        }
     }
     
     

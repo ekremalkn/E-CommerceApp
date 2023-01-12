@@ -14,6 +14,9 @@ protocol SpecialCollectionCellProtocol {
 }
 
 class SpecialCollectionCell: UICollectionViewCell {
+    deinit {
+        print("deinit specialcel")
+    }
     
     //MARK: - Cell's Identifier
     static let identifier = "SpecialCollectionCell"

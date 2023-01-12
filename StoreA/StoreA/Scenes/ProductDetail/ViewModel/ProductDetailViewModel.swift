@@ -15,6 +15,9 @@ protocol ProductDetailViewModelDelegate: AnyObject {
 }
 
 final class ProductDetailViewModel {
+    deinit {
+        print("deinit productdeteailviewmodel")
+    }
     
     weak var delegate: ProductDetailViewModelDelegate?
     
@@ -23,6 +26,15 @@ final class ProductDetailViewModel {
     
     
     
+    //MARK: - Add Products To Firestore
+    
+    private func addProductsToFirestore() {
+        
+    }
+
+    
+    //MARK: - Update Cart in Firestore
+
     func updateCart(productId: Int, quantity: Int) {
         guard let currentUser = currentUser else { return }
         

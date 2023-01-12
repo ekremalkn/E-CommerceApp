@@ -16,6 +16,9 @@ protocol ProductCollectionCellProtocol {
 }
 
 class ProductCollectionCell: UICollectionViewCell {
+    deinit {
+        print("deinit productcell")
+    }
     
     //MARK: - Cell's Identifier
     
@@ -169,7 +172,7 @@ class ProductCollectionCell: UICollectionViewCell {
 
 
     
-    //MARK: - UI Elements Constraints
+    ///MARK: - AddSubview
     
     private func addSubview() {
         addSubview(productImageView)
@@ -182,6 +185,8 @@ class ProductCollectionCell: UICollectionViewCell {
         addProductInfoToStackView()
     }
     
+    //MARK: - Setup Constraints
+
     private func setupConstraints() {
         imageViewConstraints()
         addButtonConstraints()
@@ -190,6 +195,8 @@ class ProductCollectionCell: UICollectionViewCell {
         productInfoStackViewConstraints()
     }
     
+    //MARK: - UI Elements Constraints
+
     private func imageViewConstraints() {
         productImageView.snp.makeConstraints { make in
             make.width.equalTo(safeAreaLayoutGuide.snp.width).offset(-10)

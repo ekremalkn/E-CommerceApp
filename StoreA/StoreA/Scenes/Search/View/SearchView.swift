@@ -9,8 +9,11 @@ import UIKit
 import SnapKit
 
 final class SearchView: UIView {
+    deinit {
+        print("deinit searchview")
+    }
     
-    var searchController: UISearchController = {
+    lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil )
         searchController.searchBar.searchTextField.placeholder = "Search Products"
         searchController.searchBar.showsBookmarkButton = true

@@ -8,6 +8,9 @@
 import UIKit
 
 final class SignInController: UIViewController {
+    deinit {
+        print("deinit signin controller")
+    }
     
     //MARK: - Properties
     

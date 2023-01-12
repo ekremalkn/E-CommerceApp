@@ -8,14 +8,17 @@
 import UIKit
 
 final class SearchController: UIViewController {
+    deinit {
+        print("deinit searchcontroller")
+    }
 
     //MARK: - Properties
     private let searchViewModel = SearchViewModel()
     private let searchView = SearchView()
-    private var searchController: UISearchController? {
+    private weak var searchController: UISearchController? {
         return searchView.searchController
     }
-    private var searchBar: UISearchBar? {
+    private weak var searchBar: UISearchBar? {
         return searchView.searchController.searchBar
     }
     

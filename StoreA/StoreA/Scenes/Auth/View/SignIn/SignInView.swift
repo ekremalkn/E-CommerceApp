@@ -15,8 +15,11 @@ protocol SignInViewInterface: AnyObject {
 }
 
 final class SignInView: UIView {
+    deinit {
+        print("deinit signin view")
+    }
     
-    weak var interface: SignInViewInterface?
+     weak var interface: SignInViewInterface?
     
     //MARK: - Creating UI Elements
     

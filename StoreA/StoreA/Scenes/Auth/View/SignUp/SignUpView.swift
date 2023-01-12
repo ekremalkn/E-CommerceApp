@@ -16,6 +16,9 @@ protocol SignUpViewInterface: AnyObject {
 } 
 
 final class SignUpView: UIView {
+    deinit {
+        print("deinit signup view")
+    }
     
     weak var interface: SignUpViewInterface?
     

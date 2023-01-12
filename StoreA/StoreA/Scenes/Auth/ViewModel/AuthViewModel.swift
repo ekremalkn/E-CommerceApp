@@ -18,6 +18,9 @@ protocol AuthViewModelDelegate: AnyObject {
 }
 
 final class AuthViewModel {
+    deinit {
+        print("deinit authviewmodel")
+    }
     
     weak var delegate: AuthViewModelDelegate?
     

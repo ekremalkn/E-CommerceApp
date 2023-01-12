@@ -9,7 +9,7 @@ import UIKit
 //MARK: - ProductDetailViewInterface Protocol
 
 protocol ProductDetailViewInterface: AnyObject {
-    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton)
+    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton, quantity: Int)
     func productDetailView(_ view: ProductDetailView, didStepperValueChanged quantity: Int)
 }
 
@@ -25,6 +25,9 @@ protocol ProductDetailViewProtocol {
 }
 
 final class ProductDetailView: UIView {
+    deinit {
+        print("deinit productdetail view")
+    }
 
     //MARK: - Creating UI Elements
 
@@ -267,7 +270,7 @@ final class ProductDetailView: UIView {
         return stackView
     }()
     
-     let addToCartButton: UIButton = {
+     private let addToCartButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
         button.backgroundColor = .black
@@ -286,12 +289,6 @@ final class ProductDetailView: UIView {
         return button
     }()
     
-    let stepper: UIStepper = {
-        let stepper = UIStepper()
-        
-        return stepper
-    }()
-    
     private let cartBtnPriceLblStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -305,16 +302,12 @@ final class ProductDetailView: UIView {
 
     var quantity = 1 {
         didSet {
-            switch quantity {
-            case ..<1 :
-                stepperStackView.isHidden = true
-                quantityLabel.isHidden = true
+           
+            if quantity <= 0 {
+                toggleStepperElements()
                 quantity = 0
-                
-            case 10..<1111 :
+            } else if quantity > 10 {
                 quantity = 10
-            default:
-                print("31")
             }
             stepperLabel.text = String(quantity)
             interface?.productDetailView(self, didStepperValueChanged: quantity)
@@ -323,8 +316,7 @@ final class ProductDetailView: UIView {
     
     
     //MARK: - Properties
-    weak var interface: ProductDetailViewInterface?
-    
+      weak var interface: ProductDetailViewInterface?
     //MARK: - Init Methods
 
     override init(frame: CGRect) {
@@ -348,10 +340,14 @@ final class ProductDetailView: UIView {
     }
     
     @objc private func addToCartButtonTapped(_ button: UIButton) {
+        if quantity <= 0 {
+            quantity = 1
+            stepperStackView.isHidden = false
+            quantityLabel.isHidden = false
+        }
         stepperStackView.isHidden = false
         quantityLabel.isHidden = false
-        quantity = 1
-        self.interface?.productDetailView(self, didTapAddToCartButton: button)
+        self.interface?.productDetailView(self, didTapAddToCartButton: button, quantity: quantity)
     }
     
     //MARK: - CustomStepper Actions
@@ -362,6 +358,11 @@ final class ProductDetailView: UIView {
     
     @objc private func stepperMinusButtonTapped(_ button: UIButton) {
             quantity = quantity - 1
+    }
+    
+    private func toggleStepperElements() {
+        stepperStackView.isHidden = !stepperStackView.isHidden
+        quantityLabel.isHidden = !quantityLabel.isHidden
     }
     
      func configure(data: ProductDetailViewProtocol) {

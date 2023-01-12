@@ -15,6 +15,10 @@ protocol ServiceProtocol {
 
 final class Service: ServiceProtocol {
     
+    deinit {
+        print("deinit service")
+    }
+    
     static let shared = Service()
     
     func fetchProducts(type: AllProductsWebEndPoint ,onSuccess: @escaping ([Product]?) -> (), onError: @escaping (AFError) -> ()) {

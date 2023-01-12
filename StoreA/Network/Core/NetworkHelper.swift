@@ -14,6 +14,9 @@ enum NetworkEndPoint: String {
 }
 
 final class NetworkHelper {
+    deinit {
+        print("deinit networkhelper")
+    }
     static let shared = NetworkHelper()
 
     func requestUrl(url: String) -> String {
