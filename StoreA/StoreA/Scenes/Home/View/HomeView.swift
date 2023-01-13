@@ -7,12 +7,15 @@
 
 import UIKit
 
+protocol HomeViewInterface: AnyObject {
+    func homeView(_ view: HomeView, didCartButtonTapped button: UIButton)
+    func homeView(_ view: HomeView, didWishListButtonTapped button: UIButton)
+}
+
 final class HomeView: UIView {
     deinit {
         print("deinit home view")
     }
-    
-
     
     //MARK: - Creating UI Elements
     
@@ -58,10 +61,10 @@ final class HomeView: UIView {
         return stackView
     }()
     
-    private var notificationButton: UIButton = {
+    private var wishListButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
-        button.setImage(UIImage(systemName: "bell"), for: .normal)
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.layer.cornerRadius = 15
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -174,6 +177,11 @@ final class HomeView: UIView {
         }
     }
     
+    //MARK: - Properties
+    
+    weak var interface: HomeViewInterface?
+
+    
     //MARK: - Init Method
     
     override init(frame: CGRect) {
@@ -183,14 +191,29 @@ final class HomeView: UIView {
         addSubview()
         setupConstraints()
         configureSearchBar()
+        addTarget()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - AddAction
     
+    private func addTarget() {
+        cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        wishListButton.addTarget(self, action: #selector(wishListButtonTapped), for: .touchUpInside)
+    }
        
+    //MARK: - Buttons actions
+    
+    @objc private func cartButtonTapped(_ button: UIButton) {
+        interface?.homeView(self, didCartButtonTapped: button)
+    }
+    
+    @objc private func wishListButtonTapped(_ button: UIButton) {
+        interface?.homeView(self, didWishListButtonTapped: button)
+    }
     
  
     //MARK: - TopLabelsAddToStackView
@@ -203,7 +226,7 @@ final class HomeView: UIView {
     //MARK: - TopButtonsAddToStackView
     
     private func addTopButtonsToStackView() {
-        buttonStackView.addArrangedSubview(notificationButton)
+        buttonStackView.addArrangedSubview(wishListButton)
         buttonStackView.addArrangedSubview(cartButton)
     }
     

@@ -32,6 +32,8 @@
 		F07A7FB029706E3D0099CCAE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F07A7FAF29706E3D0099CCAE /* FirebaseAuth */; };
 		F07A7FB229706E3D0099CCAE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F07A7FB129706E3D0099CCAE /* FirebaseFirestore */; };
 		F07A7FB429706E3D0099CCAE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F07A7FB329706E3D0099CCAE /* FirebaseFirestoreSwift */; };
+		F07BC7E92971AC6300611EAC /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BC7E82971AC6300611EAC /* WishListController.swift */; };
+		F07BC7EB2971ACAC00611EAC /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BC7EA2971ACAC00611EAC /* WishListView.swift */; };
 		F0896661296D51F5004C956D /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0896660296D51F5004C956D /* CartView.swift */; };
 		F0896664296D53D4004C956D /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0896663296D53D4004C956D /* CartCollectionCell.swift */; };
 		F0AEDAB329698F0200C6190A /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEDAB229698F0200C6190A /* ProductDetailController.swift */; };
@@ -81,6 +83,8 @@
 		F058175929635F9600B536E7 /* SpecialCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialCollectionCell.swift; sourceTree = "<group>"; };
 		F071DEFA29620881001C7FE0 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		F071DEFC29620AAA001C7FE0 /* WebHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHelper.swift; sourceTree = "<group>"; };
+		F07BC7E82971AC6300611EAC /* WishListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
+		F07BC7EA2971ACAC00611EAC /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
 		F0896660296D51F5004C956D /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		F0896663296D53D4004C956D /* CartCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionCell.swift; sourceTree = "<group>"; };
 		F0AEDAB229698F0200C6190A /* ProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
@@ -301,6 +305,31 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		F07BC7E52971AC3C00611EAC /* WishList */ = {
+			isa = PBXGroup;
+			children = (
+				F07BC7E72971AC4B00611EAC /* ViewModel */,
+				F07BC7E62971AC4400611EAC /* View */,
+			);
+			path = WishList;
+			sourceTree = "<group>";
+		};
+		F07BC7E62971AC4400611EAC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F07BC7E82971AC6300611EAC /* WishListController.swift */,
+				F07BC7EA2971ACAC00611EAC /* WishListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F07BC7E72971AC4B00611EAC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F0896662296D53BD004C956D /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +457,7 @@
 				F0B6C5DC2967503400E6F462 /* Search */,
 				F0B6C5D5296732CF00E6F462 /* Profile */,
 				F0B6C5D4296732BB00E6F462 /* Cart */,
+				F07BC7E52971AC3C00611EAC /* WishList */,
 				F0FC91B42961FFD000351C96 /* Home */,
 				F03FB07A295F2B2200884E84 /* Onboarding */,
 				F055AA8E29606666005A2DE7 /* Auth */,
@@ -607,6 +637,7 @@
 				F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */,
 				F05362042964A5360049CB7D /* ProductCollectionCell.swift in Sources */,
 				F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */,
+				F07BC7E92971AC6300611EAC /* WishListController.swift in Sources */,
 				F0FC91B32961FE5200351C96 /* Product.swift in Sources */,
 				F0B6C5E02967508400E6F462 /* SearchController.swift in Sources */,
 				F071DEFD29620AAA001C7FE0 /* WebHelper.swift in Sources */,
@@ -627,6 +658,7 @@
 				F0B6C5D8296732E800E6F462 /* CartController.swift in Sources */,
 				F0B6C5CF29671D7300E6F462 /* Category.swift in Sources */,
 				F023632D2962CB1C0008C4DD /* HomeView.swift in Sources */,
+				F07BC7EB2971ACAC00611EAC /* WishListView.swift in Sources */,
 				F0B28674296B135200C97BD9 /* User.swift in Sources */,
 				F071DEFB29620881001C7FE0 /* NetworkHelper.swift in Sources */,
 				F03FB07E295F2B4600884E84 /* OnboardingController.swift in Sources */,

@@ -38,6 +38,7 @@ class MainTabBarController: UITabBarController {
         let searchVC = SearchController()
         searchVC.title = "Search"
         searchVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
+        
         return UINavigationController(rootViewController: searchVC)
     }
     

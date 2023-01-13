@@ -57,6 +57,7 @@ final class HomeController: UIViewController {
     private func setupDelegates() {
         homeViewModel.delegate = self
         
+        homeView.interface = self
         homeView.searcBar.delegate = self
         
         homeView.specialCollection.delegate = self
@@ -151,6 +152,20 @@ extension HomeController {
         let witdh = scrollView.frame.width
             homeView.currentPage = Int(scrollView.contentOffset.x / witdh)
     }
+}
+
+extension HomeController: HomeViewInterface {
+    func homeView(_ view: HomeView, didCartButtonTapped button: UIButton) {
+        let cartVC = CartController()
+        navigationController?.pushViewController(cartVC, animated: true)
+    }
+    
+    func homeView(_ view: HomeView, didWishListButtonTapped button: UIButton) {
+        print("didwishlistbuttontapped")
+        
+    }
+    
+    
 }
 
 

@@ -178,7 +178,7 @@ final class ProductDetailView: UIView {
         return label
     }()
     
-    private var priceLabel: UILabel = {
+    var priceLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .black
@@ -198,7 +198,7 @@ final class ProductDetailView: UIView {
         return stackView
     }()
     
-    private var quantityLabel: UILabel = {
+     var quantityLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
         label.text = "Quantity"
@@ -255,7 +255,7 @@ final class ProductDetailView: UIView {
     }()
     
     
-    private let stepperStackView: UIStackView = {
+     let stepperStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.isHidden = true
         stackView.axis = .horizontal
@@ -310,13 +310,13 @@ final class ProductDetailView: UIView {
                 quantity = 10
             }
             stepperLabel.text = String(quantity)
-            interface?.productDetailView(self, didStepperValueChanged: quantity)
         }
     }
     
     
     //MARK: - Properties
       weak var interface: ProductDetailViewInterface?
+    
     //MARK: - Init Methods
 
     override init(frame: CGRect) {
@@ -354,10 +354,14 @@ final class ProductDetailView: UIView {
 
     @objc private func stepperPlusButtonTapped(_ button: UIButton) {
         quantity = quantity + 1
+        interface?.productDetailView(self, didStepperValueChanged: quantity)
+
     }
     
     @objc private func stepperMinusButtonTapped(_ button: UIButton) {
             quantity = quantity - 1
+        interface?.productDetailView(self, didStepperValueChanged: quantity)
+
     }
     
     private func toggleStepperElements() {

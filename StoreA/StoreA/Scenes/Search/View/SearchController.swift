@@ -127,6 +127,11 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            guard let productId = searchViewModel.allProducts[indexPath.row].id else { return }
+            searchViewModel.fetchSingleProduct(productId: productId)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: searchView.searchCollection.frame.width / 2 - 10, height: searchView.searchCollection.frame.height / 3 )
 
@@ -136,6 +141,11 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
 //MARK: - SearchViewModelDelegate
 
 extension SearchController: SearchViewModelDelegate {
+    func didFetchSingleProduct(_ product: Product) {
+        let controller = ProductDetailController(product: product)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }

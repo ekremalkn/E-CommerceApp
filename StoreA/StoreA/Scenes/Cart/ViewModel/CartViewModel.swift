@@ -18,10 +18,11 @@ protocol CartViewModelDelegate: AnyObject {
     func didFetchCostAccToItemCount()
 }
 
-
-
 final class CartViewModel {
     
+    deinit {
+        print("deinit cartviewmodel")
+    }
     weak var delegate: CartViewModelDelegate?
     
     //MARK: - Properties
@@ -47,19 +48,19 @@ final class CartViewModel {
         }
     }
     
-    
-        var cart: [String : Int]? = [:] {
+    var cart: [String : Int]? = [:] {
         didSet {
             guard let cart = cart else { return }
             if cart.isEmpty == true {
                 costAccToItemCount = [:]
+                cartsProducts = []
             } else {
-                fetchProductFromCart(cart: cart)
+                fetchProductFromFirestoreCollection(cart: cart)
                 fetchCostAccToCount(cart: cart)
             }
         }
     }
-
+    
     //MARK: - Update Cart in Firestore
     
     func updateCart(productId: Int, quantity: Int) {
@@ -86,7 +87,8 @@ final class CartViewModel {
             }
         }
     }
-   
+  
+    
     //MARK: - Get Cart from Firestore
     
     func fetchCart() {
@@ -108,12 +110,12 @@ final class CartViewModel {
         for (id, quantity) in cart {
             let product = productsRef.document(id)
             
-            product.getDocument { result, error in
-                guard let result = result else { return }
+            product.getDocument { documentData, error in
+                guard let documentData = documentData  else { return }
                 
-                if result.exists == true {
+                if documentData.exists == true {
                     var cost: Double = 0
-                    guard let price = result.get("price") as? Double else { return }
+                    guard let price = documentData.get("price") as? Double else { return }
                     cost = price * Double(quantity)
                     self.costAccToItemCount[id, default: 0] = cost
                 } else {
@@ -135,10 +137,10 @@ final class CartViewModel {
         return total.rounded(toPlaces: 2)
     }
     
-  
-    //MARK: - Add products to cart
     
-    func fetchProductFromCart(cart: [String:Int]) {
+    //MARK: - Fetch Product From FirestoreCollection to cartsProducts
+    
+    func fetchProductFromFirestoreCollection(cart: [String:Int]) {
         let productsRef = database.collection("products")
         
         for (id, _) in cart {
@@ -164,16 +166,18 @@ final class CartViewModel {
     
     func getProductIndexPath(productId: Int) -> IndexPath {
         let index = cartsProducts.firstIndex { product in
-                    product.id == productId
-                }
-                return IndexPath(row: index!, section: 0)
+            product.id == productId
+        }
+        return IndexPath(row: index!, section: 0)
     }
+
     
     //MARK: - RemoveProduct
     
     func removeProduct(index: Int) {
         cartsProducts.remove(at: index)
     }
-
+    
+    
     
 }

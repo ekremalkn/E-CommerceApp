@@ -23,13 +23,12 @@ final class CartController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "My Cart"
+        navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.tabBarController?.tabBar.backgroundColor = .white
         configureViewController()
         collectionCellRegister()
         setupDelegates()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +54,7 @@ final class CartController: UIViewController {
     
     private func setupDelegates() {
         cartViewModel.delegate = self
-        
+                
         cartView.cartCollection.delegate = self
         cartView.cartCollection.dataSource  = self
     }
@@ -72,11 +71,12 @@ extension CartController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = cartView.cartCollection.dequeueReusableCell(withReuseIdentifier: "CartCollectionCell", for: indexPath) as? CartCollectionCell else { return UICollectionViewCell()}
         cell.interface = self
-        let product = cartViewModel.cartsProducts[indexPath.row]
-        if let stepperLabel = cartViewModel.cart?["\(product.id)"] {
-            cell.stepperLabel.text = "\(stepperLabel)"
+        if let productId = cartViewModel.cartsProducts[indexPath.row].id {
+            if let quantity = cartViewModel.cart?["\(productId)"] {
+                cell.quantity = quantity
+            }
         }
-        cell.configure(data: product)
+        cell.configure(data: cartViewModel.cartsProducts[indexPath.row])
         return cell
     }
     
@@ -93,20 +93,26 @@ extension CartController: CartCollectionCellInterface {
     func cartCollectionCell(_ view: CartCollectionCell, productId: Int, didStepperValueChanged quantity: Int) {
         if quantity == 0 {
             let indexPath = cartViewModel.getProductIndexPath(productId: productId)
-            cartViewModel.removeProduct(index: indexPath.row)
             cartView.cartCollection.deleteItems(at: [indexPath])
+            cartViewModel.removeProduct(index: indexPath.row)
         }
         cartViewModel.updateCart(productId: productId, quantity: quantity)
     }
     
+    func cartCollectionCell(_ view: CartCollectionCell, productId: Int, didRemoveButtonTapped quantity: Int) {
+        let indextPath = cartViewModel.getProductIndexPath(productId: productId)
+        cartView.cartCollection.deleteItems(at: [indextPath])
+        cartViewModel.removeProduct(index: indextPath.row)
+        cartViewModel.updateCart(productId: productId, quantity: 0)
+    }
     
 }
+
 
 //MARK: - CartViewModelDelegate
 
 extension CartController: CartViewModelDelegate {
-   
-    
+  
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -122,6 +128,5 @@ extension CartController: CartViewModelDelegate {
     func didFetchCostAccToItemCount() {
         cartView.priceLabel.text = "$\(cartViewModel.totalCost)"
     }
-    
-    
+ 
 }

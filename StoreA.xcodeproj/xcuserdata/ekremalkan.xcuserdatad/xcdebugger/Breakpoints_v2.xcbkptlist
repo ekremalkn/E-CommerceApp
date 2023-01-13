@@ -3,4 +3,54 @@
    uuid = "AD3EFBB4-3003-4FD0-BD2E-418ADA2C512E"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7421CA73-2517-48CB-B568-DD6399C39E3C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StoreA/StoreA/Scenes/ProductDetail/ViewModel/ProductDetailViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "fetchCart(productId:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7421CA73-2517-48CB-B568-DD6399C39E3C - 28c2c249f25ddcdd"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in StoreA.ProductDetailViewModel.fetchCart(productId: Swift.Int) -&gt; ()"
+                  moduleName = "StoreA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ekremalkan/Desktop/Self%20Made%20apps/StoreA/StoreA/StoreA/Scenes/ProductDetail/ViewModel/ProductDetailViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "464">
+               </Location>
+               <Location
+                  uuid = "7421CA73-2517-48CB-B568-DD6399C39E3C - 28c2c249f25ddcdd"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;__C.FIRDocumentSnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in StoreA.ProductDetailViewModel.fetchCart(productId: Swift.Int) -&gt; ()"
+                  moduleName = "StoreA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ekremalkan/Desktop/Self%20Made%20apps/StoreA/StoreA/StoreA/Scenes/ProductDetail/ViewModel/ProductDetailViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "540">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

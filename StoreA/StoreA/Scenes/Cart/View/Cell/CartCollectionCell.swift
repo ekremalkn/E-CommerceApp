@@ -16,6 +16,7 @@ protocol CartCollectionCellProtocol {
 
 protocol CartCollectionCellInterface: AnyObject {
     func cartCollectionCell(_ view: CartCollectionCell, productId: Int, didStepperValueChanged quantity: Int)
+    func cartCollectionCell(_ view: CartCollectionCell, productId: Int, didRemoveButtonTapped quantity: Int)
 }
 
 final class CartCollectionCell: UICollectionViewCell {
@@ -169,8 +170,6 @@ final class CartCollectionCell: UICollectionViewCell {
                 quantity = 10
             }
             stepperLabel.text = String(quantity)
-            guard let productId = productId else { return }
-            interface?.cartCollectionCell(self, productId: productId, didStepperValueChanged: quantity)
         }
     }
 
@@ -199,17 +198,22 @@ final class CartCollectionCell: UICollectionViewCell {
     }
     
     @objc private func removeButtonTapped(_ button: UIButton) {
-        
+        guard let productId = productId else { return }
+        interface?.cartCollectionCell(self, productId: productId, didRemoveButtonTapped: 0)
     }
     
     //MARK: - CustomStepper Actions
     
     @objc private func stepperPlusButtonTapped(_ button: UIButton) {
         quantity = quantity + 1
+        guard let productId = productId else { return }
+        interface?.cartCollectionCell(self, productId: productId, didStepperValueChanged: quantity)
     }
     
     @objc private func stepperMinusButtonTapped(_ button: UIButton) {
         quantity = quantity - 1
+        guard let productId = productId else { return }
+        interface?.cartCollectionCell(self, productId: productId, didStepperValueChanged: quantity)
     }
 
 
@@ -222,6 +226,7 @@ final class CartCollectionCell: UICollectionViewCell {
         priceLabel.text = data.cartCellPrice
         productId = data.cartCellProductId
     }
+    
 
     
     //MARK: - AddProductTitle/RemoveButtonToStackView
