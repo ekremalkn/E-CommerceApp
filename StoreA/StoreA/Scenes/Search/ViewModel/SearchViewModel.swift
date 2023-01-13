@@ -18,10 +18,16 @@ final class SearchViewModel {
         print("deinit searchviewmodel")
     }
     
+    //MARK: - SearchViewModelDelegate
+
     weak var delegate: SearchViewModelDelegate?
     
+    //MARK: - Properties
+
     let manager = Service.shared
-    
+
+    //MARK: - Products
+
     var allProducts = [Product]()
     var singleProduct: Product?
     
@@ -34,7 +40,7 @@ final class SearchViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
     
     func fetchSingleProduct(productId id: Int) {
@@ -46,6 +52,6 @@ final class SearchViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
 }

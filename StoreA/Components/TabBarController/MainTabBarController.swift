@@ -8,12 +8,12 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
         configureTabBar()
-       
+        
     }
     
     private func setupTabBar() {
@@ -29,7 +29,7 @@ class MainTabBarController: UITabBarController {
     private func homeController() -> UINavigationController {
         let homeVC = HomeController()
         homeVC.title = "Home"
-        homeVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+        homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
         
         return UINavigationController(rootViewController: homeVC)
     }
@@ -37,7 +37,7 @@ class MainTabBarController: UITabBarController {
     private func searchController() -> UINavigationController {
         let searchVC = SearchController()
         searchVC.title = "Search"
-        searchVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
+        searchVC.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), selectedImage: UIImage(systemName: "magnifyingglass"))
         
         return UINavigationController(rootViewController: searchVC)
     }
@@ -45,7 +45,7 @@ class MainTabBarController: UITabBarController {
     private func cartController() -> UINavigationController {
         let cartVC = CartController()
         cartVC.title = "Cart"
-        cartVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill" ))
+        cartVC.tabBarItem = UITabBarItem(title: "Cart", image: UIImage(systemName: "cart"), selectedImage: UIImage(systemName: "cart.fill" ))
         
         return UINavigationController(rootViewController: cartVC)
     }
@@ -53,9 +53,9 @@ class MainTabBarController: UITabBarController {
     private func profileController() -> UINavigationController {
         let profileVC = ProfileController()
         profileVC.title = "Profile"
-        profileVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person" ), selectedImage: UIImage(systemName: "person.fill"))
+        profileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person" ), selectedImage: UIImage(systemName: "person.fill"))
         
         return UINavigationController(rootViewController: profileVC)
     }
-
+    
 }

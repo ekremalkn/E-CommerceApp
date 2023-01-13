@@ -43,7 +43,7 @@ final class SearchView: UIView {
         return label
     }()
     
-     var searchResultLabelsStackView: UIStackView = {
+    var searchResultLabelsStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.isHidden = true
         stackview.axis = .horizontal
@@ -61,7 +61,6 @@ final class SearchView: UIView {
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
     }()
-    
     
     //MARK: - Init Methods
     

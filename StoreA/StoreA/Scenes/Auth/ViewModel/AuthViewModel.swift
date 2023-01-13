@@ -48,8 +48,9 @@ final class AuthViewModel {
                   let email = authDataResult?.user.email else { return }
             
             let cart: [Int: Int] = [:]
+            let wishList: [Int: Int] = [:]
             
-            let user = User(id: uid, username: username, email: email, cart: cart)
+            let user = User(id: uid, username: username, email: email, cart: cart, wishList: wishList)
             self.database.collection("Users").document(uid).setData(user.dictionary) { error in
                 if let error = error {
                     self.delegate?.didOccurError(error)

@@ -8,7 +8,7 @@
 import UIKit
 
 final class CartController: UIViewController {
-   
+    
     deinit {
         print("deinit cart controller")
     }
@@ -16,16 +16,12 @@ final class CartController: UIViewController {
     //MARK: - Properties
     private let cartViewModel = CartViewModel()
     private let cartView = CartView()
-
-
+    
+    
     //MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "My Cart"
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.tabBarController?.tabBar.backgroundColor = .white
         configureViewController()
         collectionCellRegister()
         setupDelegates()
@@ -41,6 +37,9 @@ final class CartController: UIViewController {
     //MARK: - Configure ViewController
     
     private func configureViewController() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.tabBarController?.tabBar.backgroundColor = .white
         view = cartView
     }
     
@@ -54,14 +53,16 @@ final class CartController: UIViewController {
     
     private func setupDelegates() {
         cartViewModel.delegate = self
-                
+        
         cartView.cartCollection.delegate = self
         cartView.cartCollection.dataSource  = self
     }
-
-
-
+    
+    
+    
 }
+
+//MARK: - CollectionView Methods
 
 extension CartController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -112,7 +113,7 @@ extension CartController: CartCollectionCellInterface {
 //MARK: - CartViewModelDelegate
 
 extension CartController: CartViewModelDelegate {
-  
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -128,5 +129,5 @@ extension CartController: CartViewModelDelegate {
     func didFetchCostAccToItemCount() {
         cartView.priceLabel.text = "$\(cartViewModel.totalCost)"
     }
- 
+    
 }

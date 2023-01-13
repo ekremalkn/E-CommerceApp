@@ -13,6 +13,11 @@ protocol ProductCollectionCellProtocol {
     var productRatingCount: String { get }
     var productSalesAmount: String { get }
     var productPrice: String { get }
+    var productId: Int { get }
+}
+
+protocol ProductCollectionCellInterface: AnyObject {
+    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, didWishButtonTapped button: UIButton)
 }
 
 class ProductCollectionCell: UICollectionViewCell {
@@ -29,15 +34,15 @@ class ProductCollectionCell: UICollectionViewCell {
     private var productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private let addButton: UIButton = {
+     let addToWishListButton: UIButton = {
         let button = UIButton()
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.imageView?.contentMode = .scaleToFill
         button.backgroundColor = nil
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -117,6 +122,10 @@ class ProductCollectionCell: UICollectionViewCell {
         return stackView
     }()
     
+    //MARK: - Properties
+    var productId: Int?
+    weak var interface: ProductCollectionCellInterface?
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -125,6 +134,8 @@ class ProductCollectionCell: UICollectionViewCell {
         layer.cornerRadius = 15
         addSubview()
         setupConstraints()
+        addTarget()
+        toggleAddButton()
     }
     
     required init?(coder: NSCoder) {
@@ -139,13 +150,41 @@ class ProductCollectionCell: UICollectionViewCell {
         ratingCountLabel.text = data.productRatingCount
         salesAmountLabel.text = data.productSalesAmount
         priceLabel.text = data.productPrice
+        productId = data.productId
+    }
+    
+    //MARK: - AddAction
+    
+    private func addTarget() {
+        addToWishListButton.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
+    }
+    
+    //MARK: - Buttons actions
+    
+    @objc private func addToWishListButtonTapped(_ button: UIButton) {
+        guard let productId = productId else { return }
+        if addToWishListButton.isSelected == false {
+            interface?.productCollectionCell(self, productId: productId, quantity: 1, didWishButtonTapped: button)
+        } else {
+            interface?.productCollectionCell(self, productId: productId, quantity: 0, didWishButtonTapped: button)
+        }
+        addToWishListButton.isSelected.toggle()
+        
+    }
+    
+     func toggleAddButton() {
+        let image = UIImage(systemName: "heart")
+        let imageFilled = UIImage(systemName: "heart.fill")
+        addToWishListButton.setImage(image, for: .normal)
+        addToWishListButton.setImage(imageFilled, for: .selected)
     }
 
-    
+
+
     //MARK: - AddButtonToImageView
     
     private func addButtonToImageView() {
-        productImageView.addSubview(addButton)
+        productImageView.addSubview(addToWishListButton)
     }
     
     //MARK: - AddRatingElementsToStackView
@@ -189,7 +228,7 @@ class ProductCollectionCell: UICollectionViewCell {
 
     private func setupConstraints() {
         imageViewConstraints()
-        addButtonConstraints()
+        addToWishListButtonConstraints()
         ratingCountImageConstraints()
         ratingCountStackViewConstraints()
         productInfoStackViewConstraints()
@@ -207,10 +246,12 @@ class ProductCollectionCell: UICollectionViewCell {
         }
     }
     
-    private func addButtonConstraints() {
-        addButton.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(7)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-7)
+    private func addToWishListButtonConstraints() {
+        addToWishListButton.snp.makeConstraints { make in
+            make.width.equalTo(productImageView.snp.width).multipliedBy(0.2)
+            make.height.equalTo(productImageView.snp.width).multipliedBy(0.2)
+            make.top.equalTo(productImageView).offset(7)
+            make.trailing.equalTo(productImageView).offset(-7)
         }
     }
  

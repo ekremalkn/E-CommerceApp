@@ -23,6 +23,9 @@ final class CartViewModel {
     deinit {
         print("deinit cartviewmodel")
     }
+    
+    //MARK: - CartViewModelDelegate
+    
     weak var delegate: CartViewModelDelegate?
     
     //MARK: - Properties
@@ -87,7 +90,7 @@ final class CartViewModel {
             }
         }
     }
-  
+    
     
     //MARK: - Get Cart from Firestore
     
@@ -168,9 +171,12 @@ final class CartViewModel {
         let index = cartsProducts.firstIndex { product in
             product.id == productId
         }
-        return IndexPath(row: index!, section: 0)
+        if let index = index {
+            return IndexPath(row: index, section: 0)
+        }
+        return IndexPath()
     }
-
+    
     
     //MARK: - RemoveProduct
     

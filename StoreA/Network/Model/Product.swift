@@ -49,6 +49,12 @@ struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellPro
     
     //MARK: - ProductCollectionCellProtocol
     
+    var productId: Int {
+        if let id = id {
+            return id
+        }
+        return 0
+    }
     var productImage: String {
         if let image = image {
             return image

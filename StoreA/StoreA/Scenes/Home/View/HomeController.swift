@@ -41,6 +41,7 @@ final class HomeController: UIViewController {
     //MARK: - Configure ViewController
     
     private func configureViewController() {
+        title = "Home"
         view = homeView
     }
     
@@ -110,6 +111,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
             return cell
         case homeView.productCollection:
             guard let cell = homeView.productCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
+            cell.interface = self
             cell.configure(data: homeViewModel.allProducts[indexPath.row])
             return cell
         default:
@@ -139,7 +141,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         case homeView.categoryCollection:
             return CGSize(width: homeView.categoryCollection.frame.width / 3, height: homeView.categoryCollection.frame.height / 1.25)
         case homeView.productCollection:
-            return CGSize(width: homeView.productCollection.frame.width / 2 - 10, height: homeView.productCollection.frame.height )
+            return CGSize(width: homeView.productCollection.frame.width / 2 - 10, height: homeView.productCollection.frame.width )
         default:
             return CGSize(width: 20, height: 20)
         }
@@ -161,7 +163,8 @@ extension HomeController: HomeViewInterface {
     }
     
     func homeView(_ view: HomeView, didWishListButtonTapped button: UIButton) {
-        print("didwishlistbuttontapped")
+        let wishListVC = WishListController()
+        navigationController?.pushViewController(wishListVC, animated: true)
         
     }
     
@@ -173,6 +176,7 @@ extension HomeController: HomeViewInterface {
 //MARK: - ProductsViewModelDelegate
 
 extension HomeController: ProductsViewModelDelegate {
+    
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -187,8 +191,19 @@ extension HomeController: ProductsViewModelDelegate {
         homeView.specialCollection.reloadData()
         homeView.productCollection.reloadData()
         homeView.categoryCollection.reloadData()
+    }
+    
+    func didUpdateWishListSuccessful() {
         
     }
     
+    
+    
+}
+
+extension HomeController: ProductCollectionCellInterface {
+    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, didWishButtonTapped button: UIButton) {
+        homeViewModel.updateWishList(productId: productId, quantity: quantity)
+    }
     
 }

@@ -32,7 +32,6 @@ final class CartCollectionCell: UICollectionViewCell {
     
     private var productImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "ekremalkan")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -40,7 +39,6 @@ final class CartCollectionCell: UICollectionViewCell {
     
     private var productTitle: UILabel = {
         let label = UILabel()
-        label.text = "asdasdfasklasasdfkasdkjfkajskjaskdalkfkla"
         label.numberOfLines = 1
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -102,7 +100,7 @@ final class CartCollectionCell: UICollectionViewCell {
         return button
     }()
     
-     let stepperLabel: UILabel = {
+    let stepperLabel: UILabel = {
         let label = UILabel()
         label.text = "1"
         label.numberOfLines = 0
@@ -135,7 +133,7 @@ final class CartCollectionCell: UICollectionViewCell {
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
-
+        
         return stackView
     }()
     
@@ -158,7 +156,6 @@ final class CartCollectionCell: UICollectionViewCell {
     //MARK: - Properties
     
     weak var interface: CartCollectionCellInterface?
-
     
     //MARK: - Swifty
     
@@ -172,7 +169,7 @@ final class CartCollectionCell: UICollectionViewCell {
             stepperLabel.text = String(quantity)
         }
     }
-
+    
     //MARK: - Init methods
     
     override init(frame: CGRect) {
@@ -215,8 +212,8 @@ final class CartCollectionCell: UICollectionViewCell {
         guard let productId = productId else { return }
         interface?.cartCollectionCell(self, productId: productId, didStepperValueChanged: quantity)
     }
-
-
+    
+    
     
     //MARK: - ConfigureCell
     
@@ -227,7 +224,7 @@ final class CartCollectionCell: UICollectionViewCell {
         productId = data.cartCellProductId
     }
     
-
+    
     
     //MARK: - AddProductTitle/RemoveButtonToStackView
     
@@ -237,7 +234,7 @@ final class CartCollectionCell: UICollectionViewCell {
     }
     
     //MARK: - AddCustomStepperElementsToStackView
-
+    
     private func addStepperElementsToStackView() {
         stepperStackView.addArrangedSubview(stepperPlusButton)
         stepperStackView.addArrangedSubview(stepperLabel)
@@ -256,8 +253,8 @@ final class CartCollectionCell: UICollectionViewCell {
         allInOneStackView.addArrangedSubview(categoryLabel)
         allInOneStackView.addArrangedSubview(bottomView)
     }
-
-
+    
+    
     
     //MARK: - AddSubview
     
@@ -332,8 +329,8 @@ final class CartCollectionCell: UICollectionViewCell {
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
         }
     }
-
-
+    
+    
     
     
     

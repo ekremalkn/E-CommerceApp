@@ -7,12 +7,14 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 
 protocol ProductsViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didFetchAllProductsSuccessful()
     func didFetchSingleProduct(_ product: Product)
+    func didUpdateWishListSuccessful()
 }
 
 final class ProductsViewModel {
@@ -22,10 +24,13 @@ final class ProductsViewModel {
     let manager = Service.shared
     
     private let database = Firestore.firestore()
+    private let currentUser = Auth.auth().currentUser
     
     var allProducts: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
+    
+    var wishList: [String: Int]? = [:]
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
@@ -37,7 +42,7 @@ final class ProductsViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
     
     func fetchSingleProduct(productId id: Int) {
@@ -49,8 +54,8 @@ final class ProductsViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
-
+        
+        
     }
     
     func fetchOnlyCategory() {
@@ -59,11 +64,11 @@ final class ProductsViewModel {
                 self.allCategories = categories
                 self.delegate?.didFetchAllProductsSuccessful()
             }
-                
+            
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
     
     func allProductsToFirestore(products: [Product]?) {
@@ -80,8 +85,46 @@ final class ProductsViewModel {
         }
     }
     
+    //MARK: - Update WishList in Firestore
+    
+    func updateWishList(productId: Int, quantity: Int) {
+        guard let currentUser = currentUser else { return }
+        
+        let userRef = database.collection("Users").document(currentUser.uid)
+        
+        if quantity > 0 {
+            userRef.updateData(["wishList.\(productId)" : quantity]) { error in
+                if let error = error {
+                    self.delegate?.didOccurError(error)
+                } else {
+                    self.delegate?.didUpdateWishListSuccessful()
+                }
+            }
+        } else {
+            userRef.updateData(["wishList.\(productId)" : FieldValue.delete()]) { error in
+                if let error = error {
+                    self.delegate?.didOccurError(error)
+                } else {
+                    self.delegate?.didUpdateWishListSuccessful()
+                }
+            }
+        }
+    }
+    
+    //MARK: - Get WishList From Firestore
+    
+    func fetchWishList() {
+        guard let currentUser = currentUser else { return }
+        
+        let wishListRef = database.collection("Users").document(currentUser.uid)
+        wishListRef.getDocument(source: .default) { documentData, error in
+            if let documentData = documentData {
+                self.wishList = documentData.get("wishList") as? [String: Int]
+                
+            }
+        }
+    }
+    
     
     
 }
-
-

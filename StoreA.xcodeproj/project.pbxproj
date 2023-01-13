@@ -34,6 +34,7 @@
 		F07A7FB429706E3D0099CCAE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F07A7FB329706E3D0099CCAE /* FirebaseFirestoreSwift */; };
 		F07BC7E92971AC6300611EAC /* WishListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BC7E82971AC6300611EAC /* WishListController.swift */; };
 		F07BC7EB2971ACAC00611EAC /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BC7EA2971ACAC00611EAC /* WishListView.swift */; };
+		F07BC7EE2971B07600611EAC /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07BC7ED2971B07600611EAC /* WishListViewModel.swift */; };
 		F0896661296D51F5004C956D /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0896660296D51F5004C956D /* CartView.swift */; };
 		F0896664296D53D4004C956D /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0896663296D53D4004C956D /* CartCollectionCell.swift */; };
 		F0AEDAB329698F0200C6190A /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEDAB229698F0200C6190A /* ProductDetailController.swift */; };
@@ -85,6 +86,7 @@
 		F071DEFC29620AAA001C7FE0 /* WebHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebHelper.swift; sourceTree = "<group>"; };
 		F07BC7E82971AC6300611EAC /* WishListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListController.swift; sourceTree = "<group>"; };
 		F07BC7EA2971ACAC00611EAC /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
+		F07BC7ED2971B07600611EAC /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		F0896660296D51F5004C956D /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
 		F0896663296D53D4004C956D /* CartCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionCell.swift; sourceTree = "<group>"; };
 		F0AEDAB229698F0200C6190A /* ProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 		F07BC7E72971AC4B00611EAC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F07BC7ED2971B07600611EAC /* WishListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				F0B28676296B2A3200C97BD9 /* Encodable+Dictionary.swift in Sources */,
 				F025CCBB2961C5B000C32472 /* OnboardingView.swift in Sources */,
 				F0B28678296B3A5600C97BD9 /* ProductDetailViewModel.swift in Sources */,
+				F07BC7EE2971B07600611EAC /* WishListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

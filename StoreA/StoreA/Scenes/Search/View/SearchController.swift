@@ -11,22 +11,30 @@ final class SearchController: UIViewController {
     deinit {
         print("deinit searchcontroller")
     }
-
+    
     //MARK: - Properties
     private let searchViewModel = SearchViewModel()
     private let searchView = SearchView()
+    
+    //MARK: - SearchController/SearchBar
+    
     private weak var searchController: UISearchController? {
         return searchView.searchController
     }
+    
     private weak var searchBar: UISearchBar? {
         return searchView.searchController.searchBar
     }
     
-    var filteredProducts: [Product] = []
-    
     var isSearchBarEmpty: Bool {
         return searchBar?.text?.isEmpty ?? true
     }
+    
+    //MARK: - Products
+    
+    var filteredProducts: [Product] = []
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,22 +59,21 @@ final class SearchController: UIViewController {
     //MARK: - FilterForSearchText
     
     private func filterForSearchText(_ searchText: String) {
-            if isSearchBarEmpty {
-                searchView.searchResultLabelsStackView.isHidden = true
-            } else {
-                filteredProducts = searchViewModel.allProducts.filter { Product in
-                    Product.title!.lowercased().contains(searchText.lowercased())
-                }
-                searchView.searchResultLabelsStackView.isHidden = false
-                searchView.configure(searchText: searchText, count: filteredProducts.count)
-                
+        if isSearchBarEmpty {
+            searchView.searchResultLabelsStackView.isHidden = true
+        } else {
+            filteredProducts = searchViewModel.allProducts.filter { Product in
+                Product.title!.lowercased().contains(searchText.lowercased())
             }
+            searchView.searchResultLabelsStackView.isHidden = false
+            searchView.configure(searchText: searchText, count: filteredProducts.count)
+            
+        }
         searchView.searchCollection.reloadData()
     }
-
     
     //MARK: - Register Custom Cell
-
+    
     private func collectionCellRegister() {
         searchView.searchCollection.register(ProductCollectionCell.self, forCellWithReuseIdentifier: "ProductCollectionCell")
     }
@@ -83,8 +90,6 @@ final class SearchController: UIViewController {
         searchView.searchCollection.dataSource = self
     }
     
-
-    
 }
 
 //MARK: - SearchBar Methods
@@ -94,12 +99,11 @@ extension SearchController: UISearchBarDelegate, UISearchResultsUpdating {
         guard let searchText = searchBar?.text else { return }
         filterForSearchText(searchText)
     }
-  
+    
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         print("category filter")
     }
     
-
 }
 
 //MARK: - CollectionViewMethods
@@ -111,7 +115,6 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
         } else {
             return filteredProducts.count
         }
-        
         
     }
     
@@ -128,13 +131,13 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            guard let productId = searchViewModel.allProducts[indexPath.row].id else { return }
-            searchViewModel.fetchSingleProduct(productId: productId)
+        guard let productId = searchViewModel.allProducts[indexPath.row].id else { return }
+        searchViewModel.fetchSingleProduct(productId: productId)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: searchView.searchCollection.frame.width / 2 - 10, height: searchView.searchCollection.frame.height / 3 )
-
+        
     }
 }
 
@@ -152,7 +155,7 @@ extension SearchController: SearchViewModelDelegate {
     
     func didFetchFilteredItemsSuccessful() {
         searchView.searchCollection.reloadData()
-
+        
     }
     
     
