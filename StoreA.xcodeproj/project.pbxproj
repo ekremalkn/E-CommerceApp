@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F02041F82972912A00096AC4 /* SpecialProductsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02041F72972912A00096AC4 /* SpecialProductsController.swift */; };
+		F02041FB2972915800096AC4 /* SpecialProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02041FA2972915800096AC4 /* SpecialProductsView.swift */; };
+		F02041FE2972951B00096AC4 /* SpecialProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02041FD2972951B00096AC4 /* SpecialProductsViewModel.swift */; };
 		F023632D2962CB1C0008C4DD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023632C2962CB1C0008C4DD /* HomeView.swift */; };
 		F025CCAC29619CEE00C32472 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCAB29619CEE00C32472 /* AuthViewModel.swift */; };
 		F025CCB52961A0D300C32472 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F025CCB42961A0D200C32472 /* GoogleService-Info.plist */; };
@@ -61,6 +64,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F02041F72972912A00096AC4 /* SpecialProductsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialProductsController.swift; sourceTree = "<group>"; };
+		F02041FA2972915800096AC4 /* SpecialProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialProductsView.swift; sourceTree = "<group>"; };
+		F02041FD2972951B00096AC4 /* SpecialProductsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialProductsViewModel.swift; sourceTree = "<group>"; };
 		F023632C2962CB1C0008C4DD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F025CCAB29619CEE00C32472 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		F025CCB42961A0D200C32472 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -127,6 +133,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F02041F4297290FE00096AC4 /* SpecialProducts */ = {
+			isa = PBXGroup;
+			children = (
+				F02041F52972910B00096AC4 /* View */,
+			);
+			path = SpecialProducts;
+			sourceTree = "<group>";
+		};
+		F02041F52972910B00096AC4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F02041FC2972950A00096AC4 /* ViewModel */,
+				F02041F62972911000096AC4 /* Cell */,
+				F02041F72972912A00096AC4 /* SpecialProductsController.swift */,
+				F02041FA2972915800096AC4 /* SpecialProductsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F02041F62972911000096AC4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F02041FC2972950A00096AC4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F02041FD2972951B00096AC4 /* SpecialProductsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F025CCA629619CB700C32472 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +496,7 @@
 		F0B6C5DD2967503E00E6F462 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F02041F4297290FE00096AC4 /* SpecialProducts */,
 				F0AEDAB029698E9100C6190A /* ProductDetail */,
 				F0B6C5DC2967503400E6F462 /* Search */,
 				F0B6C5D5296732CF00E6F462 /* Profile */,
@@ -646,7 +687,9 @@
 				F071DEFD29620AAA001C7FE0 /* WebHelper.swift in Sources */,
 				F0B6C5DB2967334300E6F462 /* ProfileController.swift in Sources */,
 				F0FC91B02961FC4000351C96 /* WebService.swift in Sources */,
+				F02041FB2972915800096AC4 /* SpecialProductsView.swift in Sources */,
 				F0B6C5E2296752F900E6F462 /* SearchView.swift in Sources */,
+				F02041F82972912A00096AC4 /* SpecialProductsController.swift in Sources */,
 				F0D419EA2970A6540028B437 /* Double+Rounded.swift in Sources */,
 				F055AA9D2960A533005A2DE7 /* SignInController.swift in Sources */,
 				F0FC91AA2961F31A00351C96 /* NetworkManager.swift in Sources */,
@@ -654,6 +697,7 @@
 				F03FB063295F2A7000884E84 /* AppDelegate.swift in Sources */,
 				F025CCB92961B52700C32472 /* SignInView.swift in Sources */,
 				F0AEDAB329698F0200C6190A /* ProductDetailController.swift in Sources */,
+				F02041FE2972951B00096AC4 /* SpecialProductsViewModel.swift in Sources */,
 				F025CCAC29619CEE00C32472 /* AuthViewModel.swift in Sources */,
 				F025CCBF2961CC3E00C32472 /* Alert.swift in Sources */,
 				F03FB065295F2A7000884E84 /* SceneDelegate.swift in Sources */,

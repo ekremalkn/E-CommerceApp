@@ -11,9 +11,9 @@ import SnapKit
 //MARK: - OnboardingViewInterface Protocol
 
 protocol OnboardingViewInterface: AnyObject {
-    func onboardingView(_ view: OnboardingView, didTapContiuneButton button: UIButton)
-    func onboardingView(_ view: OnboardingView, didTapSkipButton button: UIButton)
-    func onboardingView(_ view: OnboardingView, didTapSignInButton button: UIButton)
+    func onboardingView(_ view: OnboardingView, contiuneButtonTapped button: UIButton)
+    func onboardingView(_ view: OnboardingView, skipButtonTapped button: UIButton)
+    func onboardingView(_ view: OnboardingView, signInButtonTapped button: UIButton)
 }
 
 final class OnboardingView: UIView {
@@ -175,7 +175,7 @@ final class OnboardingView: UIView {
     
     @objc private func contiuneButtonTapped(_ button: UIButton) {
         if currentPage == slides.count - 1 {
-            interface?.onboardingView(self, didTapContiuneButton: button)
+            interface?.onboardingView(self, contiuneButtonTapped: button)
         } else {
             collection.isPagingEnabled = false
             currentPage += 1
@@ -186,11 +186,11 @@ final class OnboardingView: UIView {
     }
     
     @objc private func skipButtonTapped(_ button: UIButton) {
-        interface?.onboardingView(self, didTapSkipButton: button)
+        interface?.onboardingView(self, skipButtonTapped: button)
     }
     
     @objc private func signInButtonTapped(_ button: UIButton) {
-        interface?.onboardingView(self, didTapSignInButton: button)
+        interface?.onboardingView(self, signInButtonTapped: button)
     }
     
     //MARK: - StackView AddSubview
@@ -240,17 +240,17 @@ extension OnboardingView: UICollectionViewDelegate, UICollectionViewDataSource, 
 //MARK: - OnboardingViewInterface Methods
 
 extension OnboardingController: OnboardingViewInterface {
-    func onboardingView(_ view: OnboardingView, didTapContiuneButton button: UIButton) {
+    func onboardingView(_ view: OnboardingView, contiuneButtonTapped button: UIButton) {
         let signUpVC = SignUpController()
         navigationController?.pushViewController(signUpVC, animated: true)
     }
     
-    func onboardingView(_ view: OnboardingView, didTapSkipButton button: UIButton) {
+    func onboardingView(_ view: OnboardingView, skipButtonTapped button: UIButton) {
         let signUpVC = SignUpController()
         navigationController?.pushViewController(signUpVC, animated: true)
     }
     
-    func onboardingView(_ view: OnboardingView, didTapSignInButton button: UIButton) {
+    func onboardingView(_ view: OnboardingView, signInButtonTapped button: UIButton) {
         let signInVC = SignInController()
         navigationController?.pushViewController(signInVC, animated: true)
     }

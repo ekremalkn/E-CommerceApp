@@ -19,6 +19,9 @@ protocol ProductsViewModelDelegate: AnyObject {
 
 final class ProductsViewModel {
     
+    deinit {
+        print("deinit ProductsViewModel")
+    }
     weak var delegate: ProductsViewModelDelegate?
     
     let manager = Service.shared
@@ -30,7 +33,16 @@ final class ProductsViewModel {
     var singleProduct: Product?
     var allCategories = Categories()
     
-    var wishList: [String: Int]? = [:]
+    var wishList: [String: Int]? = [:] {
+        didSet {
+            guard let wishList = wishList else { return }
+            if wishList.isEmpty == true {
+                
+            } else {
+                fetchQuantity(wishList: wishList)
+            }
+        }
+    }
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
@@ -124,6 +136,29 @@ final class ProductsViewModel {
             }
         }
     }
+    
+    //MARK: - FetchQuantity From WishListFristore
+    
+    func fetchQuantity(wishList: [String: Int]) {
+        let productRef = database.collection("products")
+        
+        for (id, quantity) in wishList {
+            let product = productRef.document(id)
+            
+            product.getDocument(source: .default) { documentData, error in
+                guard let documentData = documentData else { return }
+                
+                if documentData.exists == true {
+                    print("Wishlistteki ürün karşılığı bulundu ve değeri \(quantity)")
+                } else {
+                    print("Wishlistteki ürün karşılığı bulunamadı")
+                }
+            }
+        }
+    }
+
+    
+    
     
     
     

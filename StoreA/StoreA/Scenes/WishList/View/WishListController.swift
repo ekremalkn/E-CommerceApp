@@ -8,10 +8,15 @@
 import UIKit
 
 final class WishListController: UIViewController {
+    
+    deinit {
+        print("deinit wishlistcontroller")
+    }
    
     //MARK: - Properties
     private let wishListViewModel = WishListViewModel()
     private let wishListView = WishListView()
+
 
     
     //MARK: - Lifecycle
@@ -64,19 +69,25 @@ extension WishListController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = wishListView.wishListCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
         cell.interface = self
+        cell.addToWishListButton.isSelected = true
         cell.configure(data: wishListViewModel.wishListProducts[indexPath.row])
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let productId = wishListViewModel.wishListProducts[indexPath.row].id else { return }
+        wishListViewModel.fetchSingleProduct(productId)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: wishListView.wishListCollection.frame.width / 2 - 10, height: wishListView.wishListCollection.frame.height / 3)
+        return CGSize(width: wishListView.wishListCollection.frame.width / 2 - 10, height: wishListView.wishListCollection.frame.width / 2)
     }
     
     
 }
 
 extension WishListController: ProductCollectionCellInterface {
-    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, didWishButtonTapped button: UIButton) {
+    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, wishButtonTapped button: UIButton) {
         let indexPath = wishListViewModel.getProductIndexPath(productId: productId)
         wishListView.wishListCollection.deleteItems(at: [indexPath])
         wishListViewModel.removeProduct(index: indexPath.row)
@@ -87,6 +98,7 @@ extension WishListController: ProductCollectionCellInterface {
 }
 
 extension WishListController: WishListViewModelDelegate {
+
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -99,5 +111,12 @@ extension WishListController: WishListViewModelDelegate {
         wishListView.wishListCollection.reloadData()
     }
     
+    func didFetchSingleProduct(_ product: Product) {
+        let controller = ProductDetailController(product: product)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func didFetchQuantity() {
+    }
     
 }

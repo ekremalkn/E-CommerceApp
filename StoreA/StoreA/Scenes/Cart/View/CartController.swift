@@ -37,6 +37,7 @@ final class CartController: UIViewController {
     //MARK: - Configure ViewController
     
     private func configureViewController() {
+        title = "Cart"
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.tabBarController?.tabBar.backgroundColor = .white
@@ -81,6 +82,11 @@ extension CartController: UICollectionViewDelegate, UICollectionViewDataSource, 
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let productId = cartViewModel.cartsProducts[indexPath.row].id else { return }
+        cartViewModel.fetchSingleProduct(productId)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: cartView.cartCollection.frame.width - 30, height: 150)
     }
@@ -91,7 +97,7 @@ extension CartController: UICollectionViewDelegate, UICollectionViewDataSource, 
 //MARK: - CartCollectionCellInterface
 
 extension CartController: CartCollectionCellInterface {
-    func cartCollectionCell(_ view: CartCollectionCell, productId: Int, didStepperValueChanged quantity: Int) {
+    func cartCollectionCell(_ view: CartCollectionCell, productId: Int, stepperValueChanged quantity: Int) {
         if quantity == 0 {
             let indexPath = cartViewModel.getProductIndexPath(productId: productId)
             cartView.cartCollection.deleteItems(at: [indexPath])
@@ -100,7 +106,7 @@ extension CartController: CartCollectionCellInterface {
         cartViewModel.updateCart(productId: productId, quantity: quantity)
     }
     
-    func cartCollectionCell(_ view: CartCollectionCell, productId: Int, didRemoveButtonTapped quantity: Int) {
+    func cartCollectionCell(_ view: CartCollectionCell, productId: Int, removeButtonTapped quantity: Int) {
         let indextPath = cartViewModel.getProductIndexPath(productId: productId)
         cartView.cartCollection.deleteItems(at: [indextPath])
         cartViewModel.removeProduct(index: indextPath.row)
@@ -113,7 +119,7 @@ extension CartController: CartCollectionCellInterface {
 //MARK: - CartViewModelDelegate
 
 extension CartController: CartViewModelDelegate {
-    
+ 
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -129,5 +135,11 @@ extension CartController: CartViewModelDelegate {
     func didFetchCostAccToItemCount() {
         cartView.priceLabel.text = "$\(cartViewModel.totalCost)"
     }
+    
+    func didFetchSingleProduct(_ product: Product) {
+        let controller = ProductDetailController(product: product)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     
 }

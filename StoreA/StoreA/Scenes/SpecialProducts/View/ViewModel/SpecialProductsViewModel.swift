@@ -1,50 +1,47 @@
 //
-//  SearchViewModel.swift
+//  SpecialProductsViewModel.swift
 //  StoreA
 //
-//  Created by Ekrem Alkan on 5.01.2023.
+//  Created by Ekrem Alkan on 14.01.2023.
 //
 
 import Foundation
 
-protocol SearchViewModelDelegate: AnyObject {
+
+protocol SpecialProductsViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
-    func didFetchSearchProductsSuccessful()
+    func didFetchSpecialProductsSuccessful()
     func didFetchSingleProduct(_ product: Product)
 }
-
-final class SearchViewModel {
+final class SpecialProductsViewModel {
+    
     deinit {
-        print("deinit searchviewmodel")
+        print("deinit SpecialProductsViewModel")
     }
-    
-    //MARK: - SearchViewModelDelegate
 
-    weak var delegate: SearchViewModelDelegate?
+    weak var delegate: SpecialProductsViewModelDelegate?
     
-    //MARK: - Properties
-
     let manager = Service.shared
-
-    //MARK: - Products
-
-    var allProducts = [Product]()
-    var singleProduct: Product?
     
-    func fetchAllProducts() {
+    var singleProduct: Product?
+    var specialProducts: [Product] = []
+    
+    
+    func fetchSpecialProducts() {
         manager.fetchProducts(type: .fetchAllProducts) { products in
             if let products = products {
-                self.allProducts = products
-                self.delegate?.didFetchSearchProductsSuccessful()
+                self.specialProducts = products.shuffled()
+                self.delegate?.didFetchSpecialProductsSuccessful()
             }
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-        
+
     }
     
-    func fetchSingleProduct(productId id: Int) {
-        manager.fetchSingleProduct(type: .fetchSingleProducts(id: id)) { product in
+    
+    func fetchSingleProduct(_ productId: Int) {
+        manager.fetchSingleProduct(type: .fetchSingleProducts(id: productId)) { product in
             if let product = product {
                 self.singleProduct = product
                 self.delegate?.didFetchSingleProduct(product)
@@ -52,6 +49,7 @@ final class SearchViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-        
+
     }
+    
 }

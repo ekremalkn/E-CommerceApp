@@ -11,8 +11,8 @@ import SnapKit
 //MARK: - SignUpViewInterface Protocol
 
 protocol SignUpViewInterface: AnyObject {
-    func signUpView(_ view: SignUpView, didTapSignUpButton button: UIButton)
-    func signUpView(_ view: SignUpView, didTapSignInButton button: UIButton)
+    func signUpView(_ view: SignUpView, signUpButtonTapped button: UIButton)
+    func signUpView(_ view: SignUpView, signInButtonTapped button: UIButton)
 } 
 
 final class SignUpView: UIView {
@@ -196,11 +196,11 @@ final class SignUpView: UIView {
     }
     
     @objc private func signInButtonTapped(_ button: UIButton) {
-        interface?.signUpView(self, didTapSignInButton: button)
+        interface?.signUpView(self, signInButtonTapped: button)
     }
     
     @objc private func signUpButtonTapped(_ button: UIButton) {
-        interface?.signUpView(self, didTapSignUpButton: button)
+        interface?.signUpView(self, signUpButtonTapped: button)
     }
     
     //MARK: - StackView AddSubview

@@ -8,8 +8,9 @@
 import UIKit
 
 protocol HomeViewInterface: AnyObject {
-    func homeView(_ view: HomeView, didCartButtonTapped button: UIButton)
-    func homeView(_ view: HomeView, didWishListButtonTapped button: UIButton)
+    func homeView(_ view: HomeView, cartButtonTapped button: UIButton)
+    func homeView(_ view: HomeView, wishListButtonTapped button: UIButton)
+    func homeView(_ view: HomeView, seeAllButtonTapped button: UIButton )
 }
 
 final class HomeView: UIView {
@@ -203,16 +204,21 @@ final class HomeView: UIView {
     private func addTarget() {
         cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
         wishListButton.addTarget(self, action: #selector(wishListButtonTapped), for: .touchUpInside)
+        seeAllButton.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
     }
        
     //MARK: - Buttons actions
     
     @objc private func cartButtonTapped(_ button: UIButton) {
-        interface?.homeView(self, didCartButtonTapped: button)
+        interface?.homeView(self, cartButtonTapped: button)
     }
     
     @objc private func wishListButtonTapped(_ button: UIButton) {
-        interface?.homeView(self, didWishListButtonTapped: button)
+        interface?.homeView(self, wishListButtonTapped: button)
+    }
+    
+    @objc private func seeAllButtonTapped(_ button: UIButton) {
+        interface?.homeView(self, seeAllButtonTapped: button)
     }
     
  

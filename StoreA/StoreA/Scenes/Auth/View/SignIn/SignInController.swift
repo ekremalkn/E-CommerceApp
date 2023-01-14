@@ -46,11 +46,11 @@ final class SignInController: UIViewController {
 }
 
 extension SignInController: SignInViewInterface {
-    func signInView(_ view: SignInView, didTapSignInButton button: UIButton) {
+    func signInView(_ view: SignInView, signInButtonTapped button: UIButton) {
         authViewModel.signIn(email: email, password: password)
     }
     
-    func signInView(_ view: SignInView, didTapSignUpButton button: UIButton) {
+    func signInView(_ view: SignInView, signUpButtonTapped button: UIButton) {
         let signUpVC = SignUpController()
         navigationController?.pushViewController(signUpVC, animated: true)
     }

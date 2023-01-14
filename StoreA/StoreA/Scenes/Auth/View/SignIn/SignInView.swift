@@ -10,8 +10,8 @@ import UIKit
 //MARK: - SignInViewInterface Protocol
 
 protocol SignInViewInterface: AnyObject {
-    func signInView(_ view: SignInView, didTapSignInButton button: UIButton)
-    func signInView(_ view: SignInView, didTapSignUpButton button: UIButton)
+    func signInView(_ view: SignInView, signInButtonTapped button: UIButton)
+    func signInView(_ view: SignInView, signUpButtonTapped button: UIButton)
 }
 
 final class SignInView: UIView {
@@ -161,10 +161,10 @@ final class SignInView: UIView {
     }
     
     @objc private func signInButtonTapped(_ button: UIButton) {
-        interface?.signInView(self, didTapSignInButton: button)
+        interface?.signInView(self, signInButtonTapped: button)
     }
     @objc private func signUpButtonTapped(_ button: UIButton) {
-        interface?.signInView(self, didTapSignUpButton: button)
+        interface?.signInView(self, signUpButtonTapped: button)
     }
     
     

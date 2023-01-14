@@ -89,13 +89,13 @@ extension ProductDetailController: ProductDetailViewModelDelegate {
 //MARK: - ProductDetailViewInterface
 
 extension ProductDetailController: ProductDetailViewInterface {
-    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton, quantity: Int) {
+    func productDetailView(_ view: ProductDetailView, addToCartButtonTapped button: UIButton, quantity: Int) {
         guard let id = product.id else { return }
         productDetailViewModel.updateCart(productId: id, quantity: quantity)
         
     }
     
-    func productDetailView(_ view: ProductDetailView, didStepperValueChanged quantity: Int) {
+    func productDetailView(_ view: ProductDetailView, stepperValueChanged quantity: Int) {
         guard let id = product.id else { return }
         productDetailViewModel.updateCart(productId: id, quantity: quantity)
     }

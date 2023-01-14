@@ -17,7 +17,7 @@ protocol ProductCollectionCellProtocol {
 }
 
 protocol ProductCollectionCellInterface: AnyObject {
-    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, didWishButtonTapped button: UIButton)
+    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, wishButtonTapped button: UIButton)
 }
 
 class ProductCollectionCell: UICollectionViewCell {
@@ -33,7 +33,7 @@ class ProductCollectionCell: UICollectionViewCell {
     
     private var productImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -164,9 +164,9 @@ class ProductCollectionCell: UICollectionViewCell {
     @objc private func addToWishListButtonTapped(_ button: UIButton) {
         guard let productId = productId else { return }
         if addToWishListButton.isSelected == false {
-            interface?.productCollectionCell(self, productId: productId, quantity: 1, didWishButtonTapped: button)
+            interface?.productCollectionCell(self, productId: productId, quantity: 1, wishButtonTapped: button)
         } else {
-            interface?.productCollectionCell(self, productId: productId, quantity: 0, didWishButtonTapped: button)
+            interface?.productCollectionCell(self, productId: productId, quantity: 0, wishButtonTapped: button)
         }
         addToWishListButton.isSelected.toggle()
         

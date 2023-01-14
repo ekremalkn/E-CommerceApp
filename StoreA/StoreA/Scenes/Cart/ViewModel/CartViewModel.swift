@@ -15,6 +15,7 @@ protocol CartViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didUpdateCartSuccessful()
     func didFetchProductsFromCartSuccessful()
+    func didFetchSingleProduct(_ product: Product)
     func didFetchCostAccToItemCount()
 }
 
@@ -30,10 +31,12 @@ final class CartViewModel {
     
     //MARK: - Properties
     
+    let manager = Service.shared
+    
     private let database = Firestore.firestore()
     private let currentUser = Auth.auth().currentUser
     
-    
+    var singleProduct: Product?
     
     var cartsProducts: [Product] = [] {
         didSet {
@@ -164,6 +167,21 @@ final class CartViewModel {
             }
         }
     }
+    
+    //MARK: - FetchSingleProduct
+    
+    func fetchSingleProduct(_ productId: Int) {
+        manager.fetchSingleProduct(type: .fetchSingleProducts(id: productId)) { product in
+            if let product = product {
+                self.singleProduct = product
+                self.delegate?.didFetchSingleProduct(product)
+            }
+        } onError: { error in
+            self.delegate?.didOccurError(error)
+        }
+
+    }
+
     
     //MARK: - GetProductIndexPath
     

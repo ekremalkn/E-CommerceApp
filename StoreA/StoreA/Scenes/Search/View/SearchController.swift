@@ -153,9 +153,8 @@ extension SearchController: SearchViewModelDelegate {
         print(error.localizedDescription)
     }
     
-    func didFetchFilteredItemsSuccessful() {
+    func didFetchSearchProductsSuccessful() {
         searchView.searchCollection.reloadData()
-        
     }
     
     

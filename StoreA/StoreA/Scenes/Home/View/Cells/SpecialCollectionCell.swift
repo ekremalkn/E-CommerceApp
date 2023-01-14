@@ -65,6 +65,8 @@ class SpecialCollectionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
+        layer.cornerRadius = 30
         addSubview()
         addSpecialLabelsToStackView()
         setupConstraints()

@@ -9,8 +9,8 @@ import UIKit
 //MARK: - ProductDetailViewInterface Protocol
 
 protocol ProductDetailViewInterface: AnyObject {
-    func productDetailView(_ view: ProductDetailView, didTapAddToCartButton button: UIButton, quantity: Int)
-    func productDetailView(_ view: ProductDetailView, didStepperValueChanged quantity: Int)
+    func productDetailView(_ view: ProductDetailView, addToCartButtonTapped button: UIButton, quantity: Int)
+    func productDetailView(_ view: ProductDetailView, stepperValueChanged quantity: Int)
 }
 
 //MARK: - ProductDetailViewProtocol
@@ -347,20 +347,20 @@ final class ProductDetailView: UIView {
         }
         stepperStackView.isHidden = false
         quantityLabel.isHidden = false
-        self.interface?.productDetailView(self, didTapAddToCartButton: button, quantity: quantity)
+        self.interface?.productDetailView(self, addToCartButtonTapped: button, quantity: quantity)
     }
     
     //MARK: - CustomStepper Actions
 
     @objc private func stepperPlusButtonTapped(_ button: UIButton) {
         quantity = quantity + 1
-        interface?.productDetailView(self, didStepperValueChanged: quantity)
+        interface?.productDetailView(self, stepperValueChanged: quantity)
 
     }
     
     @objc private func stepperMinusButtonTapped(_ button: UIButton) {
             quantity = quantity - 1
-        interface?.productDetailView(self, didStepperValueChanged: quantity)
+        interface?.productDetailView(self, stepperValueChanged: quantity)
 
     }
     

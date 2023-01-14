@@ -14,9 +14,15 @@ protocol WishListViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didUpdateWishListSuccessful()
     func didFetchProductsFromWishListSuccessful()
+    func didFetchSingleProduct(_ product: Product)
+    func didFetchQuantity()
 }
 
 final class WishListViewModel {
+    
+    deinit {
+        print("deinit WishListViewModel")
+    }
     
     //MARK: - WishListViewModelDelegate
 
@@ -27,7 +33,10 @@ final class WishListViewModel {
     private let database = Firestore.firestore()
     private let currentUser = Auth.auth().currentUser
     
+    let manager = Service.shared
+    
     var wishListProducts: [Product] = []
+    var singleProduct: Product?
     
     var wishList: [String: Int]? = [:] {
         didSet {
@@ -82,6 +91,25 @@ final class WishListViewModel {
         }
     }
     
+    func fetchQuantity(wishList: [String: Int]) {
+        let productRef = database.collection("products")
+        
+        for (id, quantity) in wishList{
+            let product = productRef.document(id)
+            
+            product.getDocument(source: .default) { documentData, error in
+                guard let documentData = documentData else { return }
+                
+                if documentData.exists == true {
+                    self.delegate?.didFetchQuantity()
+                } else {
+                    print("Wishlistteki ürün karşılığı bulunamadı")
+                }
+            }
+        }
+        
+    }
+    
     //MARK: - Fetch Product From FirestoreCollection to wishListProducts
     
     func fetchProductFromFireStoreCollection(wishList: [String: Int]) {
@@ -105,6 +133,21 @@ final class WishListViewModel {
             }
         }
     }
+    
+    //MARK: - FetchSingleProduct
+    
+    func fetchSingleProduct(_ productId: Int) {
+        manager.fetchSingleProduct(type: .fetchSingleProducts(id: productId)) { product in
+            if let product = product {
+                self.singleProduct = product
+                self.delegate?.didFetchSingleProduct(product)
+            }
+        } onError: { error in
+            self.delegate?.didOccurError(error)
+        }
+
+    }
+
     
     //MARK: - GetProductIndexPath
     
