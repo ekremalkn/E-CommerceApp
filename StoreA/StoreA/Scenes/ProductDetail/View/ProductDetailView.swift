@@ -11,6 +11,7 @@ import UIKit
 protocol ProductDetailViewInterface: AnyObject {
     func productDetailView(_ view: ProductDetailView, addToCartButtonTapped button: UIButton, quantity: Int)
     func productDetailView(_ view: ProductDetailView, stepperValueChanged quantity: Int)
+    func productDetailView(_ view: ProductDetailView, quantity: Int, addToWishListButtonTapped button: UIButton)
 }
 
 //MARK: - ProductDetailViewProtocol
@@ -49,7 +50,7 @@ final class ProductDetailView: UIView {
         return label
     }()
     
-    private let favButton: UIButton = {
+     let addToWishListButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -325,6 +326,7 @@ final class ProductDetailView: UIView {
         addSubview()
         setupConstraints()
         addTarget()
+        toggleAddToWishListButton()
     }
     
     required init?(coder: NSCoder) {
@@ -337,6 +339,7 @@ final class ProductDetailView: UIView {
         addToCartButton.addTarget(self, action: #selector(addToCartButtonTapped), for: .touchUpInside)
         stepperPlusButton.addTarget(self, action: #selector(stepperPlusButtonTapped), for: .touchUpInside)
         stepperMinusButton.addTarget(self, action: #selector(stepperMinusButtonTapped), for: .touchUpInside)
+        addToWishListButton.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
     }
     
     @objc private func addToCartButtonTapped(_ button: UIButton) {
@@ -364,9 +367,25 @@ final class ProductDetailView: UIView {
 
     }
     
+    @objc private func addToWishListButtonTapped(_ button: UIButton) {
+        if addToWishListButton.isSelected == false {
+            interface?.productDetailView(self, quantity: 1, addToWishListButtonTapped: button)
+        } else {
+            interface?.productDetailView(self, quantity: 0, addToWishListButtonTapped: button)
+        }
+        addToWishListButton.isSelected.toggle()
+    }
+    
     private func toggleStepperElements() {
         stepperStackView.isHidden = !stepperStackView.isHidden
         quantityLabel.isHidden = !quantityLabel.isHidden
+    }
+    
+    func toggleAddToWishListButton() {
+        let image = UIImage(systemName: "heart")
+        let imageFilled = UIImage(systemName: "heart.fill")
+        addToWishListButton.setImage(image, for: .normal)
+        addToWishListButton.setImage(imageFilled, for: .selected)
     }
     
      func configure(data: ProductDetailViewProtocol) {
@@ -383,7 +402,7 @@ final class ProductDetailView: UIView {
 
     private func addFavBtnTitleLblToStackView() {
         favButtonTitleStackView.addArrangedSubview(productTitle)
-        favButtonTitleStackView.addArrangedSubview(favButton)
+        favButtonTitleStackView.addArrangedSubview(addToWishListButton)
     }
     
     //MARK: - AddRatingElementsToStackView
@@ -490,7 +509,7 @@ extension ProductDetailView {
     }
     
     private func favButtonConstraints() {
-        favButton.snp.makeConstraints { make in
+        addToWishListButton.snp.makeConstraints { make in
             make.width.equalTo(45)
         }
     }
@@ -500,7 +519,7 @@ extension ProductDetailView {
             make.top.equalTo(productImage.snp.bottom).offset(10)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
-            make.bottom.equalTo(favButton.snp.bottom)
+            make.bottom.equalTo(addToWishListButton.snp.bottom)
         }
     }
     

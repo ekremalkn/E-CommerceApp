@@ -47,7 +47,7 @@ final class CartController: UIViewController {
     //MARK: -  Register Custom Cell
     
     private func collectionCellRegister() {
-        cartView.cartCollection.register(CartCollectionCell.self, forCellWithReuseIdentifier: "CartCollectionCell")
+        cartView.cartCollection.register(CartCollectionCell.self, forCellWithReuseIdentifier: CartCollectionCell.identifier)
     }
     
     //MARK: - Setup Delegates
@@ -71,7 +71,7 @@ extension CartController: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = cartView.cartCollection.dequeueReusableCell(withReuseIdentifier: "CartCollectionCell", for: indexPath) as? CartCollectionCell else { return UICollectionViewCell()}
+        guard let cell = cartView.cartCollection.dequeueReusableCell(withReuseIdentifier: CartCollectionCell.identifier, for: indexPath) as? CartCollectionCell else { return UICollectionViewCell()}
         cell.interface = self
         if let productId = cartViewModel.cartsProducts[indexPath.row].id {
             if let quantity = cartViewModel.cart?["\(productId)"] {

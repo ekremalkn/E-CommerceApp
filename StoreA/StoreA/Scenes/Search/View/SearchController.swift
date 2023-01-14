@@ -13,6 +13,7 @@ final class SearchController: UIViewController {
     }
     
     //MARK: - Properties
+    private let productsViewModel = ProductsViewModel()
     private let searchViewModel = SearchViewModel()
     private let searchView = SearchView()
     
@@ -75,7 +76,7 @@ final class SearchController: UIViewController {
     //MARK: - Register Custom Cell
     
     private func collectionCellRegister() {
-        searchView.searchCollection.register(ProductCollectionCell.self, forCellWithReuseIdentifier: "ProductCollectionCell")
+        searchView.searchCollection.register(ProductCollectionCell.self, forCellWithReuseIdentifier: ProductCollectionCell.identifier)
     }
     
     //MARK: - Setup Delegates
@@ -101,7 +102,8 @@ extension SearchController: UISearchBarDelegate, UISearchResultsUpdating {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        print("category filter")
+        let filterVC = FilterController()
+        present(filterVC, animated: true)
     }
     
 }
@@ -119,7 +121,8 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = searchView.searchCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
+        guard let cell = searchView.searchCollection.dequeueReusableCell(withReuseIdentifier: ProductCollectionCell.identifier, for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
+        cell.interface = self
         if isSearchBarEmpty {
             cell.configure(data: searchViewModel.allProducts[indexPath.row])
             return cell
@@ -144,6 +147,7 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
 //MARK: - SearchViewModelDelegate
 
 extension SearchController: SearchViewModelDelegate {
+    
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -155,6 +159,13 @@ extension SearchController: SearchViewModelDelegate {
     
     func didFetchSearchProductsSuccessful() {
         searchView.searchCollection.reloadData()
+    }
+
+}
+
+extension SearchController: ProductCollectionCellInterface {
+    func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, wishButtonTapped button: UIButton) {
+        productsViewModel.updateWishList(productId: productId, quantity: quantity)
     }
     
     

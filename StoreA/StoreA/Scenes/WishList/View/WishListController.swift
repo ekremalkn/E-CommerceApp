@@ -46,7 +46,7 @@ final class WishListController: UIViewController {
     //MARK: - Register Custom Cell
     
     private func collectionCellRegister() {
-        wishListView.wishListCollection.register(ProductCollectionCell.self, forCellWithReuseIdentifier: "ProductCollectionCell")
+        wishListView.wishListCollection.register(ProductCollectionCell.self, forCellWithReuseIdentifier: ProductCollectionCell.identifier)
     }
     
     //MARK: - Setup Delegates
@@ -67,7 +67,7 @@ extension WishListController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = wishListView.wishListCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
+        guard let cell = wishListView.wishListCollection.dequeueReusableCell(withReuseIdentifier: ProductCollectionCell.identifier, for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
         cell.interface = self
         cell.addToWishListButton.isSelected = true
         cell.configure(data: wishListViewModel.wishListProducts[indexPath.row])

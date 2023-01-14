@@ -13,6 +13,7 @@ protocol ProductDetailViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didUpdateCartSuccessful(quantity: Int)
     func didFetchCartCostSuccessful(productId: Int, quantity: Int)
+    func didFetchWishListSuccessful(productId: Int)
 }
 
 final class ProductDetailViewModel {
@@ -26,13 +27,17 @@ final class ProductDetailViewModel {
     private let currentUser = Auth.auth().currentUser
     
     var cartCost: Double?
+    var wishListProduct: Product?
     
     var cart: [String: Int]? = [:]
+    var wishList: [String: Int]? = [:]
     
+    //MARK: - FetchCart
+
     func fetchCart(productId: Int) {
         guard let currentUser = currentUser else { return }
         
-        let cartRef = database.collection("Users").document("\(currentUser.uid)")
+        let cartRef = database.collection("Users").document(currentUser.uid)
         cartRef.getDocument(source: .default) { documentData, error in
             if let documentData = documentData {
                 self.cart = documentData.get("cart") as? [String: Int]
@@ -60,6 +65,29 @@ final class ProductDetailViewModel {
         }
     }
     
+    
+    //MARK: - FetchWishList
+    
+    func fetchWishList(productId: Int) {
+        guard let currentUser = currentUser else { return }
+        
+        let wishListRef = database.collection("Users").document(currentUser.uid)
+        wishListRef.getDocument(source: .default) { documentData, error in
+            guard let documentData = documentData else { return }
+            self.wishList = documentData.get("wishList") as? [String: Int]
+            if let wishList = self.wishList {
+                for (id, _) in wishList{
+                    if id == String(productId) {
+                        self.delegate?.didFetchWishListSuccessful(productId: productId)
+                    } else {
+                        print("bu ürün wishlist'te yok")
+                    }
+                }
+            }
+            
+        }
+    }
+
     //MARK: - Update Cart in Firestore
     
     func updateCart(productId: Int, quantity: Int) {

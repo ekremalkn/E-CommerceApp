@@ -39,6 +39,12 @@ enum ProductsSpecificCategoryWebEndPoint {
         }
     }
     
-    
-    
 }
+
+enum ProductCategory {
+    case electronics
+    case jewelery
+    case mensclothing
+    case womensclothing
+}
+ 

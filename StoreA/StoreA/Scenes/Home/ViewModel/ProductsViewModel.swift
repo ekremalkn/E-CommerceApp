@@ -16,7 +16,8 @@ protocol ProductsViewModelDelegate: AnyObject {
     func didFetchAllCategories()
     func didFetchProductsByCategorySuccessful()
     func didFetchSingleProduct(_ product: Product)
-    func didUpdateWishListSuccessful()
+    func didUpdateWishListSuccessful(productId: Int)
+    func didFetchWishListSuccessful(productId: Int)
 }
 
 final class ProductsViewModel {
@@ -31,25 +32,18 @@ final class ProductsViewModel {
     private let database = Firestore.firestore()
     private let currentUser = Auth.auth().currentUser
     
-    var products: [Product] = []
+    var allProducts: [Product] = []
+    var productsByCategory: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
     
-    var wishList: [String: Int]? = [:] {
-        didSet {
-            guard let wishList = wishList else { return }
-            if wishList.isEmpty == true {
-                
-            } else {
-                fetchQuantity(wishList: wishList)
-            }
-        }
-    }
+    var wishList: [String: Int]? = [:]
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
             if let products = products {
-                self.products = products
+                self.allProducts = products.shuffled()
+                self.productsByCategory = products
                 self.allProductsToFirestore(products: products)
                 self.delegate?.didFetchAllProductsSuccessful()
             }
@@ -88,7 +82,7 @@ final class ProductsViewModel {
     func fetchProductByCategory(_ category: String) {
         manager.fetchProductByCategory(type: .fetchProdudctByCategory(category: category)) { products in
             if let products = products {
-                self.products = products
+                self.productsByCategory = products
                 self.delegate?.didFetchProductsByCategorySuccessful()
             }
         } onError: { error in
@@ -123,7 +117,7 @@ final class ProductsViewModel {
                 if let error = error {
                     self.delegate?.didOccurError(error)
                 } else {
-                    self.delegate?.didUpdateWishListSuccessful()
+                    self.delegate?.didUpdateWishListSuccessful(productId: productId)
                 }
             }
         } else {
@@ -131,7 +125,7 @@ final class ProductsViewModel {
                 if let error = error {
                     self.delegate?.didOccurError(error)
                 } else {
-                    self.delegate?.didUpdateWishListSuccessful()
+                    self.delegate?.didUpdateWishListSuccessful(productId: productId)
                 }
             }
         }
@@ -139,39 +133,38 @@ final class ProductsViewModel {
     
     //MARK: - Get WishList From Firestore
     
-    func fetchWishList() {
+    func fetchWishList(productId: Int) {
         guard let currentUser = currentUser else { return }
         
         let wishListRef = database.collection("Users").document(currentUser.uid)
         wishListRef.getDocument(source: .default) { documentData, error in
-            if let documentData = documentData {
-                self.wishList = documentData.get("wishList") as? [String: Int]
-                
-            }
-        }
-    }
-    
-    //MARK: - FetchQuantity From WishListFristore
-    
-    func fetchQuantity(wishList: [String: Int]) {
-        let productRef = database.collection("products")
-        
-        for (id, quantity) in wishList {
-            let product = productRef.document(id)
-            
-            product.getDocument(source: .default) { documentData, error in
-                guard let documentData = documentData else { return }
-                
-                if documentData.exists == true {
-                    print("Wishlistteki ürün karşılığı bulundu ve değeri \(quantity)")
-                } else {
-                    print("Wishlistteki ürün karşılığı bulunamadı")
+            guard let documentData = documentData else { return }
+            self.wishList = documentData.get("wishList") as? [String: Int]
+            if let wishList = self.wishList {
+                for (id, _) in wishList {
+                    if id == String(productId) {
+                        self.delegate?.didFetchWishListSuccessful(productId: productId)
+                    } else {
+                        print("bu ürün wish listte yok")
+                    }
                 }
             }
         }
     }
-
     
+    //MARK: - GetProductIndexPath
+    
+    func getProductIndexPath(productId: Int) -> IndexPath {
+        let index = productsByCategory.firstIndex { product in
+            product.id == productId
+        }
+        if let index = index {
+            return IndexPath(row: index, section: 0)
+        }
+        return IndexPath()
+    }
+
+       
     
     
     

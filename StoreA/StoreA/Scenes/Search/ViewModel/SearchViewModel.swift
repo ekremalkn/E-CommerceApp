@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseAuth
+import FirebaseFirestoreSwift
 
 protocol SearchViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
@@ -26,6 +29,8 @@ final class SearchViewModel {
 
     let manager = Service.shared
 
+    private let database = Firestore.firestore()
+    private let currentUser = Auth.auth().currentUser
     //MARK: - Products
 
     var allProducts = [Product]()
@@ -54,4 +59,6 @@ final class SearchViewModel {
         }
         
     }
+
+
 }

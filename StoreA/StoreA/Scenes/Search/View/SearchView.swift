@@ -76,10 +76,12 @@ final class SearchView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func configure(searchText: String, count: Int) {
         searchResultsLabel.text = "Results for '\(searchText)'"
         searchResultCountLabel.text = "\(count) founds"
     }
+    
     
     //MARK: - Configure SearchBar
     

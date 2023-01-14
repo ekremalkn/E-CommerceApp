@@ -14,6 +14,7 @@ final class ProductDetailController: UIViewController {
     }
     
     //MARK: - Properties
+    private let productsViewModel = ProductsViewModel()
     private let productDetailViewModel = ProductDetailViewModel()
     private let productDetailView = ProductDetailView()
     var product: Product
@@ -43,6 +44,7 @@ final class ProductDetailController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         if let productId = product.id {
             productDetailViewModel.fetchCart(productId: productId)
+            productDetailViewModel.fetchWishList(productId: productId)
         }
     }
     
@@ -59,6 +61,7 @@ final class ProductDetailController: UIViewController {
 //MARK: - ProductDetailViewModelDelegate
 
 extension ProductDetailController: ProductDetailViewModelDelegate {
+    
     
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
@@ -84,11 +87,27 @@ extension ProductDetailController: ProductDetailViewModelDelegate {
         
     }
     
+    func didFetchWishListSuccessful(productId: Int) {
+        if productId == product.id {
+            productDetailView.addToWishListButton.isSelected = true
+        } else {
+            productDetailView.addToWishListButton.isSelected = false
+            
+        }
+    }
+    
+    
 }
 
 //MARK: - ProductDetailViewInterface
 
 extension ProductDetailController: ProductDetailViewInterface {
+    func productDetailView(_ view: ProductDetailView, quantity: Int, addToWishListButtonTapped button: UIButton) {
+        guard let id = product.id else { return }
+        productsViewModel.updateWishList(productId: id, quantity: quantity)
+    }
+    
+    
     func productDetailView(_ view: ProductDetailView, addToCartButtonTapped button: UIButton, quantity: Int) {
         guard let id = product.id else { return }
         productDetailViewModel.updateCart(productId: id, quantity: quantity)

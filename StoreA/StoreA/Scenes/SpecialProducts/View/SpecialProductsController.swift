@@ -42,7 +42,7 @@ final class SpecialProductsController: UIViewController {
     //MARK: - Register Custom Cell
     
     private func collectionCellRegister() {
-        specialProductsView.specialProductsCollection.register(SpecialCollectionCell.self, forCellWithReuseIdentifier: "SpecialCollectionCell")
+        specialProductsView.specialProductsCollection.register(SpecialCollectionCell.self, forCellWithReuseIdentifier: SpecialCollectionCell.identifier)
     }
     
     //MARK: - Setup Delegates
@@ -64,7 +64,7 @@ extension SpecialProductsController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = specialProductsView.specialProductsCollection.dequeueReusableCell(withReuseIdentifier: "SpecialCollectionCell", for: indexPath) as? SpecialCollectionCell else { return UICollectionViewCell()}
+        guard let cell = specialProductsView.specialProductsCollection.dequeueReusableCell(withReuseIdentifier: SpecialCollectionCell.identifier, for: indexPath) as? SpecialCollectionCell else { return UICollectionViewCell()}
         cell.configure(data: specialProductsViewModel.specialProducts[indexPath.row])
         return cell
     }
