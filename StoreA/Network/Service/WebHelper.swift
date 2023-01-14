@@ -29,3 +29,16 @@ enum SingleProductWebEndPoint {
         }
     }
 }
+
+enum ProductsSpecificCategoryWebEndPoint {
+    case fetchProdudctByCategory(category: String)
+    var path: String {
+        switch self {
+        case .fetchProdudctByCategory(let category):
+            return NetworkHelper.shared.requestUrl(url: "/products/category/\(category)")
+        }
+    }
+    
+    
+    
+}

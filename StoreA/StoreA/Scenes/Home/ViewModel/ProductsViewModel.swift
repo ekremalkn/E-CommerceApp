@@ -13,6 +13,8 @@ import FirebaseFirestore
 protocol ProductsViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didFetchAllProductsSuccessful()
+    func didFetchAllCategories()
+    func didFetchProductsByCategorySuccessful()
     func didFetchSingleProduct(_ product: Product)
     func didUpdateWishListSuccessful()
 }
@@ -29,7 +31,7 @@ final class ProductsViewModel {
     private let database = Firestore.firestore()
     private let currentUser = Auth.auth().currentUser
     
-    var allProducts: [Product] = []
+    var products: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
     
@@ -47,7 +49,7 @@ final class ProductsViewModel {
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
             if let products = products {
-                self.allProducts = products
+                self.products = products
                 self.allProductsToFirestore(products: products)
                 self.delegate?.didFetchAllProductsSuccessful()
             }
@@ -74,13 +76,25 @@ final class ProductsViewModel {
         manager.fetchCategory { categories in
             if let categories = categories {
                 self.allCategories = categories
-                self.delegate?.didFetchAllProductsSuccessful()
+                self.delegate?.didFetchAllCategories()
             }
             
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
         
+    }
+    
+    func fetchProductByCategory(_ category: String) {
+        manager.fetchProductByCategory(type: .fetchProdudctByCategory(category: category)) { products in
+            if let products = products {
+                self.products = products
+                self.delegate?.didFetchProductsByCategorySuccessful()
+            }
+        } onError: { error in
+            self.delegate?.didOccurError(error)
+        }
+
     }
     
     func allProductsToFirestore(products: [Product]?) {

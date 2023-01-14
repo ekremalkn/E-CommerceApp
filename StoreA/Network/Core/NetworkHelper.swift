@@ -20,6 +20,9 @@ final class NetworkHelper {
     static let shared = NetworkHelper()
 
     func requestUrl(url: String) -> String {
-        return "\(NetworkEndPoint.BASE_URL.rawValue)\(url)"
+        if let url = "\(NetworkEndPoint.BASE_URL.rawValue)\(url)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            return url
+        }
+        return "https://fakestoreapi.com/products"
     }
 }

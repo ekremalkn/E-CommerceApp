@@ -84,11 +84,11 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case homeView.specialCollection:
-            return productsViewModel.allProducts.count
+            return productsViewModel.products.count
         case homeView.categoryCollection:
             return productsViewModel.allCategories.count
         case homeView.productCollection:
-            return productsViewModel.allProducts.count
+            return productsViewModel.products.count
         default:
             return 0
         }
@@ -99,7 +99,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         switch collectionView {
         case homeView.specialCollection:
             guard let cell = homeView.specialCollection.dequeueReusableCell(withReuseIdentifier: "SpecialCollectionCell", for: indexPath) as? SpecialCollectionCell else { return UICollectionViewCell() }
-            cell.configure(data: productsViewModel.allProducts[indexPath.row])
+            cell.configure(data: productsViewModel.products[indexPath.row])
             return cell
         case homeView.categoryCollection:
             guard let cell = homeView.categoryCollection.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionCell", for: indexPath) as? CategoryCollectionCell else { return UICollectionViewCell()}
@@ -108,7 +108,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         case homeView.productCollection:
             guard let cell = homeView.productCollection.dequeueReusableCell(withReuseIdentifier: "ProductCollectionCell", for: indexPath) as? ProductCollectionCell else { return UICollectionViewCell()}
             cell.interface = self
-            cell.configure(data: productsViewModel.allProducts[indexPath.row])
+            cell.configure(data: productsViewModel.products[indexPath.row])
             return cell
         default:
             return UICollectionViewCell()
@@ -118,12 +118,13 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case homeView.specialCollection:
-            guard let productId = productsViewModel.allProducts[indexPath.row].id else { return }
+            guard let productId = productsViewModel.products[indexPath.row].id else { return }
             productsViewModel.fetchSingleProduct(productId: productId)
         case homeView.categoryCollection:
-            return
+                let category = productsViewModel.allCategories[indexPath.row]
+                productsViewModel.fetchProductByCategory(category)
         case homeView.productCollection:
-            guard let productId = productsViewModel.allProducts[indexPath.row].id else { return }
+            guard let productId = productsViewModel.products[indexPath.row].id else { return }
             productsViewModel.fetchSingleProduct(productId: productId)
         default:
             return
@@ -176,7 +177,6 @@ extension HomeController: HomeViewInterface {
 //MARK: - ProductsViewModelDelegate
 
 extension HomeController: ProductsViewModelDelegate {
-
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -187,11 +187,21 @@ extension HomeController: ProductsViewModelDelegate {
     }
     
     func didFetchAllProductsSuccessful() {
-        homeView.pageControl.numberOfPages = productsViewModel.allProducts.count
+        homeView.pageControl.numberOfPages = productsViewModel.products.count
         homeView.specialCollection.reloadData()
         homeView.productCollection.reloadData()
+    }
+    
+    func didFetchAllCategories() {
         homeView.categoryCollection.reloadData()
     }
+    
+    func didFetchProductsByCategorySuccessful() {
+        homeView.productCollection.reloadData()
+    }
+    
+    
+
     
     func didUpdateWishListSuccessful() {
         productsViewModel.fetchWishList()
