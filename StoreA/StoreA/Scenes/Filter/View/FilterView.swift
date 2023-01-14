@@ -56,8 +56,8 @@ extension FilterView {
     private func filterTableViewConstraints() {
         filterTableView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
+            make.leading.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalTo(safeAreaLayoutGuide)
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }

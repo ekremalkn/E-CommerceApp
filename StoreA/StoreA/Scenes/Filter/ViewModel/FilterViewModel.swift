@@ -19,11 +19,12 @@ final class FilterViewModel {
     }
     
     weak var delegate: FilterViewModelDelegate?
+
     let manager = Service.shared
     
-    var allCategories = Categories()
-    var productsByCategory: [Product] = []
     
+    var allCategories = Categories()
+
     func fetchAllCategories() {
         manager.fetchCategory { categories in
             if let categories = categories {

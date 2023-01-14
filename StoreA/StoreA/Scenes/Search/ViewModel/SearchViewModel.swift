@@ -14,6 +14,7 @@ protocol SearchViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didFetchSearchProductsSuccessful()
     func didFetchSingleProduct(_ product: Product)
+    func didFetchProductsByCategorySuccessful()
 }
 
 final class SearchViewModel {
@@ -33,13 +34,15 @@ final class SearchViewModel {
     private let currentUser = Auth.auth().currentUser
     //MARK: - Products
 
-    var allProducts = [Product]()
+    var products: [Product] = []
     var singleProduct: Product?
+    
+   
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts) { products in
             if let products = products {
-                self.allProducts = products
+                self.products = products
                 self.delegate?.didFetchSearchProductsSuccessful()
             }
         } onError: { error in
@@ -58,6 +61,19 @@ final class SearchViewModel {
             self.delegate?.didOccurError(error)
         }
         
+    }
+ 
+    
+    func fetchProductByCagetory(_ category: String) {
+        manager.fetchProductByCategory(type: .fetchProdudctByCategory(category: category)) { products in
+            if let products = products {
+                self.products = products
+                self.delegate?.didFetchProductsByCategorySuccessful()
+            }
+        } onError: { error in
+            self.delegate?.didOccurError(error)
+        }
+
     }
 
 
