@@ -50,6 +50,7 @@ final class CartViewModel {
         didSet {
             if costAccToItemCount.count == cart?.count {
                 delegate?.didFetchCostAccToItemCount()
+
             }
         }
     }

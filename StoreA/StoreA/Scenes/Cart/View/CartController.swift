@@ -111,6 +111,7 @@ extension CartController: CartCollectionCellInterface {
         cartView.cartCollection.deleteItems(at: [indextPath])
         cartViewModel.removeProduct(index: indextPath.row)
         cartViewModel.updateCart(productId: productId, quantity: 0)
+        
     }
     
 }

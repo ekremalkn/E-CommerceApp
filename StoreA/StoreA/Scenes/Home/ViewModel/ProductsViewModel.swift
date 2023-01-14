@@ -17,7 +17,6 @@ protocol ProductsViewModelDelegate: AnyObject {
     func didFetchProductsByCategorySuccessful()
     func didFetchSingleProduct(_ product: Product)
     func didUpdateWishListSuccessful(productId: Int)
-    func didFetchWishListSuccessful(productId: Int)
 }
 
 final class ProductsViewModel {
@@ -130,43 +129,5 @@ final class ProductsViewModel {
             }
         }
     }
-    
-    //MARK: - Get WishList From Firestore
-    
-    func fetchWishList(productId: Int) {
-        guard let currentUser = currentUser else { return }
-        
-        let wishListRef = database.collection("Users").document(currentUser.uid)
-        wishListRef.getDocument(source: .default) { documentData, error in
-            guard let documentData = documentData else { return }
-            self.wishList = documentData.get("wishList") as? [String: Int]
-            if let wishList = self.wishList {
-                for (id, _) in wishList {
-                    if id == String(productId) {
-                        self.delegate?.didFetchWishListSuccessful(productId: productId)
-                    } else {
-                        print("bu ürün wish listte yok")
-                    }
-                }
-            }
-        }
-    }
-    
-    //MARK: - GetProductIndexPath
-    
-    func getProductIndexPath(productId: Int) -> IndexPath {
-        let index = productsByCategory.firstIndex { product in
-            product.id == productId
-        }
-        if let index = index {
-            return IndexPath(row: index, section: 0)
-        }
-        return IndexPath()
-    }
-
-       
-    
-    
-    
-    
+   
 }

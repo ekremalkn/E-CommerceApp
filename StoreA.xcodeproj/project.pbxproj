@@ -60,6 +60,9 @@
 		F0D419EA2970A6540028B437 /* Double+Rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D419E92970A6540028B437 /* Double+Rounded.swift */; };
 		F0E6E2062972FBB700D0836F /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6E2052972FBB700D0836F /* FilterViewModel.swift */; };
 		F0E6E20A297326BF00D0836F /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6E209297326BF00D0836F /* CustomPresentationController.swift */; };
+		F0F00EAF2973428F003554DE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F00EAE2973428F003554DE /* ProfileView.swift */; };
+		F0F00EB2297342A5003554DE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F00EB1297342A5003554DE /* ProfileViewModel.swift */; };
+		F0F00EB52973430C003554DE /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F00EB42973430C003554DE /* ProfileModel.swift */; };
 		F0FC91AA2961F31A00351C96 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91A92961F31A00351C96 /* NetworkManager.swift */; };
 		F0FC91AD2961F3D500351C96 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F0FC91AC2961F3D500351C96 /* Alamofire */; };
 		F0FC91B02961FC4000351C96 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FC91AF2961FC4000351C96 /* WebService.swift */; };
@@ -120,6 +123,9 @@
 		F0D419E92970A6540028B437 /* Double+Rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Rounded.swift"; sourceTree = "<group>"; };
 		F0E6E2052972FBB700D0836F /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		F0E6E209297326BF00D0836F /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationController.swift; sourceTree = "<group>"; };
+		F0F00EAE2973428F003554DE /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F0F00EB1297342A5003554DE /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F0F00EB42973430C003554DE /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		F0FC91A92961F31A00351C96 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F0FC91AF2961FC4000351C96 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		F0FC91B22961FE5200351C96 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -491,6 +497,8 @@
 		F0B6C5D5296732CF00E6F462 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				F0F00EB329734301003554DE /* Model */,
+				F0F00EB029734292003554DE /* ViewModel */,
 				F0B6C5D9296732EB00E6F462 /* View */,
 			);
 			path = Profile;
@@ -510,6 +518,7 @@
 			isa = PBXGroup;
 			children = (
 				F0B6C5DA2967334300E6F462 /* ProfileController.swift */,
+				F0F00EAE2973428F003554DE /* ProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -563,6 +572,22 @@
 				F0E6E2052972FBB700D0836F /* FilterViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0F00EB029734292003554DE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0F00EB1297342A5003554DE /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0F00EB329734301003554DE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0F00EB42973430C003554DE /* ProfileModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F0FC91A72961F2EC00351C96 /* Network */ = {
@@ -721,10 +746,12 @@
 				F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */,
 				F05362042964A5360049CB7D /* ProductCollectionCell.swift in Sources */,
 				F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */,
+				F0F00EB52973430C003554DE /* ProfileModel.swift in Sources */,
 				F07BC7E92971AC6300611EAC /* WishListController.swift in Sources */,
 				F0FC91B32961FE5200351C96 /* Product.swift in Sources */,
 				F0B6C5E02967508400E6F462 /* SearchController.swift in Sources */,
 				F071DEFD29620AAA001C7FE0 /* WebHelper.swift in Sources */,
+				F0F00EB2297342A5003554DE /* ProfileViewModel.swift in Sources */,
 				F0B6C5DB2967334300E6F462 /* ProfileController.swift in Sources */,
 				F0FC91B02961FC4000351C96 /* WebService.swift in Sources */,
 				F02041FB2972915800096AC4 /* SpecialProductsView.swift in Sources */,
@@ -752,6 +779,7 @@
 				F071DEFB29620881001C7FE0 /* NetworkHelper.swift in Sources */,
 				F0E6E20A297326BF00D0836F /* CustomPresentationController.swift in Sources */,
 				F03FB07E295F2B4600884E84 /* OnboardingController.swift in Sources */,
+				F0F00EAF2973428F003554DE /* ProfileView.swift in Sources */,
 				F0B6C5E529675C3A00E6F462 /* SearchViewModel.swift in Sources */,
 				F0B6C5D32967318300E6F462 /* MainTabBarController.swift in Sources */,
 				F0FC91B82961FFF600351C96 /* HomeController.swift in Sources */,

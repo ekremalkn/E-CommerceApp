@@ -203,15 +203,7 @@ extension HomeController: ProductsViewModelDelegate {
     }
     
     func didUpdateWishListSuccessful(productId: Int) {
-        productsViewModel.fetchWishList(productId: productId)
 
-    }
-    
-    func didFetchWishListSuccessful(productId: Int) {
-        let indexPath = productsViewModel.getProductIndexPath(productId: productId)
-        if productId == productsViewModel.productsByCategory[indexPath.row].id {
-            print(productsViewModel.productsByCategory[indexPath.row])
-        }
     }
 
 }
