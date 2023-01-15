@@ -20,7 +20,6 @@ final class ProfileViewModel {
     
     private let currentUser = Auth.auth().currentUser
     
-    var currentUserInfo: ProfileModel?
     
     var email: String?
     var username: String?

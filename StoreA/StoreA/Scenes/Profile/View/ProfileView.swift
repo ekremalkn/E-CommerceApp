@@ -15,9 +15,58 @@ class ProfileView: UIView {
 
     //MARK: - Creating UI Elements
     
+    private let profileTitleImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person.fill")
+        imageView.tintColor = .black
+        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private let profileTitleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "Profile"
+        label.textColor = .black
+        label.textAlignment = .left
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let profileTitleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let moreInfoButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(nil, for: .normal)
+        button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
+        button.tintColor = .black
+        button.backgroundColor = .white
+        button.contentHorizontalAlignment = .center
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray6
+        imageView.backgroundColor = .white
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private let userNameImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person.text.rectangle")
+        imageView.tintColor = .black
+        imageView.backgroundColor = .white
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -26,11 +75,27 @@ class ProfileView: UIView {
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private let userNameView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let emailImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "envelope")
+        imageView.tintColor = .black
+        imageView.backgroundColor = .white
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let emailLabel: UILabel = {
@@ -41,6 +106,19 @@ class ProfileView: UIView {
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private let emailView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let seperatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private let signOutButton: UIButton = {
@@ -55,13 +133,6 @@ class ProfileView: UIView {
         return button
     }()
     
-    private let userInfosView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray4
-        view.layer.cornerRadius = 30
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     
     
     //MARK: - Propertis
@@ -84,7 +155,7 @@ class ProfileView: UIView {
     
     
     func configure(email: String, username: String) {
-        profileImageView.image = UIImage(named: "ekremalkan")
+        profileImageView.image = UIImage(systemName: "person")
         userNameLabel.text = "Username: \(username)"
         emailLabel.text = "Email: \(email)"
     }
@@ -101,18 +172,27 @@ class ProfileView: UIView {
     @objc private func addTargetButtonTapped(_ button: UIButton) {
         interface?.profileView(self, signOutButtonTapped: button)
     }
-
-
-    //MARK: - Username/Email labels AddToStackView
     
-    
-    private func userInfosAddToStackView() {
-        userInfosView.addSubview(profileImageView)
-        userInfosView.addSubview(userNameLabel)
-        userInfosView.addSubview(emailLabel)
-        userInfosView.addSubview(signOutButton)
+    //MARK: - ProfileTitleAddToView
+
+    private func profileTitleAddToView() {
+        profileTitleView.addSubview(profileTitleImage)
+        profileTitleView.addSubview(profileTitleLabel)
     }
+    
+    //MARK: - UsernameLabelAddToView
 
+    private func usernameLabelAddToView() {
+        userNameView.addSubview(userNameImage)
+        userNameView.addSubview(userNameLabel)
+    }
+    
+    //MARK: - EmailLabelAddToView
+    
+    private func emailLabelAddToView() {
+        emailView.addSubview(emailImage)
+        emailView.addSubview(emailLabel)
+    }
     
 }
 
@@ -121,64 +201,148 @@ extension ProfileView {
     //MARK: - AddSubview
 
     private func addSubview() {
-        addSubview(userInfosView)
-        userInfosAddToStackView()
+        addSubview(profileTitleView)
+        profileTitleAddToView()
+        addSubview(moreInfoButton)
+        addSubview(profileImageView)
+        addSubview(userNameView)
+        usernameLabelAddToView()
+        addSubview(emailView)
+        emailLabelAddToView()
+        addSubview(seperatorView)
+        addSubview(signOutButton)
     }
     
     //MARK: - Setup Constraints
 
     private func setupConstraints() {
-        userInfosViewConstraints()
+        profileTitleViewConstraints()
+        profileTitleImageConstraints()
+        profileTitleConstraints()
+        moreInfoButtonConstraints()
         profileImageViewConstraints()
+        usernameImageConstraints()
         usernameLabelConstraints()
+        usernameViewConstraints()
+        emailImageConstraints()
         emailLabelConstraints()
-        signOutButtonConstraints()
-        
+        emailViewConstraints()
+        seperatorViewConstraints()
+        signOutButtonConsraints()
     }
     
     //MARK: - UI Elements Constraints
     
+    private func profileTitleViewConstraints() {
+        profileTitleView.snp.makeConstraints { make in
+            make.height.equalTo(profileTitleLabel.snp.height)
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(15)
+        }
+    }
+    
+    private func profileTitleImageConstraints() {
+        profileTitleImage.snp.makeConstraints { make in
+            make.height.width.equalTo(profileTitleLabel.snp.height)
+            make.leading.equalTo(profileTitleView.snp.leading)
+            make.centerY.equalTo(profileTitleView.snp.centerY)
+        }
+    }
+    
+    private func profileTitleConstraints() {
+        profileTitleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(profileTitleImage.snp.trailing).offset(10)
+            make.centerY.equalTo(profileTitleView.snp.centerY)
+            make.trailing.equalTo(profileTitleView.snp.trailing)
+        }
+    
+    }
+    
+    private func moreInfoButtonConstraints() {
+        moreInfoButton.snp.makeConstraints { make in
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
+            make.centerY.equalTo(profileTitleView)
+        }
+    }
+    
     private func profileImageViewConstraints() {
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(userInfosView.snp.top).offset(20)
-            make.height.width.equalTo(userInfosView.snp.width).multipliedBy(0.5)
-            make.centerX.equalTo(userInfosView.snp.centerX)
+            make.width.height.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.25)
+            make.top.equalTo(profileTitleView.snp.bottom).offset(25)
+            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
+        }
+    }
+    
+    private func usernameViewConstraints() {
+        userNameView.snp.makeConstraints { make in
+            make.height.equalTo(userNameLabel.snp.height)
+            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
+            make.top.equalTo(profileImageView.snp.bottom).offset(35)
+        }
+    }
+    
+    private func usernameImageConstraints() {
+        userNameImage.snp.makeConstraints { make in
+            make.height.width.equalTo(userNameLabel.snp.height)
+            make.leading.equalTo(userNameView.snp.leading)
+            make.centerY.equalTo(userNameView.snp.centerY)
         }
     }
     
     private func usernameLabelConstraints() {
         userNameLabel.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.top.equalTo(profileImageView.snp.bottom).offset(40)
-            make.centerX.equalTo(profileImageView.snp.centerX)
+            make.leading.equalTo(userNameImage.snp.trailing).offset(10)
+            make.trailing.equalTo(userNameView.snp.trailing)
+            make.centerY.equalTo(userNameView.snp.centerY)
+        }
+    }
+    
+    private func emailViewConstraints() {
+        emailView.snp.makeConstraints { make in
+            make.top.equalTo(userNameView.snp.bottom).offset(15)
+            make.leading.equalTo(userNameView.snp.leading)
+            make.height.equalTo(emailLabel.snp.height)
+        }
+    }
+    
+    private func emailImageConstraints() {
+        emailImage.snp.makeConstraints { make in
+            make.height.width.equalTo(emailLabel.snp.height)
+            make.leading.equalTo(emailView.snp.leading)
+            make.centerY.equalTo(emailView.snp.centerY)
         }
     }
     
     private func emailLabelConstraints() {
         emailLabel.snp.makeConstraints { make in
-            make.height.equalTo(15)
-            make.top.equalTo(userNameLabel.snp.bottom).offset(20)
-            make.centerX.equalTo(userNameLabel.snp.centerX)
+            make.leading.equalTo(emailImage.snp.trailing).offset(10)
+            make.trailing.equalTo(emailView.snp.trailing)
+            make.centerY.equalTo(emailView.snp.centerY)
         }
     }
     
-    private func signOutButtonConstraints() {
+    private func seperatorViewConstraints() {
+        seperatorView.snp.makeConstraints { make in
+            make.height.equalTo(0.75)
+            make.top.equalTo(emailView.snp.bottom).offset(30)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
+        }
+    }
+    
+    private func signOutButtonConsraints() {
         signOutButton.snp.makeConstraints { make in
-            make.width.equalTo(userInfosView.snp.width).multipliedBy(0.5)
-            make.height.equalTo(userInfosView.snp.width).multipliedBy(0.1)
-            make.top.equalTo(emailLabel.snp.bottom).offset(80)
-            make.centerX.equalTo(profileImageView.snp.centerX)
+            make.height.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.1)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.25)
+            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-50)
         }
     }
     
-    private func userInfosViewConstraints() {
-        userInfosView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(50)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(50)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-50)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-50)
-        }
-    }
+    
+    
+    
+
 
         
 }

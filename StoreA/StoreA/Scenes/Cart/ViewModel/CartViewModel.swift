@@ -46,11 +46,10 @@ final class CartViewModel {
         }
     }
     
-    private var costAccToItemCount: [String: Double] = [:] {
+     var costAccToItemCount: [String: Double] = [:] {
         didSet {
             if costAccToItemCount.count == cart?.count {
                 delegate?.didFetchCostAccToItemCount()
-
             }
         }
     }
@@ -163,7 +162,6 @@ final class CartViewModel {
                     }) {
                         self.cartsProducts.append(product)
                     }
-                    self.delegate?.didFetchProductsFromCartSuccessful()
                 }
             }
         }
@@ -199,8 +197,9 @@ final class CartViewModel {
     
     //MARK: - RemoveProduct
     
-    func removeProduct(index: Int) {
+    func removeProduct(index: Int, productId: String) {
         cartsProducts.remove(at: index)
+        costAccToItemCount.removeValue(forKey: productId)
     }
     
     

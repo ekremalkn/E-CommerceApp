@@ -35,6 +35,7 @@ class ProfileController: UIViewController {
         view.backgroundColor = .white
         view = profileView
     }
+
     
     //MARK: - Setup Delegates
     

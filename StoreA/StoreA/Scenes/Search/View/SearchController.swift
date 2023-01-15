@@ -34,8 +34,9 @@ final class SearchController: UIViewController {
     //MARK: - Products
     
     var filteredProducts: [Product] = []
+
     
-    //MARK: - Lifecycle
+    //MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ final class SearchController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
     }
+
     
     //MARK: - Configure ViewController
     
@@ -105,7 +107,15 @@ extension SearchController: UISearchBarDelegate, UISearchResultsUpdating {
         let filterVC = FilterController()
         filterVC.modalPresentationStyle = .custom
         filterVC.transitioningDelegate = self
+        filterVC.selectionCallBack = { category in
+            if category == "All" {
+                self.searchViewModel.fetchAllProducts()
+            } else {
+                self.searchViewModel.fetchProductByCagetory(category)
+            }
+        }
         self.present(filterVC, animated: true, completion: nil)
+        
         
     }
     
@@ -150,36 +160,37 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
 //MARK: - SearchViewModelDelegate
 
 extension SearchController: SearchViewModelDelegate {
-  
-    
 
+    func didOccurError(_ error: Error) {
+        print(error.localizedDescription)
+    }
+    
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func didOccurError(_ error: Error) {
-        print(error.localizedDescription)
     }
     
     func didFetchSearchProductsSuccessful() {
         searchView.searchCollection.reloadData()
     }
     
-
     func didFetchProductsByCategorySuccessful() {
         searchView.searchCollection.reloadData()
     }
-    
-    
+
     
 }
+
+   
+//MARK: - ProductCollectionCellInterface
 
 extension SearchController: ProductCollectionCellInterface {
     func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, wishButtonTapped button: UIButton) {
         productsViewModel.updateWishList(productId: productId, quantity: quantity)
     }
 }
+
+//MARK: - CustomPresentationController
 
 extension SearchController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {

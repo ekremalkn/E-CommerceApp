@@ -100,18 +100,17 @@ extension CartController: CartCollectionCellInterface {
     func cartCollectionCell(_ view: CartCollectionCell, productId: Int, stepperValueChanged quantity: Int) {
         if quantity == 0 {
             let indexPath = cartViewModel.getProductIndexPath(productId: productId)
+            cartViewModel.removeProduct(index: indexPath.row, productId: String(productId))
             cartView.cartCollection.deleteItems(at: [indexPath])
-            cartViewModel.removeProduct(index: indexPath.row)
         }
         cartViewModel.updateCart(productId: productId, quantity: quantity)
     }
     
     func cartCollectionCell(_ view: CartCollectionCell, productId: Int, removeButtonTapped quantity: Int) {
         let indextPath = cartViewModel.getProductIndexPath(productId: productId)
+        cartViewModel.removeProduct(index: indextPath.row, productId: String(productId))
         cartView.cartCollection.deleteItems(at: [indextPath])
-        cartViewModel.removeProduct(index: indextPath.row)
         cartViewModel.updateCart(productId: productId, quantity: 0)
-        
     }
     
 }

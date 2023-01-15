@@ -20,7 +20,7 @@ final class ProductDetailViewModel {
     deinit {
         print("deinit productdeteailviewmodel")
     }
-    
+        
     weak var delegate: ProductDetailViewModelDelegate?
     
     private let database = Firestore.firestore()
@@ -76,7 +76,7 @@ final class ProductDetailViewModel {
             guard let documentData = documentData else { return }
             self.wishList = documentData.get("wishList") as? [String: Int]
             if let wishList = self.wishList {
-                for (id, _) in wishList{
+                for (id, _) in wishList {
                     if id == String(productId) {
                         self.delegate?.didFetchWishListSuccessful(productId: productId)
                     } else {
@@ -114,5 +114,8 @@ final class ProductDetailViewModel {
         }
       
     }
+    
+
+
 }
 

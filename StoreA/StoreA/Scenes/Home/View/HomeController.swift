@@ -13,7 +13,9 @@ final class HomeController: UIViewController {
         print("deinit home controller")
     }
     
+        
     //MARK: - Properties
+    private let homeProfileViewModel = HomeProfileViewModel()
     private let productsViewModel = ProductsViewModel()
     private let homeView = HomeView()
 
@@ -22,7 +24,10 @@ final class HomeController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
-       
+        homeProfileViewModel.fetchUser()
+        homeProfileViewModel.getTime()
+        productsViewModel.fetchOnlyCategory()
+        productsViewModel.fetchAllProducts()
     }
     
     override func viewDidLoad() {
@@ -30,9 +35,8 @@ final class HomeController: UIViewController {
         configureViewController()
         collectionCellRegister()
         setupDelegates()
-        productsViewModel.fetchAllProducts()
-        productsViewModel.fetchOnlyCategory()
     }
+    
     
     //MARK: - Configure ViewController
     
@@ -40,7 +44,6 @@ final class HomeController: UIViewController {
         title = "Home"
         view = homeView
     }
-    
     
     //MARK: - Register Custom Cell
     
@@ -52,6 +55,8 @@ final class HomeController: UIViewController {
     
     //MARK: - Setup Delegates
     private func setupDelegates() {
+        homeProfileViewModel.delegate = self
+        
         productsViewModel.delegate = self
         
         homeView.interface = self
@@ -73,6 +78,7 @@ extension HomeController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
      let searchVC = SearchController()
         navigationController?.pushViewController(searchVC, animated: true)
+      
     }
     
 }
@@ -115,6 +121,13 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
     }
     
+    // This only selects the first cell
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case homeView.specialCollection:
@@ -122,7 +135,11 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
             productsViewModel.fetchSingleProduct(productId: productId)
         case homeView.categoryCollection:
                 let category = productsViewModel.allCategories[indexPath.row]
+            if category == "All" {
+                productsViewModel.fetchAllProducts()
+            } else {
                 productsViewModel.fetchProductByCategory(category)
+            }
         case homeView.productCollection:
             guard let productId = productsViewModel.productsByCategory[indexPath.row].id else { return }
             productsViewModel.fetchSingleProduct(productId: productId)
@@ -135,8 +152,6 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         switch collectionView {
         case homeView.specialCollection:
             return CGSize(width: homeView.specialCollection.frame.width - 10, height:homeView.specialCollection.frame.height)
-        case homeView.categoryCollection:
-            return CGSize(width: homeView.categoryCollection.frame.width / 3, height: homeView.categoryCollection.frame.height / 1.25)
         case homeView.productCollection:
             return CGSize(width: homeView.productCollection.frame.width / 2 - 10, height: homeView.productCollection.frame.width / 2 )
         default:
@@ -177,7 +192,7 @@ extension HomeController: HomeViewInterface {
 //MARK: - ProductsViewModelDelegate
 
 extension HomeController: ProductsViewModelDelegate {
-
+   
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -191,7 +206,6 @@ extension HomeController: ProductsViewModelDelegate {
         homeView.pageControl.numberOfPages = productsViewModel.allProducts.count
         homeView.specialCollection.reloadData()
         homeView.productCollection.reloadData()
-
     }
     
     func didFetchAllCategories() {
@@ -203,8 +217,14 @@ extension HomeController: ProductsViewModelDelegate {
     }
     
     func didUpdateWishListSuccessful(productId: Int) {
-
+        homeView.productCollection.reloadData()
     }
+    
+    func didFetchWishListSuccessful(_ product: [Product]) {
+        print("ekrem alkan")
+    }
+    
+
 
 }
 
@@ -216,3 +236,17 @@ extension HomeController: ProductCollectionCellInterface {
     }
     
 }
+
+
+extension HomeController: HomeProfileViewModelDelegate {
+    func didGotCurrentTime() {
+        homeView.hiLabel.text = homeProfileViewModel.hiText
+    }
+    
+    func didFetchUserInfro() {
+        homeView.usernameLabel.text = homeProfileViewModel.username
+    }
+    
+    
+}
+

@@ -13,17 +13,18 @@ final class FilterController: UIViewController {
     deinit {
         print("deinit FilterController")
     }
-
-    private var topAnchorValue: CGFloat?
+    
     //MARK: - Properties
     
     private let searchViewModel = SearchViewModel()
     private let filterViewModel = FilterViewModel()
     private let filterView = FilterView()
-
-
+    
+    var selectionCallBack: ((String) -> ())?
+    
+   
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filterViewModel.fetchAllCategories()
@@ -31,58 +32,57 @@ final class FilterController: UIViewController {
         registerCustomCell()
         setupDelegates()
     }
-  
+    
+    
     //MARK: - ConfigureViewController
     
     private func configureViewController() {
-        title = "Categories"
-        navigationController?.setNavigationBarHidden(false, animated: true)
         view = filterView
     }
     
     //MARK: - Register Custom Cell
     
     private func registerCustomCell() {
-        filterView.filterTableView.register(FilterTableViewCell.self, forCellReuseIdentifier: FilterTableViewCell.identifier)
+        filterView.filterCollection.register(FilterCollectionCell.self, forCellWithReuseIdentifier: FilterCollectionCell.identifier)
     }
-
+    
     //MARK: - Setup Delegates
     
     private func setupDelegates() {
         filterViewModel.delegate = self
         
-        filterView.filterTableView.delegate = self
-        filterView.filterTableView.dataSource = self
-    }
+        
+        filterView.filterCollection.delegate = self
+        filterView.filterCollection.dataSource = self
 
+    }
+    
 }
 
-extension FilterController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension FilterController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterViewModel.allCategories.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = filterView.filterTableView.dequeueReusableCell(withIdentifier: FilterTableViewCell.identifier, for: indexPath) as? FilterTableViewCell else { return UITableViewCell() }
-        cell.categoryTitleLabel.text = filterViewModel.allCategories[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = filterView.filterCollection.dequeueReusableCell(withReuseIdentifier: FilterCollectionCell.identifier, for: indexPath) as? FilterCollectionCell else { return UICollectionViewCell() }
+        cell.configure(data: filterViewModel.allCategories, indexPath: indexPath)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dismiss(animated: true) { [weak self] in
-            if let category = self?.filterViewModel.allCategories[indexPath.row] {
-                self?.searchViewModel.fetchProductByCagetory(category)
-
-            }
-        }
-        
-        
+    // This only selects the first cell
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        filterView.filterCollection.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
+       
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let category = filterViewModel.allCategories[indexPath.row]
+                dismiss(animated: true) {
+                    self.selectionCallBack?(category)
+                    }
     }
-    
     
 }
 
@@ -91,13 +91,12 @@ extension FilterController: FilterViewModelDelegate {
         print(error.localizedDescription)
     }
     
-    func didFetchAllCategories() {
-        filterView.filterTableView.reloadData()
+    func didFetchAllCategoriesSuccessful() {
+        filterView.filterCollection.reloadData()
     }
-    
- 
     
     
 }
+
 
 

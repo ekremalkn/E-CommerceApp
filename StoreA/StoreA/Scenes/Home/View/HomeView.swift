@@ -22,16 +22,16 @@ final class HomeView: UIView {
     
     private var profilePhotoImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray
+        imageView.backgroundColor = nil
         imageView.tintColor = .black
-        imageView.image = UIImage(named: "ekremalkan")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.layer.cornerRadius = 20
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private var hiLabel: UILabel = {
+    var hiLabel: UILabel = {
         let label = UILabel()
         label.text = "Good morning👋"
         label.numberOfLines = 0
@@ -42,9 +42,9 @@ final class HomeView: UIView {
         return label
     }()
     
-    private var userEmailLabel: UILabel = {
+    
+    var usernameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Ekrem Alkan"
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .black
@@ -91,7 +91,7 @@ final class HomeView: UIView {
         return stackView
     }()
     
-     lazy var searcBar: UISearchBar = {
+    lazy var searcBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.placeholder = "Search Products"
         searchBar.showsBookmarkButton = true
@@ -129,7 +129,7 @@ final class HomeView: UIView {
         return stackView
     }()
     
-     var specialCollection: UICollectionView = {
+    var specialCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -141,16 +141,19 @@ final class HomeView: UIView {
         return collection
     }()
     
-     var pageControl: UIPageControl = {
+    var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = .blue
         pageControl.pageIndicatorTintColor = .systemGray
         return pageControl
     }()
     
-     var categoryCollection: UICollectionView = {
+    var categoryCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 5
         layout.scrollDirection = .horizontal
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .systemGray6
         collection.showsHorizontalScrollIndicator = false
@@ -159,7 +162,7 @@ final class HomeView: UIView {
         return collection
     }()
     
-     var productCollection: UICollectionView = {
+    var productCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -170,9 +173,10 @@ final class HomeView: UIView {
         return collection
     }()
     
+    
     //MARK: - PageControl CurrentPage
     
-     var currentPage = 0 {
+    var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
         }
@@ -181,7 +185,7 @@ final class HomeView: UIView {
     //MARK: - Properties
     
     weak var interface: HomeViewInterface?
-
+    
     
     //MARK: - Init Method
     
@@ -199,6 +203,7 @@ final class HomeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     //MARK: - AddAction
     
     private func addTarget() {
@@ -206,7 +211,7 @@ final class HomeView: UIView {
         wishListButton.addTarget(self, action: #selector(wishListButtonTapped), for: .touchUpInside)
         seeAllButton.addTarget(self, action: #selector(seeAllButtonTapped), for: .touchUpInside)
     }
-       
+    
     //MARK: - Buttons actions
     
     @objc private func cartButtonTapped(_ button: UIButton) {
@@ -221,12 +226,12 @@ final class HomeView: UIView {
         interface?.homeView(self, seeAllButtonTapped: button)
     }
     
- 
+    
     //MARK: - TopLabelsAddToStackView
     
     private func addTopLabelsToStackView() {
         labelStackView.addArrangedSubview(hiLabel)
-        labelStackView.addArrangedSubview(userEmailLabel)
+        labelStackView.addArrangedSubview(usernameLabel)
     }
     
     //MARK: - TopButtonsAddToStackView
@@ -272,7 +277,7 @@ extension HomeView {
         addSubview(categoryCollection)
         addSubview(productCollection)
         
-      
+        
         
     }
     
@@ -357,7 +362,7 @@ extension HomeView {
     
     private func categoryCollectionConstraints() {
         categoryCollection.snp.makeConstraints { make in
-            make.height.equalTo(specialCollection.snp.height).multipliedBy(0.2)
+            make.height.equalTo(specialCollection.snp.width).multipliedBy(0.1)
             make.width.equalTo(specialCollection.snp.width)
             make.top.equalTo(pageControl.snp.bottom)
             make.leading.equalTo(searcBar.snp.leading)
@@ -367,7 +372,7 @@ extension HomeView {
     
     private func productsCollectionConstraint() {
         productCollection.snp.makeConstraints { make in
-            make.top.equalTo(categoryCollection.snp.bottom).offset(20)
+            make.top.equalTo(categoryCollection.snp.bottom).offset(30)
             make.trailing.equalTo(searcBar.snp.trailing)
             make.leading.equalTo(searcBar.snp.leading)
             make.bottom.equalTo(safeAreaLayoutGuide)

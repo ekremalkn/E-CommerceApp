@@ -23,7 +23,7 @@ class CustomPresentationController: UIPresentationController {
     }
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        CGRect(origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.7),
+        CGRect(origin: CGPoint(x: 0, y: self.containerView!.frame.height * 0.6),
                size: CGSize(width: self.containerView!.frame.width, height: self.containerView!.frame.height *
                 0.6))
     }

@@ -69,6 +69,7 @@ final class ProductsViewModel {
         manager.fetchCategory { categories in
             if let categories = categories {
                 self.allCategories = categories
+                self.allCategories.insert("All", at:0)
                 self.delegate?.didFetchAllCategories()
             }
             
@@ -129,5 +130,36 @@ final class ProductsViewModel {
             }
         }
     }
+    
+    //MARK: - FetchWishList
+    
+    func fetchWishList(products: [Product]) {
+        guard let currentUser = currentUser else { return }
+        
+        let wishListRef = database.collection("Users").document(currentUser.uid)
+        wishListRef.getDocument(source: .default) { documentData, error in
+            guard let documentData = documentData else { return }
+            self.wishList = documentData.get("wishList") as? [String: Int]
+            if let wishList = self.wishList {
+                //wishlitteki ürünlere göre homveviewdaki productcollection cellerin wishlistbuttonlarını seçilmiş hale getirmek için buradan devam edecğeim.
+                      
+                    }
+                }
+                
+            }
+        }
+     
+
+
+
+
+    
+
+    
+    
+    
+        
+
+
    
-}
+
