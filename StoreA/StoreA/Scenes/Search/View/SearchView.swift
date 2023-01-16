@@ -20,38 +20,11 @@ final class SearchView: UIView {
         searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchController
     }()
-    
-    private var searchResultsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Results for SearchTextField"
-        label.numberOfLines  = 0
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var searchResultCountLabel: UILabel = {
-        let label = UILabel()
-        label.text =  "12313 founds"
-        label.numberOfLines = 1
-        label.textAlignment = .right
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var searchResultLabelsStackView: UIStackView = {
-        let stackview = UIStackView()
-        stackview.isHidden = true
-        stackview.axis = .horizontal
-        stackview.distribution = .fillEqually
-        return stackview
-    }()
-    
-    var searchCollection: UICollectionView = {
+    lazy var searchResultsLabel = CustomLabel(text: "Results for SearchTextField", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
+    lazy var searchResultCountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .right)
+
+    lazy var searchResultLabelsStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 0, isHidden: true)
+    lazy var searchCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)

@@ -20,7 +20,7 @@ final class FilterCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private let labelView: UIView = {
+    lazy var labelView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
@@ -28,15 +28,7 @@ final class FilterCollectionCell: UICollectionViewCell {
         return view
     }()
     
-    let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var categoryLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
     
     override var isSelected: Bool {
         didSet {

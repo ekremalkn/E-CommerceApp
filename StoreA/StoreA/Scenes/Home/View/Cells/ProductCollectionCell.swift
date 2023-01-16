@@ -39,7 +39,7 @@ class ProductCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
-     let addToWishListButton: UIButton = {
+     lazy var addToWishListButton: UIButton = {
         let button = UIButton()
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -48,17 +48,8 @@ class ProductCollectionCell: UICollectionViewCell {
         return button
     }()
     
-    private var titleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 10)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let ratingCountImageView: UIImageView = {
+    lazy var titleLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 10), textColor: .blue, textAlignment: .center)
+    lazy var ratingCountImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "star.fill")
         imageView.tintColor = .black
@@ -66,62 +57,13 @@ class ProductCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
-    private var ratingCountLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 2
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let ratingCountStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private var salesAmountLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let ratingSalesInfoStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private var priceLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let productInfoStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+    lazy var ratingCountLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .blue, textAlignment: .left)
+    lazy var ratingCountStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    lazy var salesAmountLabel = CustomLabel(text: "", numberOfLines: 1, font: .systemFont(ofSize: 12), textColor: .blue, textAlignment: .right)
+    lazy var ratingSalesInfoStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 0, isHidden: false)
+    lazy var priceLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 12), textColor: .black, textAlignment: .left)
+    lazy var productInfoStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 0, isHidden: false)
+
     //MARK: - Properties
     var productId: Int?
     weak var interface: ProductCollectionCellInterface?

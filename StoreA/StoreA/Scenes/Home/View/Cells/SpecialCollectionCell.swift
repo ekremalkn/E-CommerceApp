@@ -23,7 +23,7 @@ class SpecialCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private let specialImage: UIImageView = {
+    lazy var specialImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 30
@@ -31,34 +31,9 @@ class SpecialCollectionCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let specialTitleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 3
-        label.textColor = .blue
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let specialDetailLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 2
-        label.textColor = .systemGray
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let specialLabelStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    lazy var specialTitleLabel = CustomLabel(text: "", numberOfLines: 3, font: .boldSystemFont(ofSize: 15), textColor: .blue, textAlignment: .center)
+    lazy var specialDetailLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .systemGray, textAlignment: .center)
+    lazy var specialLabelStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 8, isHidden: false)
 
     
     //MARK: - Init Methods

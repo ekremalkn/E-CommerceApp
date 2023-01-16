@@ -20,86 +20,19 @@ final class OnboardingView: UIView {
     
     //MARK: -  Creating UI Elements
     
-    private var collection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
-        return collectionView
-    }()
-    
-    private var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.currentPageIndicatorTintColor = .blue
-        pageControl.pageIndicatorTintColor = .systemGray
-        return pageControl
-    }()
-    
-    private var contiuneButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Contiune", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 16
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var skipButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Skip", for: .normal)
-        button.setTitleColor(.systemGray, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var pageControlButtonsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 44
-        stackView.translatesAutoresizingMaskIntoConstraints =  false
-        return stackView
-    }()
-    
-    private var signInLbl: UILabel = {
-        let label = UILabel()
-        label.text = "Already have an account?"
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .systemGray
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var signInButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Sign In", for: .normal)
-        button.setTitleColor(.systemOrange, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var signInStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.isHidden = true
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    lazy var collection = OnboardingCollectionView(scrollIndicator: false, paging: true, layout: UICollectionViewFlowLayout())
+    lazy var pageControl = CustomPageControl()
+    lazy var contiuneButton = OnboardingButton(title: "Contiune", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
+    lazy var skipButton = OnboardingButton(title: "Skip", titleColor: .systemGray, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
+    lazy var pageControlButtonsStackView  = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 44, isHidden: false)
+    lazy var signInLbl = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
+    lazy var signInButton = OnboardingButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
+    lazy var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: true)
     
     //MARK: - Properties
     
     weak var interface: OnboardingViewInterface?
-
+    
     
     //MARK: - Onboarding Model Array
     
@@ -142,7 +75,7 @@ final class OnboardingView: UIView {
         }
     }
     
- 
+    
     
     //MARK: - SetSlides
     

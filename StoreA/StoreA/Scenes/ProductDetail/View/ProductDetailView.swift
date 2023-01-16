@@ -32,7 +32,7 @@ final class ProductDetailView: UIView {
 
     //MARK: - Creating UI Elements
 
-    private var productImage: UIImageView = {
+    lazy var productImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .white
@@ -40,17 +40,8 @@ final class ProductDetailView: UIView {
         return imageView
     }()
     
-    private var productTitle: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 2
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-     let addToWishListButton: UIButton = {
+    lazy var productTitle = CustomLabel(text: "", numberOfLines: 2, font: .boldSystemFont(ofSize: 20), textColor: .blue, textAlignment: .left)
+     lazy var addToWishListButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.setImage(UIImage(systemName: "heart"), for: .normal)
@@ -59,33 +50,16 @@ final class ProductDetailView: UIView {
         return button
     }()
     
-    private let favButtonTitleStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.backgroundColor = .white
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
-    
-    private var salesAmountView: UIView = {
+    lazy var favButtonTitleStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    lazy var salesAmountView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
         view.layer.cornerRadius = 12
         return view
     }()
     
-    private var salesAmountLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.font = .boldSystemFont(ofSize: 15)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let ratingCountImageView: UIImageView = {
+    lazy var salesAmountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+    lazy var ratingCountImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "star.fill")
         imageView.backgroundColor = .systemGray6
@@ -97,17 +71,8 @@ final class ProductDetailView: UIView {
         return imageView
     }()
     
-    private var ratingCountLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let ratingCountStackView: UIStackView = {
+    lazy var ratingCountLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .left)
+    lazy var ratingCountStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.backgroundColor = .systemGray6
@@ -122,98 +87,34 @@ final class ProductDetailView: UIView {
         }
         return stackView
     }()
-    
-    private var categoryLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let seperatorView: UIView = {
+   
+    lazy var seperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray3
         return view
     }()
     
-    private let  descriptionTitle: UILabel = {
-        let label = UILabel()
-        label.text = "Description"
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let descriptionView: UIView = {
+    lazy var descriptionTitle = CustomLabel(text: "Description", numberOfLines: 0, font: .systemFont(ofSize: 17), textColor: .black, textAlignment: .left)
+    lazy var descriptionLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .left)
+    lazy var descriptionView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    private let seperatorView2: UIView = {
+
+    lazy var seperatorView2: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray2
         return view
     }()
     
-    private let priceTitle: UILabel = {
-        let label = UILabel()
-        label.text = "Total price"
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var priceLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 25)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let priceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.snp.makeConstraints { make in
-            make.height.equalTo(50)
-        }
-        return stackView
-    }()
-    
-     var quantityLabel: UILabel = {
-        let label = UILabel()
-        label.isHidden = true
-        label.text = "Quantity"
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.backgroundColor = .white
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }()
-    
-    private let stepperPlusButton: UIButton = {
+    lazy var priceTitle = CustomLabel(text: "Total price", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+    lazy var priceLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 25), textColor: .black, textAlignment: .center)
+    lazy var priceStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 4, isHidden: false)
+    lazy var quantityLabel = CustomLabel(text: "Quantity", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+
+    lazy var stepperPlusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.backgroundColor = .systemGray6
@@ -228,19 +129,8 @@ final class ProductDetailView: UIView {
         return button
     }()
     
-    private let stepperLabel: UILabel = {
-        let label = UILabel()
-        label.text = "1"
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.backgroundColor = .white
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let stepperMinusButton: UIButton = {
+    lazy var stepperLabel = CustomLabel(text: "1", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
+    lazy var stepperMinusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.backgroundColor = .systemGray6
@@ -290,14 +180,8 @@ final class ProductDetailView: UIView {
         return button
     }()
     
-    private let cartBtnPriceLblStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing =  0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+    lazy var cartBtnPriceLblStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: false)
+
     
     //MARK: - Swifty
 

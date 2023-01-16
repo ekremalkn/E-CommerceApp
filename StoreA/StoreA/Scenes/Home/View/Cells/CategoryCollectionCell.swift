@@ -28,15 +28,16 @@ class CategoryCollectionCell: UICollectionViewCell {
     }()
     
     
-    private let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var categoryLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
+//    : UILabel = {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        label.font = UIFont.boldSystemFont(ofSize: 14)
+//        label.textColor = .black
+//        label.textAlignment = .center
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
 
     override var isSelected: Bool {
         didSet {

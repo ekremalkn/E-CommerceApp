@@ -23,119 +23,17 @@ final class SignInView: UIView {
     
     //MARK: - Creating UI Elements
     
-    private var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "SignIn"
-        label.textColor = .blue
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 45)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var descLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Welcome back"
-        label.textColor = .systemGray
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 22)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var labelStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    var emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
-        textField.autocapitalizationType = .none
-        textField.textColor = .black
-        textField.backgroundColor = .white
-        textField.leftViewMode = .always
-        let imageView = UIImageView()
-        let image = UIImage(systemName: "envelope")
-        imageView.image = image
-        imageView.tintColor = .systemGray
-        textField.leftView = imageView
-        textField.layer.cornerRadius = 10
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
-    var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
-        textField.textColor = .black
-        textField.backgroundColor = .white
-        textField.leftViewMode = .always
-        let imageView = UIImageView()
-        let image = UIImage(systemName: "lock")
-        imageView.image = image
-        imageView.tintColor = .systemGray
-        textField.leftView = imageView
-        textField.layer.cornerRadius = 10
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
-    
-    private var signInButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Sign In", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 16
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var textFieldStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 25
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private var signUpLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Don't have an account?"
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.textColor = .systemGray
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var signUpButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.systemOrange, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var signUpStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 5
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+    lazy var titleLabel = CustomLabel(text: "SignIn", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .blue, textAlignment: .left)
+    lazy var descLabel = CustomLabel(text: "Welcome back", numberOfLines: 0, font: .systemFont(ofSize: 22), textColor: .systemGray, textAlignment: .left)
+    lazy var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
+    lazy var emailTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "envelope")!)
+    lazy var passwordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
+    lazy var signInButton = OnboardingButton(title: "Sign In", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
+    lazy var textFieldStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
+    lazy var signUpLabel = CustomLabel(text: "Don't have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
+    lazy var signUpButton = OnboardingButton(title: "Sign Up", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    lazy var signUpStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {

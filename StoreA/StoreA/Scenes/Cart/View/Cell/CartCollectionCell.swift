@@ -30,24 +30,16 @@ final class CartCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private var productImage: UIImageView = {
+    lazy var productImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private var productTitle: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var productTitle = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
     
-    private let removeButton: UIButton = {
+    lazy var removeButton: UIButton = {
         let button = UIButton()
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "trash"), for: .normal)
@@ -57,35 +49,17 @@ final class CartCollectionCell: UICollectionViewCell {
         return button
     }()
     
-    private let topStackView: UIView = {
+    lazy var topView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.text = "mensclothings"
-        label.numberOfLines = 1
-        label.textColor = .gray
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var categoryLabel = CustomLabel(text: "mensclothings", numberOfLines: 1, font: .systemFont(ofSize: 10), textColor: .gray, textAlignment: .left)
     
-    private let priceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "$12312"
-        label.numberOfLines = 1
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var priceLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
     
-    private let stepperPlusButton: UIButton = {
+    lazy var stepperPlusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.backgroundColor = .systemGray6
@@ -100,17 +74,7 @@ final class CartCollectionCell: UICollectionViewCell {
         return button
     }()
     
-    let stepperLabel: UILabel = {
-        let label = UILabel()
-        label.text = "1"
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.backgroundColor = .white
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var stepperLabel = CustomLabel(text: "1", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
     
     private let stepperMinusButton: UIButton = {
         let button = UIButton()
@@ -229,8 +193,8 @@ final class CartCollectionCell: UICollectionViewCell {
     //MARK: - AddProductTitle/RemoveButtonToStackView
     
     private func addTitleButtonToTopView() {
-        topStackView.addSubview(productTitle)
-        topStackView.addSubview(removeButton)
+        topView.addSubview(productTitle)
+        topView.addSubview(removeButton)
     }
     
     //MARK: - AddCustomStepperElementsToStackView
@@ -249,7 +213,7 @@ final class CartCollectionCell: UICollectionViewCell {
     }
     
     private func addAllStackViewToOne() {
-        allInOneStackView.addArrangedSubview(topStackView)
+        allInOneStackView.addArrangedSubview(topView)
         allInOneStackView.addArrangedSubview(categoryLabel)
         allInOneStackView.addArrangedSubview(bottomView)
     }
@@ -290,16 +254,16 @@ final class CartCollectionCell: UICollectionViewCell {
     
     private func productTitleConstraints() {
         productTitle.snp.makeConstraints { make in
-            make.width.equalTo(topStackView.snp.width).multipliedBy(0.75)
-            make.centerY.equalTo(topStackView.snp.centerY)
-            make.leading.equalTo(topStackView.snp.leading)
+            make.width.equalTo(topView.snp.width).multipliedBy(0.75)
+            make.centerY.equalTo(topView.snp.centerY)
+            make.leading.equalTo(topView.snp.leading)
         }
     }
     
     private func removeButtonConstraints() {
         removeButton.snp.makeConstraints { make in
             make.centerY.equalTo(productTitle.snp.centerY)
-            make.trailing.equalTo(topStackView.snp.trailing)
+            make.trailing.equalTo(topView.snp.trailing)
             
         }
     }

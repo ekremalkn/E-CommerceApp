@@ -15,42 +15,23 @@ final class FilterView: UIView {
     
     //MARK: - Creating UI Elements
     
-    private let customGrabber: UIView = {
+    lazy var customGrabber: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray4
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let filterTitleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.text = "Sort & Filter"
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let seperatorView: UIView = {
+    lazy var filterTitleLabel = CustomLabel(text: "Sort & Filter", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
+    lazy var seperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let collectionTitlLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.text = "Categories"
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    var filterCollection: UICollectionView = {
+    lazy var collectionTitlLabel = CustomLabel(text: "Categories", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
+    lazy var filterCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 15
         layout.minimumLineSpacing = 5

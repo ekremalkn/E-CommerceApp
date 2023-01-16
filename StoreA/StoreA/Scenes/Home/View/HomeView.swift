@@ -20,7 +20,7 @@ final class HomeView: UIView {
     
     //MARK: - Creating UI Elements
     
-    private var profilePhotoImage: UIImageView = {
+    lazy var profilePhotoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = nil
         imageView.tintColor = .black
@@ -31,66 +31,12 @@ final class HomeView: UIView {
         return imageView
     }()
     
-    var hiLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Good morning👋"
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = .systemGray
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    var usernameLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = .black
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var labelStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private var wishListButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.layer.cornerRadius = 15
-        button.backgroundColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var cartButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.setImage(UIImage(systemName: "cart"), for: .normal)
-        button.layer.cornerRadius = 15
-        button.backgroundColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var buttonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+    lazy var hiLabel = CustomLabel(text: "Good morning👋", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .systemGray, textAlignment: .left)
+    lazy var usernameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
+    lazy var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
+    lazy var wishListButton = HomeButton(image: UIImage(systemName: "heart")!)
+    lazy var cartButton = HomeButton(image: UIImage(systemName: "cart")!)
+    lazy var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 10, isHidden: false)
     lazy var searcBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.placeholder = "Search Products"
@@ -98,38 +44,10 @@ final class HomeView: UIView {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
-    
-    private var specialProductsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Specail Products"
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var seeAllButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("See All", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.contentHorizontalAlignment = .right
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private var specialLblSeeBtnStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.spacing = 0
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    var specialCollection: UICollectionView = {
+    lazy var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .blue, textAlignment: .left)
+    lazy var seeAllButton = OnboardingButton(title: "See All", titleColor: .black, font: .boldSystemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    lazy var specialLblSeeBtnStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: false)
+    lazy var specialCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -141,14 +59,8 @@ final class HomeView: UIView {
         return collection
     }()
     
-    var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.currentPageIndicatorTintColor = .blue
-        pageControl.pageIndicatorTintColor = .systemGray
-        return pageControl
-    }()
-    
-    var categoryCollection: UICollectionView = {
+    lazy var pageControl = CustomPageControl()
+    lazy var categoryCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 5
@@ -162,7 +74,7 @@ final class HomeView: UIView {
         return collection
     }()
     
-    var productCollection: UICollectionView = {
+    lazy var productCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
