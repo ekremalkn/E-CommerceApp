@@ -15,7 +15,7 @@ final class WishListView: UIView {
     
     //MARK: - Creating UI Elements
 
-    let wishListCollection: UICollectionView = {
+     var wishListCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)

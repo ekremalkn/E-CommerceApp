@@ -20,11 +20,11 @@ final class OnboardingView: UIView {
     
     //MARK: -  Creating UI Elements
     
-    lazy var collection = OnboardingCollectionView(scrollIndicator: false, paging: true, layout: UICollectionViewFlowLayout())
-    lazy var pageControl = CustomPageControl()
-    lazy var contiuneButton = OnboardingButton(title: "Contiune", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
+    private var collection = CustomCollection(scrollIndicator: false, paging: true, layout: UICollectionViewFlowLayout())
+    private var pageControl = CustomPageControl()
+    private var contiuneButton = OnboardingButton(title: "Contiune", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
     lazy var skipButton = OnboardingButton(title: "Skip", titleColor: .systemGray, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
-    lazy var pageControlButtonsStackView  = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 44, isHidden: false)
+    private var pageControlButtonsStackView  = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 44, isHidden: false)
     lazy var signInLbl = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
     lazy var signInButton = OnboardingButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
     lazy var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: true)

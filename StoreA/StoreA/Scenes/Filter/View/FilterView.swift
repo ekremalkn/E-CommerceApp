@@ -15,23 +15,11 @@ final class FilterView: UIView {
     
     //MARK: - Creating UI Elements
     
-    lazy var customGrabber: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray4
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy var filterTitleLabel = CustomLabel(text: "Sort & Filter", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
-    lazy var seperatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray5
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy var collectionTitlLabel = CustomLabel(text: "Categories", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
-    lazy var filterCollection: UICollectionView = {
+    private var customGrabber = CustomView(backgroundColor: .systemGray4, cornerRadius: 5)
+    private var filterTitleLabel = CustomLabel(text: "Sort & Filter", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
+    private var seperatorView = SeperatorView(backgroundColor: .systemGray5)
+    private var collectionTitlLabel = CustomLabel(text: "Categories", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
+     var filterCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 15
         layout.minimumLineSpacing = 5
@@ -88,7 +76,6 @@ extension FilterView {
     
     private func grabberConstraints() {
         customGrabber.snp.makeConstraints { make in
-            customGrabber.layer.cornerRadius = 5
             make.width.equalTo(safeAreaLayoutGuide).multipliedBy(0.2)
             make.height.equalTo(customGrabber.snp.width).multipliedBy(0.05)
             make.top.equalTo(safeAreaLayoutGuide).offset(5)

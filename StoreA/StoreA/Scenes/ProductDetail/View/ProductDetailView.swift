@@ -90,7 +90,7 @@ final class ProductDetailView: UIView {
    
     lazy var seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray3
+        view.backgroundColor = .systemGray2
         return view
     }()
     

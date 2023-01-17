@@ -19,21 +19,21 @@ final class SignInView: UIView {
         print("deinit signin view")
     }
     
-     weak var interface: SignInViewInterface?
+    weak var interface: SignInViewInterface?
     
     //MARK: - Creating UI Elements
     
-    lazy var titleLabel = CustomLabel(text: "SignIn", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .blue, textAlignment: .left)
-    lazy var descLabel = CustomLabel(text: "Welcome back", numberOfLines: 0, font: .systemFont(ofSize: 22), textColor: .systemGray, textAlignment: .left)
-    lazy var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
-    lazy var emailTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "envelope")!)
-    lazy var passwordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
-    lazy var signInButton = OnboardingButton(title: "Sign In", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
-    lazy var textFieldStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
-    lazy var signUpLabel = CustomLabel(text: "Don't have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
-    lazy var signUpButton = OnboardingButton(title: "Sign Up", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
-    lazy var signUpStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
-
+    private var titleLabel = CustomLabel(text: "SignIn", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .blue, textAlignment: .left)
+    private var descLabel = CustomLabel(text: "Welcome back", numberOfLines: 0, font: .systemFont(ofSize: 22), textColor: .systemGray, textAlignment: .left)
+    private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
+    var emailTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "envelope")!)
+    var passwordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
+    private var signInButton = OnboardingButton(title: "Sign In", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
+    private var textFieldStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
+    private var signUpLabel = CustomLabel(text: "Don't have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
+    private var signUpButton = OnboardingButton(title: "Sign Up", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    private var signUpStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    
     //MARK: - Init Methods
     
     override init(frame: CGRect) {

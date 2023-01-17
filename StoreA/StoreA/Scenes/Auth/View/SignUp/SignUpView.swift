@@ -24,19 +24,19 @@ final class SignUpView: UIView {
     
     //MARK: - Creating UI Elements
     
-    lazy var titleLabel = CustomLabel(text: "SignUp", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .blue, textAlignment: .left)
-    lazy var descLabel = CustomLabel(text: "Sign up to exploring our amazing products.", numberOfLines: 0, font: .systemFont(ofSize: 20), textColor: .systemGray, textAlignment: .left)
-    lazy var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 20, isHidden: false)
-    lazy var usernameTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "person")!)
-    lazy var emailTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "envelope")!)
-    lazy var passwordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
-    lazy var confirmPasswordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Confirm Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
-    lazy var signUpButton = OnboardingButton(title: "Sign Up", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
-    lazy var textFieldButtonStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
-    lazy var signInLabel = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
-    lazy var signInButton = OnboardingButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
-    lazy var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
-
+    private var titleLabel = CustomLabel(text: "SignUp", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .blue, textAlignment: .left)
+    private var descLabel = CustomLabel(text: "Sign up to exploring our amazing products.", numberOfLines: 0, font: .systemFont(ofSize: 20), textColor: .systemGray, textAlignment: .left)
+    private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 20, isHidden: false)
+    var usernameTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "person")!)
+    var emailTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "envelope")!)
+    var passwordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
+    var confirmPasswordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Confirm Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
+    private var signUpButton = OnboardingButton(title: "Sign Up", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
+    private var textFieldButtonStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
+    private var signInLabel = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
+    private var signInButton = OnboardingButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    private var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    
     
     //MARK: - Init Methods
     

@@ -23,17 +23,10 @@ class SpecialCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    lazy var specialImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
-        imageView.layer.cornerRadius = 30
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    lazy var specialTitleLabel = CustomLabel(text: "", numberOfLines: 3, font: .boldSystemFont(ofSize: 15), textColor: .blue, textAlignment: .center)
-    lazy var specialDetailLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .systemGray, textAlignment: .center)
-    lazy var specialLabelStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 8, isHidden: false)
+    private var specialImage = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 30, isUserInteractionEnabled: false)
+    private var specialTitleLabel = CustomLabel(text: "", numberOfLines: 3, font: .boldSystemFont(ofSize: 15), textColor: .blue, textAlignment: .center)
+    private var specialDetailLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .systemGray, textAlignment: .center)
+    private var specialLabelStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 8, isHidden: false)
 
     
     //MARK: - Init Methods

@@ -13,18 +13,11 @@ final class SearchView: UIView {
         print("deinit searchview")
     }
     
-    lazy var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: nil )
-        searchController.searchBar.searchTextField.placeholder = "Search Products"
-        searchController.searchBar.showsBookmarkButton = true
-        searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchController
-    }()
+    var searchController = CustomSearchController(searchPlaceHolder: "Search Products", showsBookmarkButton: true)
     lazy var searchResultsLabel = CustomLabel(text: "Results for SearchTextField", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
     lazy var searchResultCountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .right)
-
     lazy var searchResultLabelsStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 0, isHidden: true)
-    lazy var searchCollection: UICollectionView = {
+    var searchCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)

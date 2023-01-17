@@ -15,7 +15,7 @@ final class CartView: UIView {
     
     //MARK: - Creating UI Elements
     
-    let cartCollection: UICollectionView = {
+    var cartCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -25,8 +25,7 @@ final class CartView: UIView {
         return collection
     }()
     
-    
-    private let checkoutView: UIView = {
+    private var checkoutView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.clipsToBounds = true
@@ -36,35 +35,10 @@ final class CartView: UIView {
         return view
     }()
     
-    private let priceTitle: UILabel = {
-        let label = UILabel()
-        label.text = "Total price"
-        label.numberOfLines = 0
-        label.textColor = .gray
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    var priceLabel: UILabel = {
-        let label = UILabel()
-        label.text = nil
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 25)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let priceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
-    private let checkoutButton: UIButton = {
+    private var priceTitle = CustomLabel(text: "Total price", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .gray, textAlignment: .center)
+    var priceLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 25), textColor: .black, textAlignment: .center)
+    private var priceStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 0, isHidden: false)
+    private var checkoutButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
         button.backgroundColor = .black

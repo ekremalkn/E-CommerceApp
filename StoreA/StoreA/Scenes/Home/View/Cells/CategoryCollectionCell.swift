@@ -19,25 +19,8 @@ class CategoryCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private let labelView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray6
-        view.layer.cornerRadius = 14
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    
-    lazy var categoryLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
-//    : UILabel = {
-//        let label = UILabel()
-//        label.numberOfLines = 0
-//        label.font = UIFont.boldSystemFont(ofSize: 14)
-//        label.textColor = .black
-//        label.textAlignment = .center
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
+    private var labelView = CustomView(backgroundColor: .systemGray6, cornerRadius: 14)
+    private var categoryLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
 
     override var isSelected: Bool {
         didSet {

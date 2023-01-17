@@ -12,9 +12,9 @@ final class SpecialProductsView: UIView {
     deinit {
         print("deinit SpecialProductsView")
     }
-
     
-    let specialProductsCollection: UICollectionView = {
+    
+    var specialProductsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -39,7 +39,7 @@ final class SpecialProductsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
 }
 
 extension SpecialProductsView {
@@ -66,7 +66,7 @@ extension SpecialProductsView {
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
-
-
-
+    
+    
+    
 }

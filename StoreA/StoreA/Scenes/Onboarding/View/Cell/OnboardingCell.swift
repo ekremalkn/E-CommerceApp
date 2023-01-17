@@ -16,43 +16,11 @@ final class OnboardingCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private var onboardingImage: UIImageView  = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private var slideTitleLbl: UILabel = {
-        let label = UILabel()
-        label.text = "Search app for products"
-        label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 25)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var slideDescLbl: UILabel = {
-        let label = UILabel()
-        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
-        label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.textColor = .systemGray
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var slideLblStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 45
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
-    
+    private var onboardingImage = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var slideTitleLbl = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 25), textColor: .black, textAlignment: .center)
+    private var slideDescLbl = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 20), textColor: .systemGray, textAlignment: .center)
+    private var slideLblStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 45, isHidden: false)
+
     //MARK: - override method
     
     override init(frame: CGRect) {

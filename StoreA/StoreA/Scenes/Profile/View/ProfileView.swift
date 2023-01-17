@@ -12,135 +12,29 @@ protocol ProfileViewInterface: AnyObject {
 }
 
 class ProfileView: UIView {
-
+    
     //MARK: - Creating UI Elements
     
-    private let profileTitleImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.fill")
-        imageView.tintColor = .black
-        imageView.backgroundColor = .white
-        imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let profileTitleLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.text = "Profile"
-        label.textColor = .black
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let profileTitleView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    private let moreInfoButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(nil, for: .normal)
-        button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        button.tintColor = .black
-        button.backgroundColor = .white
-        button.contentHorizontalAlignment = .center
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .white
-        imageView.tintColor = .black
-        imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let userNameImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.text.rectangle")
-        imageView.tintColor = .black
-        imageView.backgroundColor = .white
-        imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let userNameLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let userNameView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    private let emailImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "envelope")
-        imageView.tintColor = .black
-        imageView.backgroundColor = .white
-        imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let emailLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let emailView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
-    
-    private let seperatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray5
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let signOutButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Sign Out", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-        button.layer.cornerRadius = 15
-        button.contentHorizontalAlignment = .center
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    
+    private var profileTitleImage = CustomImageView(image: UIImage(systemName: "person.fill")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var profileTitleLabel = CustomLabel(text: "Profile", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
+    private var profileTitleView = CustomView(backgroundColor: .white, cornerRadius: 0)
+    private var moreInfoButton = HomeButton(image: UIImage(systemName: "ellipsis.circle")!)
+    private var profileImageView = CustomImageView(image: UIImage(systemName: "person")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var userNameImage = CustomImageView(image: UIImage(systemName: "person.text.rectangle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var userNameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+    private var userNameView = CustomView(backgroundColor: .white, cornerRadius: 0)
+    private var emailImage = CustomImageView(image: UIImage(systemName: "envelope")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var emailLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+    private var emailView = CustomView(backgroundColor: .white, cornerRadius: 0)
+    private var seperatorView = SeperatorView(backgroundColor: .systemGray5)
+    private var signOutButton = OnboardingButton(title: "Sign Out", titleColor: .white, font: .boldSystemFont(ofSize: 13), backgroundColor: .red, cornerRadius: 15)
     
     //MARK: - Propertis
     
     weak var interface: ProfileViewInterface?
-
+    
     //MARK: - Init methods
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -174,14 +68,14 @@ class ProfileView: UIView {
     }
     
     //MARK: - ProfileTitleAddToView
-
+    
     private func profileTitleAddToView() {
         profileTitleView.addSubview(profileTitleImage)
         profileTitleView.addSubview(profileTitleLabel)
     }
     
     //MARK: - UsernameLabelAddToView
-
+    
     private func usernameLabelAddToView() {
         userNameView.addSubview(userNameImage)
         userNameView.addSubview(userNameLabel)
@@ -199,7 +93,7 @@ class ProfileView: UIView {
 extension ProfileView {
     
     //MARK: - AddSubview
-
+    
     private func addSubview() {
         addSubview(profileTitleView)
         profileTitleAddToView()
@@ -214,7 +108,7 @@ extension ProfileView {
     }
     
     //MARK: - Setup Constraints
-
+    
     private func setupConstraints() {
         profileTitleViewConstraints()
         profileTitleImageConstraints()
@@ -255,7 +149,7 @@ extension ProfileView {
             make.centerY.equalTo(profileTitleView.snp.centerY)
             make.trailing.equalTo(profileTitleView.snp.trailing)
         }
-    
+        
     }
     
     private func moreInfoButtonConstraints() {
@@ -342,9 +236,9 @@ extension ProfileView {
     
     
     
-
-
-        
+    
+    
+    
 }
 
 

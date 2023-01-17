@@ -1,5 +1,5 @@
 //
-//  OnboardingCollectionView.swift
+//  CustomCollection.swift
 //  StoreA
 //
 //  Created by Ekrem Alkan on 16.01.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class OnboardingCollectionView: UICollectionView {
+final class CustomCollection: UICollectionView {
     
     
     

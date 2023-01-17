@@ -20,34 +20,24 @@ final class HomeView: UIView {
     
     //MARK: - Creating UI Elements
     
-    lazy var profilePhotoImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = nil
-        imageView.tintColor = .black
-        imageView.image = UIImage(systemName: "person.circle")
-        imageView.layer.cornerRadius = 20
-        imageView.contentMode = .scaleToFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    lazy var hiLabel = CustomLabel(text: "Good morning👋", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .systemGray, textAlignment: .left)
-    lazy var usernameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
-    lazy var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
-    lazy var wishListButton = HomeButton(image: UIImage(systemName: "heart")!)
-    lazy var cartButton = HomeButton(image: UIImage(systemName: "cart")!)
-    lazy var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 10, isHidden: false)
-    lazy var searcBar: UISearchBar = {
+    private var profilePhotoImage = CustomImageView(image: UIImage(systemName: "person.circle")!, tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleToFill, cornerRadius: 20, isUserInteractionEnabled: false)
+    var hiLabel = CustomLabel(text: "Good morning👋", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .systemGray, textAlignment: .left)
+    var usernameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
+    private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
+    private var wishListButton = HomeButton(image: UIImage(systemName: "heart")!)
+    private var cartButton = HomeButton(image: UIImage(systemName: "cart")!)
+    private var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 10, isHidden: false)
+    var searcBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchTextField.placeholder = "Search Products"
         searchBar.showsBookmarkButton = true
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
-    lazy var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .blue, textAlignment: .left)
-    lazy var seeAllButton = OnboardingButton(title: "See All", titleColor: .black, font: .boldSystemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
-    lazy var specialLblSeeBtnStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: false)
-    lazy var specialCollection: UICollectionView = {
+    private var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .blue, textAlignment: .left)
+    private var seeAllButton = OnboardingButton(title: "See All", titleColor: .black, font: .boldSystemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    private var specialLblSeeBtnStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: false)
+    var specialCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)

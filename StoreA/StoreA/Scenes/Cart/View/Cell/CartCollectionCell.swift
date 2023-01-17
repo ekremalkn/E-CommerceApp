@@ -30,16 +30,9 @@ final class CartCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    lazy var productImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    lazy var productTitle = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
-    
-    lazy var removeButton: UIButton = {
+    private var productImage = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var productTitle = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
+    private var removeButton: UIButton = {
         let button = UIButton()
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "trash"), for: .normal)
@@ -48,18 +41,10 @@ final class CartCollectionCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
-    lazy var topView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    lazy var categoryLabel = CustomLabel(text: "mensclothings", numberOfLines: 1, font: .systemFont(ofSize: 10), textColor: .gray, textAlignment: .left)
-    
-    lazy var priceLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
-    
-    lazy var stepperPlusButton: UIButton = {
+    private var topView = CustomView(backgroundColor: .white, cornerRadius: 0)
+    private var categoryLabel = CustomLabel(text: "mensclothings", numberOfLines: 1, font: .systemFont(ofSize: 10), textColor: .gray, textAlignment: .left)
+    private var priceLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
+    private var stepperPlusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.backgroundColor = .systemGray6
@@ -73,10 +58,8 @@ final class CartCollectionCell: UICollectionViewCell {
         }
         return button
     }()
-    
-    lazy var stepperLabel = CustomLabel(text: "1", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
-    
-    private let stepperMinusButton: UIButton = {
+    private var stepperLabel = CustomLabel(text: "1", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
+    private var stepperMinusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .black
         button.backgroundColor = .systemGray6
@@ -90,30 +73,10 @@ final class CartCollectionCell: UICollectionViewCell {
         }
         return button
     }()
+    private var stepperStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    private var bottomView = CustomView(backgroundColor: .white, cornerRadius: 0)
+    private var allInOneStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 0, isHidden: false)
     
-    
-    private let stepperStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fill
-        
-        return stackView
-    }()
-    
-    private let bottomView: UIView = {
-        let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let allInOneStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
     
     var productId: Int?
     
