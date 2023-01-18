@@ -20,7 +20,7 @@ final class ProductDetailViewModel {
     deinit {
         print("deinit productdeteailviewmodel")
     }
-        
+    
     weak var delegate: ProductDetailViewModelDelegate?
     
     private let database = Firestore.firestore()
@@ -33,7 +33,7 @@ final class ProductDetailViewModel {
     var wishList: [String: Int]? = [:]
     
     //MARK: - FetchCart
-
+    
     func fetchCart(productId: Int) {
         guard let currentUser = currentUser else { return }
         
@@ -87,7 +87,7 @@ final class ProductDetailViewModel {
             
         }
     }
-
+    
     //MARK: - Update Cart in Firestore
     
     func updateCart(productId: Int, quantity: Int) {
@@ -112,10 +112,10 @@ final class ProductDetailViewModel {
                 }
             }
         }
-      
+        
     }
     
-
-
+    
+    
 }
 

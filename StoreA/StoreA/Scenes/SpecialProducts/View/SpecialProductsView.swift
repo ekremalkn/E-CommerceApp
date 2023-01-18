@@ -14,17 +14,7 @@ final class SpecialProductsView: UIView {
     }
     
     
-    var specialProductsCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGray6
-        collection.showsVerticalScrollIndicator = false
-        collection.isPagingEnabled = false
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
-    
+    var specialProductsCollection = CustomCollection(backgroundColor: .systemGray6, showsScrollIndicator: false, paging: false ,layout: UICollectionViewFlowLayout(), scrollDirection: .vertical)
     
     //MARK: - Init methods
     

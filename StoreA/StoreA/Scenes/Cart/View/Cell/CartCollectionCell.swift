@@ -32,47 +32,13 @@ final class CartCollectionCell: UICollectionViewCell {
     
     private var productImage = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
     private var productTitle = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
-    private var removeButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .gray
-        button.setImage(UIImage(systemName: "trash"), for: .normal)
-        button.imageView?.contentMode = .scaleToFill
-        button.backgroundColor = nil
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private var removeButton = CustomButton(image: UIImage(systemName: "trash"),tintColor: .gray)
     private var topView = CustomView(backgroundColor: .white, cornerRadius: 0)
     private var categoryLabel = CustomLabel(text: "mensclothings", numberOfLines: 1, font: .systemFont(ofSize: 10), textColor: .gray, textAlignment: .left)
     private var priceLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
-    private var stepperPlusButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.backgroundColor = .systemGray6
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(40)
-        }
-        return button
-    }()
+    private var stepperPlusButton = CustomButton(backgroundColor: .systemGray6, cornerRadius: 20, image: UIImage(systemName: "plus"), tintColor: .black)
     private var stepperLabel = CustomLabel(text: "1", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
-    private var stepperMinusButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.backgroundColor = .systemGray6
-        button.setImage(UIImage(systemName: "minus"), for: .normal)
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(40)
-        }
-        return button
-    }()
+    private var stepperMinusButton = CustomButton(backgroundColor: .systemGray6, cornerRadius: 20, image: UIImage(systemName: "minus"), tintColor: .black)
     private var stepperStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
     private var bottomView = CustomView(backgroundColor: .white, cornerRadius: 0)
     private var allInOneStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 0, isHidden: false)
@@ -163,22 +129,17 @@ final class CartCollectionCell: UICollectionViewCell {
     //MARK: - AddCustomStepperElementsToStackView
     
     private func addStepperElementsToStackView() {
-        stepperStackView.addArrangedSubview(stepperPlusButton)
-        stepperStackView.addArrangedSubview(stepperLabel)
-        stepperStackView.addArrangedSubview(stepperMinusButton)
+        stepperStackView.addArrangedSubviews(stepperPlusButton, stepperLabel, stepperMinusButton)
     }
     
     //MARK: - AddPriceStepperElementsToStackView
     
     private func addPriceStepperToBottomStackView() {
-        bottomView.addSubview(priceLabel)
-        bottomView.addSubview(stepperStackView)
+        bottomView.addSubviews(priceLabel, stepperStackView)
     }
     
     private func addAllStackViewToOne() {
-        allInOneStackView.addArrangedSubview(topView)
-        allInOneStackView.addArrangedSubview(categoryLabel)
-        allInOneStackView.addArrangedSubview(bottomView)
+        allInOneStackView.addArrangedSubviews(topView, categoryLabel, bottomView)
     }
     
     
@@ -186,8 +147,7 @@ final class CartCollectionCell: UICollectionViewCell {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(productImage)
-        addSubview(allInOneStackView)
+        addSubviews(productImage, allInOneStackView)
     }
     
     //MARK: - Setup Constraints
@@ -197,6 +157,8 @@ final class CartCollectionCell: UICollectionViewCell {
         addTitleButtonToTopView()
         productTitleConstraints()
         removeButtonConstraints()
+        stepperPlusButtonConstraints()
+        stepperMinusButtonConstraints()
         addStepperElementsToStackView()
         addPriceStepperToBottomStackView()
         priceLabelConstraints()
@@ -236,6 +198,20 @@ final class CartCollectionCell: UICollectionViewCell {
             make.width.equalTo(bottomView.snp.width).multipliedBy(0.5)
             make.centerY.equalTo(bottomView.snp.centerY)
             make.leading.equalTo(bottomView.snp.leading)
+        }
+    }
+    
+    private func stepperPlusButtonConstraints() {
+        stepperPlusButton.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+    }
+    
+    private func stepperMinusButtonConstraints() {
+        stepperMinusButton.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(40)
         }
     }
     

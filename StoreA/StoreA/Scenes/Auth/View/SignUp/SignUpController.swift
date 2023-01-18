@@ -38,18 +38,29 @@ final class SignUpController: UIViewController {
         guard let confirmPassword = signUpView.passwordTextField.text else { return ""}
         return confirmPassword
     }
-
+    
     //MARK: - ViewDidLoad Method
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        setupDelegates()
+        configureNavBar()
     }
     
     //MARK: - Configure ViewController
-
+    
     private func configureViewController() {
         view = signUpView
+        
+    }
+    
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
+    }
+    
+    private func setupDelegates() {
         signUpView.interface = self
         authViewModel.delegate = self
     }
@@ -59,7 +70,7 @@ final class SignUpController: UIViewController {
     private func checkPasswordMatch() -> Bool {
         return password == confirmPassword
     }
-
+    
 }
 
 extension SignUpController: SignUpViewInterface {

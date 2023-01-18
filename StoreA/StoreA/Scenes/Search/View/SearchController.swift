@@ -34,7 +34,7 @@ final class SearchController: UIViewController {
     //MARK: - Products
     
     var filteredProducts: [Product] = []
-
+    
     
     //MARK: - Lifecycle Methods
     
@@ -50,7 +50,7 @@ final class SearchController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
     }
-
+    
     
     //MARK: - Configure ViewController
     
@@ -160,7 +160,7 @@ extension SearchController: UICollectionViewDelegate, UICollectionViewDataSource
 //MARK: - SearchViewModelDelegate
 
 extension SearchController: SearchViewModelDelegate {
-
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -177,11 +177,11 @@ extension SearchController: SearchViewModelDelegate {
     func didFetchProductsByCategorySuccessful() {
         searchView.searchCollection.reloadData()
     }
-
+    
     
 }
 
-   
+
 //MARK: - ProductCollectionCellInterface
 
 extension SearchController: ProductCollectionCellInterface {

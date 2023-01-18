@@ -18,18 +18,28 @@ class CustomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(backgroundColor: UIColor, cornerRadius: CGFloat) {
+    convenience init(backgroundColor: UIColor? = nil, clipsToBound: Bool? = nil, cornerRadius: CGFloat? = nil, maskedCorners: CACornerMask? = nil) {
         self.init(frame: .zero)
-        set(backgroundColor: backgroundColor, cornerRadius: cornerRadius)
+        set(backgroundColor: backgroundColor, clipsToBound: clipsToBound, cornerRadius: cornerRadius, maskedCorners: maskedCorners)
     }
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func set(backgroundColor: UIColor, cornerRadius: CGFloat) {
-        self.backgroundColor = backgroundColor
-        self.layer.cornerRadius = cornerRadius
+    private func set(backgroundColor: UIColor? = nil, clipsToBound: Bool? = nil, cornerRadius: CGFloat? = nil, maskedCorners: CACornerMask? = nil) {
+        if let backgroundColor = backgroundColor {
+            self.backgroundColor = backgroundColor
+        }
+        if let clipsToBound = clipsToBound {
+            self.clipsToBounds = clipsToBound
+        }
+        if let cornerRadius = cornerRadius {
+            layer.cornerRadius = cornerRadius
+        }
+        if let maskedCorners = maskedCorners {
+            layer.maskedCorners = maskedCorners
+        }
     }
 
 }

@@ -45,17 +45,13 @@ final class OnboardingCell: UICollectionViewCell {
     //MARK: - StackView AddSubviews
     
     private func addSlideLblsToStackView() {
-        slideLblStackView.addArrangedSubview(slideTitleLbl)
-        slideLblStackView.addArrangedSubview(slideDescLbl)
+        slideLblStackView.addArrangedSubviews(slideTitleLbl, slideDescLbl)
     }
     
     //MARK: - UI Elements Constraints
     
     private func addSubview() {
-        addSubview(onboardingImage)
-        addSubview(slideTitleLbl)
-        addSubview(slideDescLbl)
-        addSubview(slideLblStackView)
+        addSubviews(onboardingImage, slideTitleLbl, slideDescLbl, slideLblStackView)
     }
     
     private func setupConstraint() {

@@ -24,57 +24,17 @@ final class HomeView: UIView {
     var hiLabel = CustomLabel(text: "Good morning👋", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .systemGray, textAlignment: .left)
     var usernameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
-    private var wishListButton = HomeButton(image: UIImage(systemName: "heart")!)
-    private var cartButton = HomeButton(image: UIImage(systemName: "cart")!)
+    private var wishListButton = CustomButton(cornerRadius: 15,image: UIImage(systemName: "heart"), tintColor: .black)
+    private var cartButton = CustomButton(cornerRadius: 15, image: UIImage(systemName: "cart"), tintColor: .black)
     private var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 10, isHidden: false)
-    var searcBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchTextField.placeholder = "Search Products"
-        searchBar.showsBookmarkButton = true
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
-    }()
-    private var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .blue, textAlignment: .left)
-    private var seeAllButton = OnboardingButton(title: "See All", titleColor: .black, font: .boldSystemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
-    private var specialLblSeeBtnStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: false)
-    var specialCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.layer.cornerRadius = 30
-        collection.backgroundColor = .white
-        collection.showsHorizontalScrollIndicator = false
-        collection.isPagingEnabled = true
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
-    
-    lazy var pageControl = CustomPageControl()
-    lazy var categoryCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 5
-        layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGray6
-        collection.showsHorizontalScrollIndicator = false
-        collection.isPagingEnabled = false
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
-    
-    lazy var productCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGray6
-        collection.showsVerticalScrollIndicator = false
-        collection.isPagingEnabled = false
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
-    
+    var searcBar = CustomSearchBar(showsBookmarkButton: false, placeHolder: "Search Products")
+    private var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
+    private var seeAllButton = CustomButton(title: "See All", titleColor: .black, font: .boldSystemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    private var specialLblSeeBtnView = CustomView()
+    var specialCollection = CustomCollection(backgroundColor: .white, cornerRadius: 30, showsScrollIndicator: false, paging: true,layout: UICollectionViewFlowLayout(), scrollDirection: .horizontal)
+    var pageControl = CustomPageControl()
+    var categoryCollection = CustomCollection(backgroundColor: .systemGray6, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .horizontal, estimatedItemSize: UICollectionViewFlowLayout.automaticSize, minimumInteritemSpacing: 0, minimumLineSpacing: 5)
+    var productCollection = CustomCollection(backgroundColor: .systemGray6, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .vertical)
     
     //MARK: - PageControl CurrentPage
     
@@ -93,16 +53,20 @@ final class HomeView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureView() {
         backgroundColor = .systemGray6
         searcBar.barTintColor = .systemGray6
         addSubview()
         setupConstraints()
         configureSearchBar()
         addTarget()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -132,22 +96,19 @@ final class HomeView: UIView {
     //MARK: - TopLabelsAddToStackView
     
     private func addTopLabelsToStackView() {
-        labelStackView.addArrangedSubview(hiLabel)
-        labelStackView.addArrangedSubview(usernameLabel)
+        labelStackView.addArrangedSubviews(hiLabel, usernameLabel)
     }
     
     //MARK: - TopButtonsAddToStackView
     
     private func addTopButtonsToStackView() {
-        buttonStackView.addArrangedSubview(wishListButton)
-        buttonStackView.addArrangedSubview(cartButton)
+        buttonStackView.addArrangedSubviews(wishListButton, cartButton)
     }
     
-    //MARK: - SpecialLabel / SeeAll Button AddToStackView
+    //MARK: - SpecialLabel / SeeAll Button AddToView
     
-    private func addSpecialLblSeeBtnToStackView() {
-        specialLblSeeBtnStackView.addArrangedSubview(specialProductsLabel)
-        specialLblSeeBtnStackView.addArrangedSubview(seeAllButton)
+    private func addSpecialLblSeeBtnToView() {
+        specialLblSeeBtnView.addSubviews(specialProductsLabel, seeAllButton)
     }
     
     
@@ -160,27 +121,15 @@ final class HomeView: UIView {
 }
 
 
-
 extension HomeView {
     
     //MARK: - AddSubView
     
     private func addSubview() {
-        addSubview(profilePhotoImage)
+        addSubviews(profilePhotoImage, labelStackView, buttonStackView, searcBar, specialLblSeeBtnView, specialCollection, pageControl, categoryCollection, productCollection)
         addTopLabelsToStackView()
-        addSubview(labelStackView)
         addTopButtonsToStackView()
-        addSubview(buttonStackView)
-        addSubview(searcBar)
-        addSpecialLblSeeBtnToStackView()
-        addSubview(specialLblSeeBtnStackView)
-        addSubview(specialCollection)
-        addSubview(pageControl)
-        addSubview(categoryCollection)
-        addSubview(productCollection)
-        
-        
-        
+        addSpecialLblSeeBtnToView()
     }
     
     //MARK: - Setup Constraints
@@ -190,7 +139,9 @@ extension HomeView {
         topLabelsStackViewConstraints()
         topButtonsStackViewConstraints()
         searchBarConstraints()
-        specialLblSeeBtnStackViewConstraints()
+        specialLblSeeBtnViewConstraints()
+        specialLblConstraints()
+        seeAllButtonConstraints()
         specialCollectionConstraints()
         pageControlConstraints()
         categoryCollectionConstraints()
@@ -235,17 +186,34 @@ extension HomeView {
         }
     }
     
-    private func specialLblSeeBtnStackViewConstraints() {
-        specialLblSeeBtnStackView.snp.makeConstraints { make in
+    private func specialLblSeeBtnViewConstraints() {
+        specialLblSeeBtnView.snp.makeConstraints { make in
+            make.height.equalTo(specialProductsLabel.snp.height)
             make.top.equalTo(searcBar.snp.bottom).offset(10)
             make.leading.equalTo(searcBar.snp.leading)
             make.trailing.equalTo(searcBar.snp.trailing)
         }
     }
     
+    private func specialLblConstraints() {
+        specialProductsLabel.snp.makeConstraints { make in
+            make.leading.equalTo(specialLblSeeBtnView.snp.leading)
+            make.centerY.equalTo(specialLblSeeBtnView.snp.centerY)
+            make.trailing.equalTo(seeAllButton.snp.leading)
+        }
+    }
+    
+    private func seeAllButtonConstraints() {
+        seeAllButton.snp.makeConstraints { make in
+            make.width.equalTo(50)
+            make.centerY.equalTo(specialLblSeeBtnView.snp.centerY)
+            make.trailing.equalTo(specialLblSeeBtnView.snp.trailing)
+        }
+    }
+    
     private func specialCollectionConstraints() {
         specialCollection.snp.makeConstraints { make in
-            make.top.equalTo(specialLblSeeBtnStackView.snp.bottom).offset(10)
+            make.top.equalTo(specialLblSeeBtnView.snp.bottom).offset(10)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.centerY)
             make.leading.equalTo(safeAreaLayoutGuide).offset(15)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
@@ -274,7 +242,7 @@ extension HomeView {
     
     private func productsCollectionConstraint() {
         productCollection.snp.makeConstraints { make in
-            make.top.equalTo(categoryCollection.snp.bottom).offset(30)
+            make.top.equalTo(categoryCollection.snp.bottom).offset(20)
             make.trailing.equalTo(searcBar.snp.trailing)
             make.leading.equalTo(searcBar.snp.leading)
             make.bottom.equalTo(safeAreaLayoutGuide)
@@ -282,3 +250,5 @@ extension HomeView {
     }
     
 }
+
+

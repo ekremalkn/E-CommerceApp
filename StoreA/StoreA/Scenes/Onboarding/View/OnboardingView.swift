@@ -18,16 +18,17 @@ protocol OnboardingViewInterface: AnyObject {
 
 final class OnboardingView: UIView {
     
+    
     //MARK: -  Creating UI Elements
     
-    private var collection = CustomCollection(scrollIndicator: false, paging: true, layout: UICollectionViewFlowLayout())
+    var collection = CustomCollection(showsScrollIndicator: false, paging: true, layout: UICollectionViewFlowLayout(), scrollDirection: .horizontal)
     private var pageControl = CustomPageControl()
-    private var contiuneButton = OnboardingButton(title: "Contiune", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
-    lazy var skipButton = OnboardingButton(title: "Skip", titleColor: .systemGray, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
+    private var contiuneButton = CustomButton(title: "Contiune", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .black, cornerRadius: 16)
+    lazy var skipButton = CustomButton(title: "Skip", titleColor: .systemGray, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
     private var pageControlButtonsStackView  = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 44, isHidden: false)
     lazy var signInLbl = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
-    lazy var signInButton = OnboardingButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
-    lazy var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: true)
+    lazy var signInButton = CustomButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .white, cornerRadius: 16)
+    lazy var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 10, isHidden: true)
     
     //MARK: - Properties
     
@@ -43,8 +44,6 @@ final class OnboardingView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        collectionCellRegister()
-        setupDelegates()
         addSubview()
         setupConstraints()
         addSignInElementsToStackView()
@@ -60,7 +59,7 @@ final class OnboardingView: UIView {
     
     //MARK: - PageControl CurrentPage
     
-    private var currentPage = 0 {
+    var currentPage = 0 {
         didSet {
             pageControl.currentPage = currentPage
             if currentPage == slides.count - 1 {
@@ -75,8 +74,6 @@ final class OnboardingView: UIView {
         }
     }
     
-    
-    
     //MARK: - SetSlides
     
     func setSlides() {
@@ -84,19 +81,6 @@ final class OnboardingView: UIView {
                   OnboardingSlide(title: "Confirm Your Purchase", description: "Make the final purchase and get the quick delivery.", image: UIImage(named: "onboardingSlide2")!)]
     }
     
-    //MARK: - Register Custom Collection Cell
-    
-    private func collectionCellRegister() {
-        collection.register(OnboardingCell.self, forCellWithReuseIdentifier: OnboardingCell.identifier)
-        
-    }
-    
-    //MARK: - Setup Delegates
-    
-    private func setupDelegates() {
-        collection.delegate = self
-        collection.dataSource = self
-    }
     
     //MARK: - Button Actions
     
@@ -129,80 +113,22 @@ final class OnboardingView: UIView {
     //MARK: - StackView AddSubview
     
     private func addSignInElementsToStackView() {
-        signInStackView.addArrangedSubview(signInLbl)
-        signInStackView.addArrangedSubview(signInButton)
+        signInStackView.addArrangedSubviews(signInLbl, signInButton)
     }
     
     private func addPageControlButtonsToStackView() {
-        pageControlButtonsStackView.addArrangedSubview(pageControl)
-        pageControlButtonsStackView.addArrangedSubview(contiuneButton)
-        pageControlButtonsStackView.addArrangedSubview(skipButton)
-        pageControlButtonsStackView.addArrangedSubview(signInStackView)
+        pageControlButtonsStackView.addArrangedSubviews(pageControl, contiuneButton, skipButton)
     }
 }
 
-//MARK: - ScrollView Method
 
-extension OnboardingView {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let witdh = scrollView.frame.width
-        currentPage = Int(scrollView.contentOffset.x / witdh)
-    }
-}
 
-//MARK: - CollectionView Methods
-
-extension OnboardingView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return slides.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collection.dequeueReusableCell(withReuseIdentifier: OnboardingCell.identifier, for: indexPath) as? OnboardingCell else { return UICollectionViewCell()}
-        cell.configure(data: slides[indexPath.row])
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collection.frame.width, height: collection.frame.height)
-    }
-    
-    
-}
-
-//MARK: - OnboardingViewInterface Methods
-
-extension OnboardingController: OnboardingViewInterface {
-    func onboardingView(_ view: OnboardingView, contiuneButtonTapped button: UIButton) {
-        let signUpVC = SignUpController()
-        navigationController?.pushViewController(signUpVC, animated: true)
-    }
-    
-    func onboardingView(_ view: OnboardingView, skipButtonTapped button: UIButton) {
-        let signUpVC = SignUpController()
-        navigationController?.pushViewController(signUpVC, animated: true)
-    }
-    
-    func onboardingView(_ view: OnboardingView, signInButtonTapped button: UIButton) {
-        let signInVC = SignInController()
-        navigationController?.pushViewController(signInVC, animated: true)
-    }
-    
-    
-}
 //MARK: - UI Elements Constraints
 
 extension OnboardingView {
     
     private func addSubview() {
-        addSubview(collection)
-        addSubview(pageControl)
-        addSubview(contiuneButton)
-        addSubview(skipButton)
-        addSubview(pageControlButtonsStackView)
-        addSubview(signInLbl)
-        addSubview(signInButton)
-        addSubview(signInStackView)
+        addSubviews(collection, pageControl, contiuneButton, skipButton, pageControlButtonsStackView, signInLbl, signInButton, signInStackView)
     }
     
     private func setupConstraints() {
@@ -233,15 +159,13 @@ extension OnboardingView {
     
     private func skipButtonConstraints() {
         skipButton.snp.makeConstraints { make in
-            make.height.equalTo(56)
-            make.width.equalTo(116)
+            make.top.equalTo(contiuneButton.snp.bottom).offset(35)
         }
     }
     
     private func signInStackViewConstraints() {
         signInStackView.snp.makeConstraints { make in
-            make.height.equalTo(56)
-            make.width.equalTo(116)
+            make.top.equalTo(contiuneButton.snp.bottom).offset(35)
             make.centerX.equalTo(contiuneButton.snp.centerX)
         }
     }
@@ -251,7 +175,6 @@ extension OnboardingView {
             make.top.equalTo(collection.snp.bottom)
             make.leading.equalTo(safeAreaLayoutGuide).offset(50)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-50)
-            make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
     

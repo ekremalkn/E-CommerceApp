@@ -8,23 +8,14 @@
 import UIKit
 
 final class WishListView: UIView {
-
+    
     deinit {
         print("deinit wishlistview")
     }
     
     //MARK: - Creating UI Elements
-
-     var wishListCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGray6
-        collection.showsVerticalScrollIndicator = false
-        collection.isPagingEnabled = false
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
+    
+    var wishListCollection = CustomCollection(backgroundColor: .systemGray6, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .vertical)
     
     //MARK: - Init Methods
     
@@ -38,7 +29,7 @@ final class WishListView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-  
+    
 }
 
 extension WishListView {
@@ -54,11 +45,11 @@ extension WishListView {
     private func setupConstraints() {
         wishListCollectionConstraints()
     }
-
+    
     
     //MARK: - UI Elements Constraints
     
-    private func wishListCollectionConstraints() {
+    private func wishListCollectionConstraints() {
         wishListCollection.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
@@ -66,6 +57,6 @@ extension WishListView {
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
-
-
+    
+    
 }

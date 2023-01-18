@@ -18,7 +18,7 @@ final class SpecialProductsViewModel {
     deinit {
         print("deinit SpecialProductsViewModel")
     }
-
+    
     weak var delegate: SpecialProductsViewModelDelegate?
     
     let manager = Service.shared
@@ -36,7 +36,7 @@ final class SpecialProductsViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
     
     
@@ -49,7 +49,7 @@ final class SpecialProductsViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
     
 }

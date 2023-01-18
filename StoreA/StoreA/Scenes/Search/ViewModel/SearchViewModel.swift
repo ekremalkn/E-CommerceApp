@@ -21,20 +21,20 @@ final class SearchViewModel {
     }
     
     //MARK: - SearchViewModelDelegate
-
+    
     weak var delegate: SearchViewModelDelegate?
     
     //MARK: - Properties
-
+    
     let manager = Service.shared
-
-
+    
+    
     //MARK: - Products
-
+    
     var products: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
-
+    
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts) { products in
@@ -69,10 +69,10 @@ final class SearchViewModel {
             }
         } onError: { error in
             self.delegate?.didOccurError(error)
-
-            }
-
+            
+        }
+        
     }
-  
- 
+    
+    
 }

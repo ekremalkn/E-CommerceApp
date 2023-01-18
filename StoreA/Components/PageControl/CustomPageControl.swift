@@ -20,7 +20,7 @@ final class CustomPageControl: UIPageControl {
     
     
     private func configure() {
-        currentPageIndicatorTintColor = .blue
+        currentPageIndicatorTintColor = .black
         pageIndicatorTintColor = .systemGray
     }
 }

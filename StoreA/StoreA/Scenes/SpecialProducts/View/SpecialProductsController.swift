@@ -12,15 +12,15 @@ final class SpecialProductsController: UIViewController {
     deinit {
         print("deinit SpecialProductsController")
     }
-
-  
+    
+    
     //MARK: - Properties
     private let specialProductsViewModel = SpecialProductsViewModel()
     private let specialProductsView = SpecialProductsView()
-
+    
     
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -53,9 +53,9 @@ final class SpecialProductsController: UIViewController {
         specialProductsView.specialProductsCollection.delegate = self
         specialProductsView.specialProductsCollection.dataSource = self
     }
-
-   
-
+    
+    
+    
 }
 
 extension SpecialProductsController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -81,7 +81,7 @@ extension SpecialProductsController: UICollectionViewDelegate, UICollectionViewD
 }
 
 extension SpecialProductsController: SpecialProductsViewModelDelegate {
-
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }

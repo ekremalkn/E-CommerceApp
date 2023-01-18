@@ -29,165 +29,40 @@ final class ProductDetailView: UIView {
     deinit {
         print("deinit productdetail view")
     }
-
+    
     //MARK: - Creating UI Elements
-
-    lazy var productImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
-    lazy var productTitle = CustomLabel(text: "", numberOfLines: 2, font: .boldSystemFont(ofSize: 20), textColor: .blue, textAlignment: .left)
-     lazy var addToWishListButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.backgroundColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    lazy var favButtonTitleStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
-    lazy var salesAmountView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray6
-        view.layer.cornerRadius = 12
-        return view
-    }()
-    
-    lazy var salesAmountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
-    lazy var ratingCountImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "star.fill")
-        imageView.backgroundColor = .systemGray6
-        imageView.layer.cornerRadius = 12
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .black
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
-    lazy var ratingCountLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .left)
-    lazy var ratingCountStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.backgroundColor = .systemGray6
-        stackView.layer.cornerRadius = 12
-        stackView.distribution = .fill
-        stackView.spacing = 2
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        stackView.snp.makeConstraints { make in
-            make.height.equalTo(35)
-            make.width.equalTo(70)
-        }
-        return stackView
-    }()
-   
-    lazy var seperatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray2
-        return view
-    }()
-    
-    lazy var descriptionTitle = CustomLabel(text: "Description", numberOfLines: 0, font: .systemFont(ofSize: 17), textColor: .black, textAlignment: .left)
-    lazy var descriptionLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .left)
-    lazy var descriptionView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    lazy var seperatorView2: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray2
-        return view
-    }()
-    
-    lazy var priceTitle = CustomLabel(text: "Total price", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .center)
-    lazy var priceLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 25), textColor: .black, textAlignment: .center)
-    lazy var priceStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 4, isHidden: false)
+    private var productImage = CustomImageView(backgroundColor: .white,contentMode: .scaleAspectFit)
+    private var productTitle = CustomLabel(text: "", numberOfLines: 2, font: .boldSystemFont(ofSize: 20), textColor: .blue, textAlignment: .left)
+    var addToWishListButton = CustomButton(backgroundColor: .white, image: UIImage(systemName: "heart"), tintColor: .black)
+    private var favButtonTitleStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    private var salesAmountView = CustomView(backgroundColor: .systemGray6, cornerRadius: 12)
+    private var salesAmountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+    private var ratingCountImageView = CustomImageView(image: UIImage(systemName: "star.fill"), tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleAspectFit, cornerRadius: 12)
+    private var ratingCountLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .left)
+    private var ratingCountStackView = CustomStackView(backgroundColor: .systemGray6, cornerRadius: 12, axis: .horizontal, distiribution: .fill, spacing: 2)
+    private var seperatorView = CustomView(backgroundColor: .systemGray2)
+    private var descriptionTitle = CustomLabel(text: "Description", numberOfLines: 0, font: .systemFont(ofSize: 17), textColor: .black, textAlignment: .left)
+    private var descriptionLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .left)
+    private var descriptionView = CustomView(backgroundColor: .white)
+    private var seperatorView2 = CustomView(backgroundColor: .systemGray2)
+    private var priceTitle = CustomLabel(text: "Total price", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .center)
+    var priceLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 25), textColor: .black, textAlignment: .center)
+    private var priceStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 4, isHidden: false)
     lazy var quantityLabel = CustomLabel(text: "Quantity", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
-
-    lazy var stepperPlusButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.backgroundColor = .systemGray6
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(40)
-        }
-        return button
-    }()
-    
+    lazy var stepperPlusButton = CustomButton(backgroundColor: .systemGray6, cornerRadius: 20, image: UIImage(systemName: "plus"), tintColor: .black)
     lazy var stepperLabel = CustomLabel(text: "1", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
-    lazy var stepperMinusButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .black
-        button.backgroundColor = .systemGray6
-        button.setImage(UIImage(systemName: "minus"), for: .normal)
-        button.layer.cornerRadius = 20
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(40)
-        }
-        return button
-    }()
-    
-    
-     let stepperStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.isHidden = true
-        stackView.axis = .horizontal
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.distribution = .fill
-        
-        
-        stackView.snp.makeConstraints { make in
-            make.width.equalTo(120)
-            make.height.equalTo(40)
-        }
-        return stackView
-    }()
-    
-     private let addToCartButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        button.backgroundColor = .black
-        button.setTitle("Add to Cart", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setImage(UIImage(systemName: "handbag.fill"), for: .normal)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        button.layer.cornerRadius = 25
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        button.snp.makeConstraints { make in
-            make.width.equalTo(200)
-            make.height.equalTo(50)
-        }
-        return button
-    }()
-    
+    lazy var stepperMinusButton = CustomButton(backgroundColor: .systemGray6, cornerRadius: 20, image: UIImage(systemName: "minus"), tintColor: .black)
+    lazy var stepperStackView = CustomStackView(axis: .horizontal, distiribution: .fill,isHidden: true)
+    private let addToCartButton = CustomButton(title: "Add to Cart", titleColor: .white, backgroundColor: .black, cornerRadius: 25, image: UIImage(systemName: "handbag.fill"), imageEdgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10), titleEdgeInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
     lazy var cartBtnPriceLblStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0, isHidden: false)
-
+    
     
     //MARK: - Swifty
-
+    
     var quantity = 1 {
         didSet {
-           
+            
             if quantity <= 0 {
                 toggleStepperElements()
                 quantity = 0
@@ -200,10 +75,10 @@ final class ProductDetailView: UIView {
     
     
     //MARK: - Properties
-      weak var interface: ProductDetailViewInterface?
+    weak var interface: ProductDetailViewInterface?
     
     //MARK: - Init Methods
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -238,17 +113,17 @@ final class ProductDetailView: UIView {
     }
     
     //MARK: - CustomStepper Actions
-
+    
     @objc private func stepperPlusButtonTapped(_ button: UIButton) {
         quantity = quantity + 1
         interface?.productDetailView(self, stepperValueChanged: quantity)
-
+        
     }
     
     @objc private func stepperMinusButtonTapped(_ button: UIButton) {
-            quantity = quantity - 1
+        quantity = quantity - 1
         interface?.productDetailView(self, stepperValueChanged: quantity)
-
+        
     }
     
     @objc private func addToWishListButtonTapped(_ button: UIButton) {
@@ -272,7 +147,7 @@ final class ProductDetailView: UIView {
         addToWishListButton.setImage(imageFilled, for: .selected)
     }
     
-     func configure(data: ProductDetailViewProtocol) {
+    func configure(data: ProductDetailViewProtocol) {
         productImage.downloadSetImage(url: data.productDetailImage)
         productTitle.text = data.productDetailTitle
         salesAmountLabel.text = data.productDetailSalesAmount
@@ -283,17 +158,15 @@ final class ProductDetailView: UIView {
     }
     
     //MARK: - AddFavButtonTitleLabelToStackView
-
+    
     private func addFavBtnTitleLblToStackView() {
-        favButtonTitleStackView.addArrangedSubview(productTitle)
-        favButtonTitleStackView.addArrangedSubview(addToWishListButton)
+        favButtonTitleStackView.addArrangedSubviews(productTitle, addToWishListButton)
     }
     
     //MARK: - AddRatingElementsToStackView
     
     private func addRatingElementsToStackView() {
-        ratingCountStackView.addArrangedSubview(ratingCountImageView)
-        ratingCountStackView.addArrangedSubview(ratingCountLabel)
+        ratingCountStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
     }
     
     //MARK: - AddAmountLabelToStackView
@@ -301,37 +174,32 @@ final class ProductDetailView: UIView {
     private func addAmountLabelToStackView() {
         salesAmountView.addSubview(salesAmountLabel)
     }
-
+    
     
     //MARK: - AddDescriptonLabelsToStackView
     
     private func addDescriptionLabelsToView() {
-        descriptionView.addSubview(descriptionTitle)
-        descriptionView.addSubview(descriptionLabel)
+        descriptionView.addSubviews(descriptionTitle, descriptionLabel)
     }
-
+    
     //MARK: - AddPriceLabelsToStackView
     
     private func addPriceLabelsToStackView() {
-        priceStackView.addArrangedSubview(priceTitle)
-        priceStackView.addArrangedSubview(priceLabel)
+        priceStackView.addArrangedSubviews(priceTitle, priceLabel)
     }
     
     //MARK: - AddCartBtnPriceLabelsToStackView
     
     private func addCartBtnPriceLblToStackView() {
-        cartBtnPriceLblStackView.addArrangedSubview(priceStackView)
-        cartBtnPriceLblStackView.addArrangedSubview(addToCartButton)
+        cartBtnPriceLblStackView.addArrangedSubviews(priceStackView, addToCartButton)
     }
     
     //MARK: - AddCustomStepperElementsToStackView
-
+    
     private func addStepperElementsToStackView() {
-        stepperStackView.addArrangedSubview(stepperPlusButton)
-        stepperStackView.addArrangedSubview(stepperLabel)
-        stepperStackView.addArrangedSubview(stepperMinusButton)
+        stepperStackView.addArrangedSubviews(stepperPlusButton, stepperLabel, stepperMinusButton)
     }
-
+    
 }
 
 
@@ -340,26 +208,15 @@ extension ProductDetailView {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(productImage)
-        addSubview(favButtonTitleStackView)
+        addSubviews(productImage, favButtonTitleStackView, salesAmountView, salesAmountLabel, ratingCountStackView, seperatorView, descriptionView, quantityLabel, stepperStackView, seperatorView2,priceStackView,cartBtnPriceLblStackView)
         addFavBtnTitleLblToStackView()
-        addSubview(salesAmountView)
-        addSubview(salesAmountLabel)
-        addSubview(ratingCountStackView)
         addRatingElementsToStackView()
-        addSubview(seperatorView)//0.75 height
-        addSubview(descriptionView)
         addDescriptionLabelsToView()
-        addSubview(quantityLabel)
-        addSubview(stepperStackView)
         addStepperElementsToStackView()
-        addSubview(seperatorView2)//0.75 height
-        addSubview(priceStackView)
         addPriceLabelsToStackView()
-        addSubview(cartBtnPriceLblStackView)
         addCartBtnPriceLblToStackView()
     }
-
+    
     
     //MARK: - Setup Constraints
     
@@ -375,14 +232,17 @@ extension ProductDetailView {
         descriptionTitleConstraints()
         descriptionLabelConstraints()
         quantityLabelConstraints()
+        stepperPlusButtonConstraints()
+        stepperMinusButtonConstraints()
         stepperElementsStackViewConstraints()
         seperatorView2Constraints()
+        addToCartButtonConstraints()
         cartBtnPriceLblStackViewConstraints()
     }
-
+    
     
     //MARK: - UI Elements Constraints
-
+    
     private func productImageConstraintsh() {
         productImage.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
@@ -472,8 +332,24 @@ extension ProductDetailView {
         }
     }
     
+    private func stepperPlusButtonConstraints() {
+        stepperPlusButton.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+    }
+    
+    private func stepperMinusButtonConstraints() {
+        stepperMinusButton.snp.makeConstraints { make in
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+    }
+    
     private func stepperElementsStackViewConstraints() {
         stepperStackView.snp.makeConstraints { make in
+            make.width.equalTo(120)
+            make.height.equalTo(40)
             make.centerY.equalTo(quantityLabel.snp.centerY)
             make.leading.equalTo(quantityLabel.snp.trailing).offset(10)
         }
@@ -488,7 +364,14 @@ extension ProductDetailView {
         }
     }
     
-
+    private func addToCartButtonConstraints() {
+        addToCartButton.snp.makeConstraints { make in
+            make.width.equalTo(200)
+            make.height.equalTo(50)
+        }
+    }
+    
+    
     private func cartBtnPriceLblStackViewConstraints() {
         cartBtnPriceLblStackView.snp.makeConstraints { make in
             make.height.equalTo(addToCartButton.snp.height)

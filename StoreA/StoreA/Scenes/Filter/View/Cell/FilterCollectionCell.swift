@@ -39,7 +39,7 @@ final class FilterCollectionCell: UICollectionViewCell {
         addSubview()
         setupConstraints()
     }
-  
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -17,22 +17,9 @@ final class FilterView: UIView {
     
     private var customGrabber = CustomView(backgroundColor: .systemGray4, cornerRadius: 5)
     private var filterTitleLabel = CustomLabel(text: "Sort & Filter", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
-    private var seperatorView = SeperatorView(backgroundColor: .systemGray5)
+    private var seperatorView = CustomView(backgroundColor: .systemGray5)
     private var collectionTitlLabel = CustomLabel(text: "Categories", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
-     var filterCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 15
-        layout.minimumLineSpacing = 5
-        layout.scrollDirection = .vertical
-        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .white
-        collection.showsHorizontalScrollIndicator = false
-        collection.isPagingEnabled = false
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
-    
+    var filterCollection = CustomCollection(backgroundColor: .white, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .vertical, estimatedItemSize: UICollectionViewFlowLayout.automaticSize, minimumInteritemSpacing: 15, minimumLineSpacing: 5)
     
     //MARK: - Init Methods
     
@@ -54,11 +41,7 @@ extension FilterView {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(filterTitleLabel)
-        addSubview(seperatorView)
-        addSubview(collectionTitlLabel)
-        addSubview(customGrabber)
-        addSubview(filterCollection)
+        addSubviews(filterTitleLabel, seperatorView, collectionTitlLabel, customGrabber, filterCollection)
     }
     
     //MARK: - Setup Constraints

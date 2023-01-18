@@ -27,7 +27,7 @@ final class AuthViewModel {
     private let database = Firestore.firestore()
     
     //MARK: - SignUp Method
-
+    
     func signUp(username: String ,email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authDataResult, error in
             if let error = error {
@@ -62,7 +62,7 @@ final class AuthViewModel {
     }
     
     //MARK: - SignIn Method
-
+    
     func signIn(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { authData, error in
             if let error = error {

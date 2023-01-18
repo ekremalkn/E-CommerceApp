@@ -19,20 +19,36 @@ class CustomStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(axis: NSLayoutConstraint.Axis, distiribution: UIStackView.Distribution, spacing: CGFloat, isHidden: Bool) {
+    convenience init(backgroundColor: UIColor? = nil, cornerRadius: CGFloat? = nil,axis: NSLayoutConstraint.Axis? = nil, distiribution: UIStackView.Distribution? = nil, spacing: CGFloat? = nil, isHidden: Bool? = nil) {
         self.init(frame: .zero)
-        set(axis: axis, distiribution: distiribution, spacing: spacing, isHidden: isHidden)
+       set(backgroundColor: backgroundColor, cornerRadius: cornerRadius, axis: axis, distiribution: distiribution, spacing: spacing, isHidden: isHidden)
     }
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func set(axis: NSLayoutConstraint.Axis, distiribution: UIStackView.Distribution, spacing: CGFloat, isHidden: Bool) {
-        self.axis = axis
-        self.distribution = distiribution
-        self.spacing = spacing
-        self.isHidden = isHidden
+    private func set(backgroundColor: UIColor? = nil, cornerRadius: CGFloat? = nil,axis: NSLayoutConstraint.Axis? = nil, distiribution: UIStackView.Distribution? = nil, spacing: CGFloat? = nil, isHidden: Bool? = nil) {
+        
+        if let backgroundColor = backgroundColor {
+            self.backgroundColor = backgroundColor
+        }
+        if let cornerRadius = cornerRadius {
+            layer.cornerRadius = cornerRadius
+        }
+        if let axis = axis {
+            self.axis = axis
+        }
+        if let distiribution = distiribution {
+            self.distribution = distiribution
+        }
+        if let spacing = spacing {
+            self.spacing = spacing
+        }
+        if let isHidden = isHidden {
+            self.isHidden = isHidden
+        }
+      
     }
     
 }

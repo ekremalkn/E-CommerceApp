@@ -22,7 +22,7 @@ final class FilterController: UIViewController {
     
     var selectionCallBack: ((String) -> ())?
     
-   
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ final class FilterController: UIViewController {
         
         filterView.filterCollection.delegate = self
         filterView.filterCollection.dataSource = self
-
+        
     }
     
 }
@@ -74,14 +74,14 @@ extension FilterController: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         filterView.filterCollection.selectItem(at: selectedIndexPath, animated: false, scrollPosition: [])
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = filterViewModel.allCategories[indexPath.row]
-                dismiss(animated: true) {
-                    self.selectionCallBack?(category)
-                    }
+        dismiss(animated: true) {
+            self.selectionCallBack?(category)
+        }
     }
     
 }

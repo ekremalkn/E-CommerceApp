@@ -13,14 +13,15 @@ final class HomeController: UIViewController {
         print("deinit home controller")
     }
     
-        
+
+    
     //MARK: - Properties
     private let homeProfileViewModel = HomeProfileViewModel()
     private let productsViewModel = ProductsViewModel()
     private let homeView = HomeView()
-
+    
     //MARK: -  Lifecycle
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
@@ -69,16 +70,16 @@ final class HomeController: UIViewController {
         homeView.productCollection.delegate = self
         homeView.productCollection.dataSource = self
     }
-  
+    
 }
 
 //MARK: - SerchBar Methods
 
 extension HomeController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-     let searchVC = SearchController()
+        let searchVC = SearchController()
         navigationController?.pushViewController(searchVC, animated: true)
-      
+        
     }
     
 }
@@ -134,7 +135,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
             guard let productId = productsViewModel.allProducts[indexPath.row].id else { return }
             productsViewModel.fetchSingleProduct(productId: productId)
         case homeView.categoryCollection:
-                let category = productsViewModel.allCategories[indexPath.row]
+            let category = productsViewModel.allCategories[indexPath.row]
             if category == "All" {
                 productsViewModel.fetchAllProducts()
             } else {
@@ -161,10 +162,12 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
 }
 
+
+
 extension HomeController {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let witdh = scrollView.frame.width
-            homeView.currentPage = Int(scrollView.contentOffset.x / witdh)
+        homeView.currentPage = Int(scrollView.contentOffset.x / witdh)
     }
 }
 
@@ -192,7 +195,7 @@ extension HomeController: HomeViewInterface {
 //MARK: - ProductsViewModelDelegate
 
 extension HomeController: ProductsViewModelDelegate {
-   
+    
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -224,8 +227,8 @@ extension HomeController: ProductsViewModelDelegate {
         print("ekrem alkan")
     }
     
-
-
+    
+    
 }
 
 //MARK: - ProductCollectionCellInterface

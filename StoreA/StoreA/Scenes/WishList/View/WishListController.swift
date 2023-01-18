@@ -12,15 +12,15 @@ final class WishListController: UIViewController {
     deinit {
         print("deinit wishlistcontroller")
     }
-   
+    
     //MARK: - Properties
     private let wishListViewModel = WishListViewModel()
     private let wishListView = WishListView()
-
-
+    
+    
     
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -57,7 +57,7 @@ final class WishListController: UIViewController {
         wishListView.wishListCollection.delegate = self
         wishListView.wishListCollection.dataSource = self
     }
-
+    
 }
 
 
@@ -98,7 +98,7 @@ extension WishListController: ProductCollectionCellInterface {
 }
 
 extension WishListController: WishListViewModelDelegate {
-
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }

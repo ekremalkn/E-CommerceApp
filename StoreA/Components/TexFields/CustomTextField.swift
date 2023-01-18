@@ -19,9 +19,9 @@ final class CustomTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(attributedPlaceholder: NSAttributedString, image: UIImage) {
+    convenience init(isSecureTextEntry: Bool? = nil ,attributedPlaceholder: NSAttributedString, image: UIImage) {
         self.init(frame: .zero)
-        set(attributedPlaceholder: attributedPlaceholder, image: image)
+        set(isSecureTextEntry: isSecureTextEntry ,attributedPlaceholder: attributedPlaceholder, image: image)
     }
     
     private func configure() {
@@ -34,13 +34,16 @@ final class CustomTextField: UITextField {
         
     }
     
-    private func set(attributedPlaceholder: NSAttributedString, image: UIImage) {
+    private func set(isSecureTextEntry: Bool? = nil ,attributedPlaceholder: NSAttributedString, image: UIImage) {
         self.attributedPlaceholder = attributedPlaceholder
         let imageView = UIImageView()
         let image = image
         imageView.image = image
         imageView.tintColor = .systemGray
         leftView = imageView
+        if let isSecureTextEntry = isSecureTextEntry {
+            self.isSecureTextEntry = isSecureTextEntry
+        }
         
     }
     

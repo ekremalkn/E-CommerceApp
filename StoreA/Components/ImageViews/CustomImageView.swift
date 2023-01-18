@@ -20,7 +20,7 @@ class CustomImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(image: UIImage, tintColor: UIColor, backgroundColor: UIColor, contentMode: ContentMode, cornerRadius: CGFloat, isUserInteractionEnabled: Bool) {
+    convenience init(image: UIImage? = nil, tintColor: UIColor? = nil, backgroundColor: UIColor? = nil, contentMode: ContentMode, cornerRadius: CGFloat? = nil, isUserInteractionEnabled: Bool? = nil) {
         self.init(frame: .zero)
         set(image: image, tintColor: tintColor, backgroundColor: backgroundColor, contentMode: contentMode, cornerRadius: cornerRadius, isUserInteractionEnabled: isUserInteractionEnabled)
     }
@@ -30,12 +30,19 @@ class CustomImageView: UIImageView {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func set(image: UIImage, tintColor: UIColor, backgroundColor: UIColor, contentMode: ContentMode, cornerRadius: CGFloat, isUserInteractionEnabled: Bool) {
-        self.image = image
+    private func set(image: UIImage? = nil, tintColor: UIColor? = nil, backgroundColor: UIColor? = nil, contentMode: ContentMode, cornerRadius: CGFloat? = nil, isUserInteractionEnabled: Bool? = nil) {
+        self.contentMode = contentMode
         self.tintColor = tintColor
         self.backgroundColor = backgroundColor
-        self.contentMode = contentMode
-        self.layer.cornerRadius = cornerRadius
-        self.isUserInteractionEnabled = isUserInteractionEnabled
+        if let image = image {
+            self.image = image
+        }
+        if let cornerRadius = cornerRadius {
+            layer.cornerRadius = cornerRadius
+        }
+        if let isUserInteractionEnabled = isUserInteractionEnabled {
+            self.isUserInteractionEnabled = isUserInteractionEnabled
+        }
+
     }
 }

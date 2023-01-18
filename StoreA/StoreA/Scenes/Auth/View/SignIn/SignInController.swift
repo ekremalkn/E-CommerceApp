@@ -26,22 +26,34 @@ final class SignInController: UIViewController {
     var password: String {
         signInView.passwordTextField.text ?? ""
     }
-
-
+    
+    
     
     //MARK: - ViewDidLoad Method
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray6
         configureViewController()
+        setupDelegates()
+        configureNavBar()
     }
     
     private func configureViewController() {
         view = signInView
+        view.backgroundColor = .systemGray6
+        
+    }
+    
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
+    }
+    
+    private func setupDelegates() {
         signInView.interface = self
         authViewModel.delegate = self
     }
+    
     
 }
 

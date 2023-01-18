@@ -24,18 +24,18 @@ final class SignUpView: UIView {
     
     //MARK: - Creating UI Elements
     
-    private var titleLabel = CustomLabel(text: "SignUp", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .blue, textAlignment: .left)
+    private var titleLabel = CustomLabel(text: "SignUp", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .systemOrange, textAlignment: .left)
     private var descLabel = CustomLabel(text: "Sign up to exploring our amazing products.", numberOfLines: 0, font: .systemFont(ofSize: 20), textColor: .systemGray, textAlignment: .left)
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 20, isHidden: false)
     var usernameTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "person")!)
     var emailTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Email Address", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "envelope")!)
-    var passwordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
-    var confirmPasswordTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Confirm Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
-    private var signUpButton = OnboardingButton(title: "Sign Up", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .blue, cornerRadius: 16)
-    private var textFieldButtonStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
+    var passwordTextField = CustomTextField(isSecureTextEntry: true, attributedPlaceholder: NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
+    var confirmPasswordTextField = CustomTextField(isSecureTextEntry: true, attributedPlaceholder: NSAttributedString(string: "Confirm Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "lock")!)
+    private var signUpButton = CustomButton(title: "Sign Up", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .black, cornerRadius: 16)
+    private var textFieldStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
     private var signInLabel = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
-    private var signInButton = OnboardingButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
-    private var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    private var signInButton = CustomButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    private var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 10, isHidden: false)
     
     
     //MARK: - Init Methods
@@ -74,44 +74,29 @@ final class SignUpView: UIView {
     //MARK: - StackView AddSubview
     
     private func addLabelsToStackView() {
-        labelStackView.addArrangedSubview(titleLabel)
-        labelStackView.addArrangedSubview(descLabel)
+        labelStackView.addArrangedSubviews(titleLabel, descLabel)
     }
     
     private func addTextFieldsToStackView() {
-        textFieldButtonStackView.addArrangedSubview(usernameTextField)
-        textFieldButtonStackView.addArrangedSubview(emailTextField)
-        textFieldButtonStackView.addArrangedSubview(passwordTextField)
-        textFieldButtonStackView.addArrangedSubview(confirmPasswordTextField)
-        textFieldButtonStackView.addArrangedSubview(signUpButton)
+        textFieldStackView.addArrangedSubviews(usernameTextField, emailTextField, passwordTextField, confirmPasswordTextField)
     }
     
     private func addSignInElementsStackView() {
-        signInStackView.addArrangedSubview(signInLabel)
-        signInStackView.addArrangedSubview(signInButton)
+        signInStackView.addArrangedSubviews(signInLabel, signInButton)
     }
     
     
     //MARK: - UI Elements Constraints
     
     private func addSubviews() {
-        addSubview(titleLabel)
-        addSubview(descLabel)
-        addSubview(usernameTextField)
-        addSubview(emailTextField)
-        addSubview(passwordTextField)
-        addSubview(confirmPasswordTextField)
-        addSubview(signUpButton)
-        addSubview(labelStackView)
-        addSubview(textFieldButtonStackView)
-        addSubview(signInLabel)
-        addSubview(signInButton)
-        addSubview(signInStackView)
+        addSubviews(labelStackView, usernameTextField, textFieldStackView, signUpButton, signInStackView)
     }
     
     private func setupConstraints() {
         labelStackViewConstraints()
         textFieldStackViewConstraints()
+        usernameTextFieldConstraints()
+        signUpButtonConstraints()
         signInStackViewConstraints()
     }
     
@@ -124,19 +109,32 @@ final class SignUpView: UIView {
         }
     }
     
+    private func usernameTextFieldConstraints() {
+        usernameTextField.snp.makeConstraints { make in
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.06)
+        }
+    }
+    
     private func textFieldStackViewConstraints() {
-        textFieldButtonStackView.snp.makeConstraints { make in
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.4)
+        textFieldStackView.snp.makeConstraints { make in
             make.top.equalTo(labelStackView.snp.bottom).offset(40)
             make.leading.equalTo(labelStackView.snp.leading)
             make.trailing.equalTo(labelStackView.snp.trailing)
         }
     }
     
+    private func signUpButtonConstraints() {
+        signUpButton.snp.makeConstraints { make in
+            make.top.equalTo(textFieldStackView.snp.bottom).offset(50)
+            make.leading.trailing.equalTo(textFieldStackView)
+            make.height.equalTo(56)
+        }
+    }
+    
     private func signInStackViewConstraints() {
         signInStackView.snp.makeConstraints { make in
-            make.top.equalTo(textFieldButtonStackView.snp.bottom).offset(35)
-            make.centerX.equalTo(textFieldButtonStackView.snp.centerX)
+            make.top.equalTo(signUpButton.snp.bottom).offset(35)
+            make.centerX.equalTo(textFieldStackView.snp.centerX)
         }
     }
     

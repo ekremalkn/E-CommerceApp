@@ -25,7 +25,7 @@ final class WishListViewModel {
     }
     
     //MARK: - WishListViewModelDelegate
-
+    
     weak var delegate: WishListViewModelDelegate?
     
     //MARK: - Properties
@@ -145,9 +145,9 @@ final class WishListViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
-
+    
     
     //MARK: - GetProductIndexPath
     

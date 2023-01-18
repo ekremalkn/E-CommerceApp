@@ -18,7 +18,7 @@ class ProfileView: UIView {
     private var profileTitleImage = CustomImageView(image: UIImage(systemName: "person.fill")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
     private var profileTitleLabel = CustomLabel(text: "Profile", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
     private var profileTitleView = CustomView(backgroundColor: .white, cornerRadius: 0)
-    private var moreInfoButton = HomeButton(image: UIImage(systemName: "ellipsis.circle")!)
+    private var moreInfoButton = CustomButton(image: UIImage(systemName: "ellipsis.circle"))
     private var profileImageView = CustomImageView(image: UIImage(systemName: "person")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
     private var userNameImage = CustomImageView(image: UIImage(systemName: "person.text.rectangle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
     private var userNameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
@@ -26,8 +26,8 @@ class ProfileView: UIView {
     private var emailImage = CustomImageView(image: UIImage(systemName: "envelope")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 0, isUserInteractionEnabled: false)
     private var emailLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
     private var emailView = CustomView(backgroundColor: .white, cornerRadius: 0)
-    private var seperatorView = SeperatorView(backgroundColor: .systemGray5)
-    private var signOutButton = OnboardingButton(title: "Sign Out", titleColor: .white, font: .boldSystemFont(ofSize: 13), backgroundColor: .red, cornerRadius: 15)
+    private var seperatorView = CustomView(backgroundColor: .systemGray5)
+    private var signOutButton = CustomButton(title: "Sign Out", titleColor: .white, font: .boldSystemFont(ofSize: 13), backgroundColor: .red, cornerRadius: 15)
     
     //MARK: - Propertis
     
@@ -70,22 +70,20 @@ class ProfileView: UIView {
     //MARK: - ProfileTitleAddToView
     
     private func profileTitleAddToView() {
-        profileTitleView.addSubview(profileTitleImage)
-        profileTitleView.addSubview(profileTitleLabel)
+        profileTitleView.addSubviews(profileTitleImage, profileTitleLabel)
     }
     
     //MARK: - UsernameLabelAddToView
     
     private func usernameLabelAddToView() {
-        userNameView.addSubview(userNameImage)
-        userNameView.addSubview(userNameLabel)
+        userNameView.addSubviews(userNameImage, userNameLabel)
     }
     
     //MARK: - EmailLabelAddToView
     
     private func emailLabelAddToView() {
-        emailView.addSubview(emailImage)
-        emailView.addSubview(emailLabel)
+        emailView.addSubviews(emailImage, emailLabel)
+
     }
     
 }
@@ -95,6 +93,7 @@ extension ProfileView {
     //MARK: - AddSubview
     
     private func addSubview() {
+        addSubviews(profileTitleView, moreInfoButton, profileImageView, userNameView, emailView, seperatorView, signOutButton)
         addSubview(profileTitleView)
         profileTitleAddToView()
         addSubview(moreInfoButton)

@@ -21,7 +21,7 @@ class CategoryCollectionCell: UICollectionViewCell {
     
     private var labelView = CustomView(backgroundColor: .systemGray6, cornerRadius: 14)
     private var categoryLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 14), textColor: .black, textAlignment: .center)
-
+    
     override var isSelected: Bool {
         didSet {
             self.labelView.backgroundColor = isSelected ? UIColor.black : UIColor.clear
@@ -56,10 +56,10 @@ class CategoryCollectionCell: UICollectionViewCell {
     private func addCategoryLabelToView() {
         labelView.addSubview(categoryLabel)
     }
-
-
-  
-
+    
+    
+    
+    
     //MARK: - UI Elements Constraints
     
     private func addSubview() {
@@ -82,7 +82,7 @@ class CategoryCollectionCell: UICollectionViewCell {
             make.leading.equalTo(safeAreaLayoutGuide)
         }
     }
-
+    
     private func categoryLabelConstraints() {
         categoryLabel.snp.makeConstraints { make in
             make.centerX.equalTo(labelView.snp.centerX)

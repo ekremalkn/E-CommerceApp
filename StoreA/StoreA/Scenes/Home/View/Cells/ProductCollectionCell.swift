@@ -32,14 +32,7 @@ class ProductCollectionCell: UICollectionViewCell {
     //MARK: - Creating UI Elements
     
     private var productImageView = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: true)
-    var addToWishListButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .gray
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.backgroundColor = nil
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    var addToWishListButton = CustomButton(image: UIImage(systemName: "heart"), tintColor: .black)
     private var titleLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 10), textColor: .black, textAlignment: .center)
     private var ratingCountImageView = CustomImageView(image: UIImage(systemName: "star.fill")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
     private var ratingCountLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .black, textAlignment: .left)
@@ -117,23 +110,19 @@ class ProductCollectionCell: UICollectionViewCell {
     //MARK: - AddRatingElementsToStackView
     
     private func addRatingElementsToStackView() {
-        ratingCountStackView.addArrangedSubview(ratingCountImageView)
-        ratingCountStackView.addArrangedSubview(ratingCountLabel)
+        ratingCountStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
     }
     
     //MARK: - AddRatingSalesInfoToStackView
     
     private func addRatingSalesInfoToStackView() {
-        ratingSalesInfoStackView.addArrangedSubview(ratingCountStackView)
-        ratingSalesInfoStackView.addArrangedSubview(salesAmountLabel)
+        ratingSalesInfoStackView.addSubviews(ratingCountStackView, salesAmountLabel)
     }
     
     //MARK: - AddProductInfoToStackView
     
     private func addProductInfoToStackView() {
-        productInfoStackView.addArrangedSubview(titleLabel)
-        productInfoStackView.addArrangedSubview(ratingSalesInfoStackView)
-        productInfoStackView.addArrangedSubview(priceLabel)
+        productInfoStackView.addSubviews(titleLabel, ratingSalesInfoStackView, priceLabel)
     }
     
     
@@ -141,13 +130,10 @@ class ProductCollectionCell: UICollectionViewCell {
     ///MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(productImageView)
+        addSubviews(productImageView, ratingCountStackView, ratingSalesInfoStackView, productInfoStackView)
         addButtonToImageView()
-        addSubview(ratingCountStackView)
         addRatingElementsToStackView()
-        addSubview(ratingSalesInfoStackView)
         addRatingSalesInfoToStackView()
-        addSubview(productInfoStackView)
         addProductInfoToStackView()
     }
     

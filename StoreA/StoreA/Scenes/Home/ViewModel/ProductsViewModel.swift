@@ -88,7 +88,7 @@ final class ProductsViewModel {
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
-
+        
     }
     
     func allProductsToFirestore(products: [Product]?) {
@@ -142,24 +142,24 @@ final class ProductsViewModel {
             self.wishList = documentData.get("wishList") as? [String: Int]
             if let wishList = self.wishList {
                 //wishlitteki ürünlere göre homveviewdaki productcollection cellerin wishlistbuttonlarını seçilmiş hale getirmek için buradan devam edecğeim.
-                      
-                    }
-                }
                 
             }
         }
-     
-
-
-
-
-    
-
-    
-    
-    
         
+    }
+}
 
 
-   
+
+
+
+
+
+
+
+
+
+
+
+
 

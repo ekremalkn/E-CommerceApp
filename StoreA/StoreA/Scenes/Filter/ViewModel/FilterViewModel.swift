@@ -23,24 +23,24 @@ final class FilterViewModel {
     weak var delegate: FilterViewModelDelegate?
     
     //MARK: - Properties
-
+    
     let manager = Service.shared
     
     //MARK: - Products
-
+    
     var products: [Product] = []
     var allCategories = Categories()
-
+    
     func fetchAllCategories() {
         manager.fetchCategory { categories in
             if let categories = categories {
                 self.allCategories = categories
                 self.allCategories.insert("All", at:0)
                 self.delegate?.didFetchAllCategoriesSuccessful()
-                }
+            }
         } onError: { error in
             self.delegate?.didOccurError(error)
         }
     }
-  
+    
 }

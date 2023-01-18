@@ -17,16 +17,7 @@ final class SearchView: UIView {
     lazy var searchResultsLabel = CustomLabel(text: "Results for SearchTextField", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
     lazy var searchResultCountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .right)
     lazy var searchResultLabelsStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 0, isHidden: true)
-    var searchCollection: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGray6
-        collection.showsVerticalScrollIndicator = false
-        collection.isPagingEnabled = false
-        collection.translatesAutoresizingMaskIntoConstraints = false
-        return collection
-    }()
+    var searchCollection = CustomCollection(backgroundColor: .systemGray6, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .vertical)
     
     //MARK: - Init Methods
     
@@ -58,8 +49,7 @@ final class SearchView: UIView {
     //MARK: - AddSearchResultLabelsToStackView
     
     private func addSearchResultLabelsToStackView() {
-        searchResultLabelsStackView.addArrangedSubview(searchResultsLabel)
-        searchResultLabelsStackView.addArrangedSubview(searchResultCountLabel)
+        searchResultLabelsStackView.addArrangedSubviews(searchResultsLabel, searchResultCountLabel)
     }
     
 }
@@ -69,12 +59,8 @@ extension SearchView {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(searchController.searchBar)
-        addSubview(searchResultsLabel)
-        addSubview(searchResultCountLabel)
+        addSubviews(searchController.searchBar, searchResultLabelsStackView, searchCollection)
         addSearchResultLabelsToStackView()
-        addSubview(searchResultLabelsStackView)
-        addSubview(searchCollection)
     }
     
     //MARK: - SetupConstraints

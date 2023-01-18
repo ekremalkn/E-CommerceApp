@@ -30,7 +30,6 @@
 		F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FB086295F43EE00884E84 /* OnboardingCell.swift */; };
 		F0480140297689FB0088648C /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048013F297689FB0088648C /* CustomImageView.swift */; };
 		F048014329768B090088648C /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048014229768B090088648C /* CustomView.swift */; };
-		F048014529768C6C0088648C /* SeperatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048014429768C6C0088648C /* SeperatorView.swift */; };
 		F048014829768DC80088648C /* CustomSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048014729768DC80088648C /* CustomSearchController.swift */; };
 		F053620229648F110049CB7D /* CategoryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053620129648F110049CB7D /* CategoryCollectionCell.swift */; };
 		F05362042964A5360049CB7D /* ProductCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05362032964A5360049CB7D /* ProductCollectionCell.swift */; };
@@ -49,7 +48,7 @@
 		F0896664296D53D4004C956D /* CartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0896663296D53D4004C956D /* CartCollectionCell.swift */; };
 		F089E98029753947005DC030 /* CustomCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089E97F29753947005DC030 /* CustomCollection.swift */; };
 		F089E9832975410A005DC030 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089E9822975410A005DC030 /* CustomPageControl.swift */; };
-		F089E98729754215005DC030 /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089E98629754215005DC030 /* OnboardingButton.swift */; };
+		F089E98729754215005DC030 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089E98629754215005DC030 /* CustomButton.swift */; };
 		F089E98C297544C6005DC030 /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089E98B297544C6005DC030 /* CustomStackView.swift */; };
 		F089E99129754A37005DC030 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F089E99029754A37005DC030 /* CustomLabel.swift */; };
 		F0AEDAB329698F0200C6190A /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEDAB229698F0200C6190A /* ProductDetailController.swift */; };
@@ -67,7 +66,9 @@
 		F0B6C5E2296752F900E6F462 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B6C5E1296752F900E6F462 /* SearchView.swift */; };
 		F0B6C5E529675C3A00E6F462 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B6C5E429675C3A00E6F462 /* SearchViewModel.swift */; };
 		F0BEFE442975C0C40038DE1D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BEFE432975C0C40038DE1D /* CustomTextField.swift */; };
-		F0BEFE492975CCB50038DE1D /* HomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BEFE482975CCB50038DE1D /* HomeButton.swift */; };
+		F0CCDA2F297855770070E0B2 /* UIView+AddSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CCDA2E297855770070E0B2 /* UIView+AddSubview.swift */; };
+		F0CCDA3129786D7A0070E0B2 /* UIStackView+AddArrangedSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CCDA3029786D7A0070E0B2 /* UIStackView+AddArrangedSubview.swift */; };
+		F0CCDA33297878E40070E0B2 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CCDA32297878E40070E0B2 /* CustomSearchBar.swift */; };
 		F0D18C552973F349004BA66A /* FilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D18C542973F349004BA66A /* FilterViewModel.swift */; };
 		F0D18C57297486D7004BA66A /* HomeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D18C56297486D7004BA66A /* HomeProfileViewModel.swift */; };
 		F0D18C5929748C62004BA66A /* NSDate+GetTimeDateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D18C5829748C62004BA66A /* NSDate+GetTimeDateFormat.swift */; };
@@ -108,7 +109,6 @@
 		F03FB086295F43EE00884E84 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		F048013F297689FB0088648C /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		F048014229768B090088648C /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
-		F048014429768C6C0088648C /* SeperatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperatorView.swift; sourceTree = "<group>"; };
 		F048014729768DC80088648C /* CustomSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchController.swift; sourceTree = "<group>"; };
 		F053620129648F110049CB7D /* CategoryCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionCell.swift; sourceTree = "<group>"; };
 		F05362032964A5360049CB7D /* ProductCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionCell.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		F0896663296D53D4004C956D /* CartCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCollectionCell.swift; sourceTree = "<group>"; };
 		F089E97F29753947005DC030 /* CustomCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollection.swift; sourceTree = "<group>"; };
 		F089E9822975410A005DC030 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
-		F089E98629754215005DC030 /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
+		F089E98629754215005DC030 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		F089E98B297544C6005DC030 /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
 		F089E99029754A37005DC030 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		F0AEDAB229698F0200C6190A /* ProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
@@ -142,7 +142,9 @@
 		F0B6C5E1296752F900E6F462 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		F0B6C5E429675C3A00E6F462 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F0BEFE432975C0C40038DE1D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		F0BEFE482975CCB50038DE1D /* HomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButton.swift; sourceTree = "<group>"; };
+		F0CCDA2E297855770070E0B2 /* UIView+AddSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubview.swift"; sourceTree = "<group>"; };
+		F0CCDA3029786D7A0070E0B2 /* UIStackView+AddArrangedSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+AddArrangedSubview.swift"; sourceTree = "<group>"; };
+		F0CCDA32297878E40070E0B2 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		F0D18C542973F349004BA66A /* FilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewModel.swift; sourceTree = "<group>"; };
 		F0D18C56297486D7004BA66A /* HomeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileViewModel.swift; sourceTree = "<group>"; };
 		F0D18C5829748C62004BA66A /* NSDate+GetTimeDateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+GetTimeDateFormat.swift"; sourceTree = "<group>"; };
@@ -212,8 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				F020420B2972E13E00096AC4 /* Cell */,
-				F02042022972D94B00096AC4 /* FilterView.swift */,
 				F02042042972D95B00096AC4 /* FilterController.swift */,
+				F02042022972D94B00096AC4 /* FilterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -398,7 +400,6 @@
 			isa = PBXGroup;
 			children = (
 				F048014229768B090088648C /* CustomView.swift */,
-				F048014429768C6C0088648C /* SeperatorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -492,8 +493,7 @@
 		F089E984297541D1005DC030 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				F089E98629754215005DC030 /* OnboardingButton.swift */,
-				F0BEFE482975CCB50038DE1D /* HomeButton.swift */,
+				F089E98629754215005DC030 /* CustomButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -563,6 +563,8 @@
 				F0B28675296B2A3200C97BD9 /* Encodable+Dictionary.swift */,
 				F0D419E92970A6540028B437 /* Double+Rounded.swift */,
 				F0D18C5829748C62004BA66A /* NSDate+GetTimeDateFormat.swift */,
+				F0CCDA2E297855770070E0B2 /* UIView+AddSubview.swift */,
+				F0CCDA3029786D7A0070E0B2 /* UIStackView+AddArrangedSubview.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -570,6 +572,7 @@
 		F0B6C5D02967313F00E6F462 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F0CCDA34297878E90070E0B2 /* SearchBar */,
 				F048014629768DA60088648C /* SearchController */,
 				F048014129768AF60088648C /* Views */,
 				F048013E297689E10088648C /* ImageViews */,
@@ -679,6 +682,14 @@
 				F0BEFE432975C0C40038DE1D /* CustomTextField.swift */,
 			);
 			path = TexFields;
+			sourceTree = "<group>";
+		};
+		F0CCDA34297878E90070E0B2 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				F0CCDA32297878E40070E0B2 /* CustomSearchBar.swift */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		F0E6E2042972FBA700D0836F /* ViewModel */ = {
@@ -847,26 +858,27 @@
 			files = (
 				F048014829768DC80088648C /* CustomSearchController.swift in Sources */,
 				F058175A29635F9600B536E7 /* SpecialCollectionCell.swift in Sources */,
+				F0CCDA33297878E40070E0B2 /* CustomSearchBar.swift in Sources */,
 				F048014329768B090088648C /* CustomView.swift in Sources */,
 				F0896664296D53D4004C956D /* CartCollectionCell.swift in Sources */,
 				F0D18C5929748C62004BA66A /* NSDate+GetTimeDateFormat.swift in Sources */,
 				F0FC91BA296200C900351C96 /* ProductsViewModel.swift in Sources */,
 				F0B261AB29703136007ED902 /* CartViewModel.swift in Sources */,
 				F0AEDAB52969921F00C6190A /* ProductDetailView.swift in Sources */,
+				F0CCDA2F297855770070E0B2 /* UIView+AddSubview.swift in Sources */,
 				F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */,
 				F05362042964A5360049CB7D /* ProductCollectionCell.swift in Sources */,
 				F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */,
-				F0BEFE492975CCB50038DE1D /* HomeButton.swift in Sources */,
 				F0480140297689FB0088648C /* CustomImageView.swift in Sources */,
 				F07BC7E92971AC6300611EAC /* WishListController.swift in Sources */,
 				F0FC91B32961FE5200351C96 /* Product.swift in Sources */,
 				F089E98029753947005DC030 /* CustomCollection.swift in Sources */,
-				F048014529768C6C0088648C /* SeperatorView.swift in Sources */,
 				F0B6C5E02967508400E6F462 /* SearchController.swift in Sources */,
 				F071DEFD29620AAA001C7FE0 /* WebHelper.swift in Sources */,
 				F0F00EB2297342A5003554DE /* ProfileViewModel.swift in Sources */,
 				F0B6C5DB2967334300E6F462 /* ProfileController.swift in Sources */,
 				F0FC91B02961FC4000351C96 /* WebService.swift in Sources */,
+				F0CCDA3129786D7A0070E0B2 /* UIStackView+AddArrangedSubview.swift in Sources */,
 				F02041FB2972915800096AC4 /* SpecialProductsView.swift in Sources */,
 				F0B6C5E2296752F900E6F462 /* SearchView.swift in Sources */,
 				F02041F82972912A00096AC4 /* SpecialProductsController.swift in Sources */,
@@ -900,7 +912,7 @@
 				F0B6C5D32967318300E6F462 /* MainTabBarController.swift in Sources */,
 				F0D18C57297486D7004BA66A /* HomeProfileViewModel.swift in Sources */,
 				F0FC91B82961FFF600351C96 /* HomeController.swift in Sources */,
-				F089E98729754215005DC030 /* OnboardingButton.swift in Sources */,
+				F089E98729754215005DC030 /* CustomButton.swift in Sources */,
 				F0B6C5CA2966F13600E6F462 /* UIImageView+DownloadImage.swift in Sources */,
 				F0D18C552973F349004BA66A /* FilterViewModel.swift in Sources */,
 				F025CCB72961B2C800C32472 /* SignUpView.swift in Sources */,

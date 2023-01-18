@@ -46,15 +46,15 @@ final class HomeProfileViewModel {
         case (12 ..< 15):
             hiText = "Good Afternoon 👋"
             self.delegate?.didGotCurrentTime()
-
+            
         case (16 ..< 22):
             hiText = "Good Evening 👋"
             self.delegate?.didGotCurrentTime()
-
+            
         default:
             hiText = "Good Night 🌑"
             self.delegate?.didGotCurrentTime()
-
+            
             
         }
         

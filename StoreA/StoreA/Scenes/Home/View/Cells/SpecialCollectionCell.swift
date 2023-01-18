@@ -23,14 +23,14 @@ class SpecialCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private var specialImage = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, cornerRadius: 30, isUserInteractionEnabled: false)
-    private var specialTitleLabel = CustomLabel(text: "", numberOfLines: 3, font: .boldSystemFont(ofSize: 15), textColor: .blue, textAlignment: .center)
+    private var specialImage = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 30, isUserInteractionEnabled: false)
+    private var specialTitleLabel = CustomLabel(text: "", numberOfLines: 3, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .center)
     private var specialDetailLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .systemGray, textAlignment: .center)
     private var specialLabelStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 8, isHidden: false)
-
+    
     
     //MARK: - Init Methods
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -46,7 +46,7 @@ class SpecialCollectionCell: UICollectionViewCell {
     }
     
     //MARK: - CongifureCell
-
+    
     func configure(data: SpecialCollectionCellProtocol) {
         specialImage.downloadSetImage(url: data.specialImage)
         specialTitleLabel.text = data.specialTitle
@@ -70,10 +70,9 @@ extension SpecialCollectionCell {
     //MARK: - UI Elements Constraints
     
     private func addSubview() {
-        addSubview(specialImage)
-        addSubview(specialLabelStackView)
+        addSubviews(specialImage, specialLabelStackView)
     }
-
+    
     private func setupConstraints() {
         specialImageConstraints()
         specialLabelStackViewConstraints()
@@ -95,5 +94,5 @@ extension SpecialCollectionCell {
             make.trailing.equalTo(specialImage.snp.leading).offset(-20)
         }
     }
-
+    
 }
