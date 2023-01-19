@@ -26,7 +26,7 @@ final class HomeView: UIView {
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
     private var wishListButton = CustomButton(cornerRadius: 15,image: UIImage(systemName: "heart"), tintColor: .black)
     private var cartButton = CustomButton(cornerRadius: 15, image: UIImage(systemName: "cart"), tintColor: .black)
-    private var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 10, isHidden: false)
+    private var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, isHidden: false)
     var searcBar = CustomSearchBar(showsBookmarkButton: false, placeHolder: "Search Products")
     private var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
     private var seeAllButton = CustomButton(title: "See All", titleColor: .black, font: .boldSystemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
@@ -170,7 +170,7 @@ extension HomeView {
     private func topButtonsStackViewConstraints() {
         buttonStackView.snp.makeConstraints { make in
             make.width.equalTo(100)
-            make.top.equalTo(safeAreaLayoutGuide).offset(15)
+            make.height.equalTo(labelStackView.snp.height)
             make.centerY.equalTo(profilePhotoImage.snp.centerY)
             make.leading.equalTo(labelStackView.snp.trailing)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)

@@ -55,6 +55,8 @@ final class CartController: UIViewController {
     private func setupDelegates() {
         cartViewModel.delegate = self
         
+        cartView.interface = self
+        
         cartView.cartCollection.delegate = self
         cartView.cartCollection.dataSource  = self
     }
@@ -94,6 +96,16 @@ extension CartController: UICollectionViewDelegate, UICollectionViewDataSource, 
     
 }
 
+//MARK: - CartViewInterface
+
+extension CartController: CartViewInterface {
+    func cartView(_ view: CartView, checkoutButtonTapped button: UIButton) {
+        cartViewModel.checkout()
+    }
+    
+}
+
+
 //MARK: - CartCollectionCellInterface
 
 extension CartController: CartCollectionCellInterface {
@@ -119,7 +131,7 @@ extension CartController: CartCollectionCellInterface {
 //MARK: - CartViewModelDelegate
 
 extension CartController: CartViewModelDelegate {
-    
+  
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -141,5 +153,29 @@ extension CartController: CartViewModelDelegate {
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    func didCheckoutSuccessful() {
+        let checkoutVC = CheckoutController()
+        checkoutVC.modalPresentationStyle = .custom
+        checkoutVC.transitioningDelegate = self
+        self.present(checkoutVC, animated: true, completion: nil)
+    }
     
+    func didCheckoutNotSuccessful() {
+        let checkoutVC = CheckoutController()
+        checkoutVC.modalPresentationStyle = .custom
+        checkoutVC.transitioningDelegate = self
+        checkoutVC.checkoutView.configure()
+        self.present(checkoutVC, animated: true, completion: nil)
+    }
+    
+
+    
+}
+
+//MARK: - CustomPresentationController
+
+extension CartController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        CustomPresentationController(presentedViewController: presented, presenting: presenting)
+    }
 }

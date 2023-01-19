@@ -34,6 +34,7 @@ final class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        configureNavBar()
         collectionCellRegister()
         setupDelegates()
     }
@@ -44,6 +45,11 @@ final class HomeController: UIViewController {
     private func configureViewController() {
         title = "Home"
         view = homeView
+    }
+    
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     //MARK: - Register Custom Cell

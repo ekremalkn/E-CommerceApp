@@ -33,9 +33,7 @@ final class ProductDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        productDetailView.interface = self
-        
-        productDetailViewModel.delegate = self
+        setupDelegates()
         configureViewController()
     }
     
@@ -55,6 +53,15 @@ final class ProductDetailController: UIViewController {
         view = productDetailView
         productDetailView.configure(data: product)
     }
+    
+    //MARK: - Setup Delegates
+    
+    private func setupDelegates() {
+        productDetailView.interface = self
+        
+        productDetailViewModel.delegate = self
+    }
+
     
 }
 

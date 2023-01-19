@@ -31,16 +31,18 @@ class ProductCollectionCell: UICollectionViewCell {
     
     //MARK: - Creating UI Elements
     
-    private var productImageView = CustomImageView(image: UIImage(systemName: "exclamationmark.circle")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: true)
+    private var productImageView = CustomImageView(image: UIImage(systemName: "exclamationmark.circle"), tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 15, isUserInteractionEnabled: true)
     var addToWishListButton = CustomButton(image: UIImage(systemName: "heart"), tintColor: .black)
-    private var titleLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 10), textColor: .black, textAlignment: .center)
-    private var ratingCountImageView = CustomImageView(image: UIImage(systemName: "star.fill")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var titleLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 10), textColor: .black, textAlignment: .center)
+    private var ratingCountImageView = CustomImageView(image: UIImage(systemName: "star.leadinghalf.filled"), tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
     private var ratingCountLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .black, textAlignment: .left)
-    private var ratingCountStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 5, isHidden: false)
+    private var ratingStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0)
+    private var infoSeperatorView = CustomView(backgroundColor: .black)
     private var salesAmountLabel = CustomLabel(text: "", numberOfLines: 1, font: .systemFont(ofSize: 12), textColor: .black, textAlignment: .right)
-    private var ratingSalesInfoStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, spacing: 0, isHidden: false)
+    private var salesAmountView = CustomView(backgroundColor: .systemGray3, cornerRadius: 8)
+    private var ratingSalesInfoView = CustomView(backgroundColor: .systemGray6)
     private var priceLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 12), textColor: .black, textAlignment: .left)
-    private var productInfoStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 0, isHidden: false)
+    private var productInfoStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually , isHidden: false)
     
     //MARK: - Properties
     var productId: Int?
@@ -50,7 +52,7 @@ class ProductCollectionCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .systemGray6
         layer.cornerRadius = 15
         addSubview()
         setupConstraints()
@@ -99,7 +101,25 @@ class ProductCollectionCell: UICollectionViewCell {
         addToWishListButton.setImage(imageFilled, for: .selected)
     }
     
+ 
     
+}
+
+//MARK: - UI Elements Constraints
+
+
+extension ProductCollectionCell {
+    
+    ///MARK: - AddSubview
+    
+    private func addSubview() {
+        addSubviews(productImageView, productInfoStackView)
+        addButtonToImageView()
+        addRatingElementsToStackView()
+        addSalesAmountLabelToView()
+        addRatingSalesInfosToView()
+        addProductInfosToStackView()
+    }
     
     //MARK: - AddButtonToImageView
     
@@ -108,86 +128,114 @@ class ProductCollectionCell: UICollectionViewCell {
     }
     
     //MARK: - AddRatingElementsToStackView
-    
+
     private func addRatingElementsToStackView() {
-        ratingCountStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
-    }
-    
-    //MARK: - AddRatingSalesInfoToStackView
-    
-    private func addRatingSalesInfoToStackView() {
-        ratingSalesInfoStackView.addSubviews(ratingCountStackView, salesAmountLabel)
-    }
-    
-    //MARK: - AddProductInfoToStackView
-    
-    private func addProductInfoToStackView() {
-        productInfoStackView.addSubviews(titleLabel, ratingSalesInfoStackView, priceLabel)
+        ratingStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
     }
     
     
+    //MARK: - AddSalesAmountLabelToView
     
-    ///MARK: - AddSubview
-    
-    private func addSubview() {
-        addSubviews(productImageView, ratingCountStackView, ratingSalesInfoStackView, productInfoStackView)
-        addButtonToImageView()
-        addRatingElementsToStackView()
-        addRatingSalesInfoToStackView()
-        addProductInfoToStackView()
+    private func addSalesAmountLabelToView() {
+        salesAmountView.addSubview(salesAmountLabel)
     }
+
+    //MARK: - AddRating/SalesInfosToView
+    
+    private func addRatingSalesInfosToView() {
+        ratingSalesInfoView.addSubviews(ratingStackView, infoSeperatorView, salesAmountView)
+    }
+    
+    //MARK: - AddProductInfosToStackView
+    
+    private func addProductInfosToStackView() {
+        productInfoStackView.addArrangedSubviews(titleLabel, ratingSalesInfoView, priceLabel)
+    }
+
     
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
-        imageViewConstraints()
-        addToWishListButtonConstraints()
-        ratingCountImageConstraints()
-        ratingCountStackViewConstraints()
-        productInfoStackViewConstraints()
+        productImageConstraints()
+        wishListButtonConstraints()
+        productInfosStackViewConstraints()
+        seperatorViewConstraints()
+        ratingImageViewConstraints()
+        ratingSalesInfosViewConstraints()
+        ratingStackViewConstraints()
+        seperatorViewConstraints()
+        salesAmountViewConstraints()
+        salesAmountLabelConstraints()
     }
     
     //MARK: - UI Elements Constraints
-    
-    private func imageViewConstraints() {
+   
+    private func productImageConstraints() {
         productImageView.snp.makeConstraints { make in
-            make.width.equalTo(safeAreaLayoutGuide.snp.width).offset(-10)
+            make.height.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.7)
             make.top.equalTo(safeAreaLayoutGuide)
-            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
-            make.bottom.equalTo(productInfoStackView.snp.top).offset(-10)
-            
+            make.leading.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
     
-    private func addToWishListButtonConstraints() {
+    private func wishListButtonConstraints() {
         addToWishListButton.snp.makeConstraints { make in
-            make.width.equalTo(productImageView.snp.width).multipliedBy(0.2)
-            make.height.equalTo(productImageView.snp.width).multipliedBy(0.2)
-            make.top.equalTo(productImageView).offset(7)
-            make.trailing.equalTo(productImageView).offset(-7)
+            make.top.equalTo(productImageView.snp.top).offset(10)
+            make.trailing.equalTo(productImageView.snp.trailing).offset(-10)
         }
     }
     
-    private func ratingCountImageConstraints() {
+    private func ratingImageViewConstraints() {
         ratingCountImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(ratingCountStackView.snp.height)
+            make.height.equalTo(15)
         }
     }
-    private func ratingCountStackViewConstraints() {
-        ratingCountStackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(7)
-            make.leading.equalTo(productImageView.snp.leading)
-            make.trailing.equalTo(productImageView.snp.trailing)
+ 
+    private func ratingStackViewConstraints() {
+        ratingStackView.snp.makeConstraints { make in
+            make.centerY.equalTo(ratingSalesInfoView.snp.centerY)
+            make.leading.equalTo(productInfoStackView.snp.leading)
+        }
+    }
+    
+    private func seperatorViewConstraints() {
+        infoSeperatorView.snp.makeConstraints { make in
+            make.height.equalTo(12)
+            make.width.equalTo(0.75)
+            make.centerY.equalTo(ratingSalesInfoView.snp.centerY)
+            make.leading.equalTo(ratingStackView.snp.trailing).offset(10)
+        }
+    }
+    
+    private func salesAmountViewConstraints() {
+        salesAmountView.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.centerY.equalTo(ratingSalesInfoView.snp.centerY)
+            make.width.equalTo(salesAmountLabel.snp.width).offset(25)
+            make.leading.equalTo(infoSeperatorView.snp.trailing).offset(10)
+        }
+    }
+    
+    private func salesAmountLabelConstraints() {
+        salesAmountLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(salesAmountView)
+        }
+    }
+    
+    private func ratingSalesInfosViewConstraints() {
+        ratingSalesInfoView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(productImageView)
+            make.height.equalTo(20)
         }
     }
     
     
-    private func productInfoStackViewConstraints() {
+    private func productInfosStackViewConstraints() {
         productInfoStackView.snp.makeConstraints { make in
             make.top.equalTo(productImageView.snp.bottom).offset(10)
-            make.leading.equalTo(productImageView.snp.leading)
-            make.trailing.equalTo(productImageView.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-5)
+            make.trailing.leading.equalTo(productImageView)
+            make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
+    
 }

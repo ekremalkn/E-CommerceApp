@@ -10,6 +10,7 @@ import UIKit
 protocol CartCollectionCellProtocol {
     var cartCellImage: String { get }
     var cartCellTitle: String { get }
+    var cartCellCategory: String { get }
     var cartCellPrice: String { get }
     var cartCellProductId: Int { get }
 }
@@ -113,6 +114,7 @@ final class CartCollectionCell: UICollectionViewCell {
     func configure(data: CartCollectionCellProtocol) {
         productImage.downloadSetImage(url: data.cartCellImage)
         productTitle.text = data.cartCellTitle
+        categoryLabel.text = data.cartCellCategory
         priceLabel.text = data.cartCellPrice
         productId = data.cartCellProductId
     }

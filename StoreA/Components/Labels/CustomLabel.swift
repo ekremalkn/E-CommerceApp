@@ -19,9 +19,9 @@ class CustomLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(text: String, numberOfLines: Int, font: UIFont, textColor: UIColor, textAlignment: NSTextAlignment) {
+    convenience init(text: String, numberOfLines: Int, font: UIFont, textColor: UIColor, textAlignment: NSTextAlignment, isHidden: Bool? = nil) {
         self.init(frame: .zero)
-        set(text: text, numberOfLines: numberOfLines, font: font, textColor: textColor, textAlignment: textAlignment)
+        set(text: text, numberOfLines: numberOfLines, font: font, textColor: textColor, textAlignment: textAlignment, isHidden: isHidden)
     }
     
     private func configure() {
@@ -29,12 +29,15 @@ class CustomLabel: UILabel {
     }
     
     
-    private func set(text: String, numberOfLines: Int, font: UIFont, textColor: UIColor, textAlignment: NSTextAlignment) {
+    private func set(text: String, numberOfLines: Int, font: UIFont, textColor: UIColor, textAlignment: NSTextAlignment, isHidden: Bool? = nil) {
         self.text = text
         self.numberOfLines = numberOfLines
         self.font = font
         self.textColor = textColor
         self.textAlignment = textAlignment
+        if let isHidden = isHidden {
+            self.isHidden = isHidden
+        }
     }
     
 

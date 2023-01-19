@@ -151,6 +151,13 @@ struct Product: Codable, SpecialCollectionCellProtocol, ProductCollectionCellPro
         return ""
     }
     
+    var cartCellCategory: String {
+        if let category = category {
+            return category.rawValue.capitalized
+        }
+        return ""
+    }
+    
     var cartCellPrice: String {
         if let price = price {
             return "$\(price)"

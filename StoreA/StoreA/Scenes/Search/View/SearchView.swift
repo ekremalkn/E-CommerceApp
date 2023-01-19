@@ -84,8 +84,8 @@ extension SearchView {
     private func searchCollectionConsraints() {
         searchCollection.snp.makeConstraints { make in
             make.top.equalTo(searchResultLabelsStackView.snp.bottom).offset(10)
-            make.leading.equalTo(safeAreaLayoutGuide)
-            make.trailing.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(15)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }

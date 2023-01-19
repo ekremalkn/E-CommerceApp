@@ -14,6 +14,9 @@
 		F02042052972D95B00096AC4 /* FilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02042042972D95B00096AC4 /* FilterController.swift */; };
 		F020420D2972E15900096AC4 /* FilterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020420C2972E15900096AC4 /* FilterCollectionCell.swift */; };
 		F023632D2962CB1C0008C4DD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023632C2962CB1C0008C4DD /* HomeView.swift */; };
+		F023A62929796BDD00DF612F /* CheckoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023A62829796BDD00DF612F /* CheckoutController.swift */; };
+		F023A62B29796BFD00DF612F /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023A62A29796BFD00DF612F /* CheckoutView.swift */; };
+		F023A62E2979826B00DF612F /* CheckoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023A62D2979826B00DF612F /* CheckoutModel.swift */; };
 		F025CCAC29619CEE00C32472 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCAB29619CEE00C32472 /* AuthViewModel.swift */; };
 		F025CCB52961A0D300C32472 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F025CCB42961A0D200C32472 /* GoogleService-Info.plist */; };
 		F025CCB72961B2C800C32472 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025CCB62961B2C800C32472 /* SignUpView.swift */; };
@@ -92,6 +95,9 @@
 		F02042042972D95B00096AC4 /* FilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterController.swift; sourceTree = "<group>"; };
 		F020420C2972E15900096AC4 /* FilterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionCell.swift; sourceTree = "<group>"; };
 		F023632C2962CB1C0008C4DD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F023A62829796BDD00DF612F /* CheckoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutController.swift; sourceTree = "<group>"; };
+		F023A62A29796BFD00DF612F /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		F023A62D2979826B00DF612F /* CheckoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutModel.swift; sourceTree = "<group>"; };
 		F025CCAB29619CEE00C32472 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		F025CCB42961A0D200C32472 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F025CCB62961B2C800C32472 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -226,6 +232,32 @@
 				F020420C2972E15900096AC4 /* FilterCollectionCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F023A62629796BB600DF612F /* Checkout */ = {
+			isa = PBXGroup;
+			children = (
+				F023A62C2979825400DF612F /* Model */,
+				F023A62729796BC500DF612F /* View */,
+			);
+			path = Checkout;
+			sourceTree = "<group>";
+		};
+		F023A62729796BC500DF612F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F023A62829796BDD00DF612F /* CheckoutController.swift */,
+				F023A62A29796BFD00DF612F /* CheckoutView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F023A62C2979825400DF612F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F023A62D2979826B00DF612F /* CheckoutModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F025CCA629619CB700C32472 /* View */ = {
@@ -653,6 +685,7 @@
 				F0B6C5DC2967503400E6F462 /* Search */,
 				F02041FF2972D91100096AC4 /* Filter */,
 				F0B6C5D4296732BB00E6F462 /* Cart */,
+				F023A62629796BB600DF612F /* Checkout */,
 				F07BC7E52971AC3C00611EAC /* WishList */,
 				F0B6C5D5296732CF00E6F462 /* Profile */,
 			);
@@ -856,11 +889,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F023A62E2979826B00DF612F /* CheckoutModel.swift in Sources */,
 				F048014829768DC80088648C /* CustomSearchController.swift in Sources */,
 				F058175A29635F9600B536E7 /* SpecialCollectionCell.swift in Sources */,
 				F0CCDA33297878E40070E0B2 /* CustomSearchBar.swift in Sources */,
 				F048014329768B090088648C /* CustomView.swift in Sources */,
 				F0896664296D53D4004C956D /* CartCollectionCell.swift in Sources */,
+				F023A62929796BDD00DF612F /* CheckoutController.swift in Sources */,
 				F0D18C5929748C62004BA66A /* NSDate+GetTimeDateFormat.swift in Sources */,
 				F0FC91BA296200C900351C96 /* ProductsViewModel.swift in Sources */,
 				F0B261AB29703136007ED902 /* CartViewModel.swift in Sources */,
@@ -869,6 +904,7 @@
 				F03FB083295F437300884E84 /* OnboardingSlide.swift in Sources */,
 				F05362042964A5360049CB7D /* ProductCollectionCell.swift in Sources */,
 				F03FB087295F43EE00884E84 /* OnboardingCell.swift in Sources */,
+				F023A62B29796BFD00DF612F /* CheckoutView.swift in Sources */,
 				F0480140297689FB0088648C /* CustomImageView.swift in Sources */,
 				F07BC7E92971AC6300611EAC /* WishListController.swift in Sources */,
 				F0FC91B32961FE5200351C96 /* Product.swift in Sources */,

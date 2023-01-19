@@ -50,9 +50,9 @@ final class ProductDetailViewModel {
     
     func fetchProductCostInCart(productId: Int, cart: [String: Int]) {
         let productsRef = database.collection("products")
+        let product = productsRef.document("\(productId)")
         if let quantity = cart["\(productId)"] {
-            let product = productsRef.document("\(productId)")
-            
+
             product.getDocument { documentData, error in
                 guard let documentData = documentData else { return }
                 guard let price = documentData.get("price") as? Double else { return }
@@ -61,7 +61,14 @@ final class ProductDetailViewModel {
                 self.delegate?.didFetchCartCostSuccessful(productId: productId, quantity: quantity)
             }
         } else {
-            print("ürün sepette yok")
+            product.getDocument { documentData, error in
+                guard let documentData = documentData else { return }
+                guard let price = documentData.get("price") as? Double else { return }
+                let cost = Double(price * Double(1))
+                self.cartCost = cost
+                self.delegate?.didFetchCartCostSuccessful(productId: productId, quantity:0)
+            }
+            
         }
     }
     

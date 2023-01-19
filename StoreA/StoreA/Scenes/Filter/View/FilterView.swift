@@ -19,7 +19,7 @@ final class FilterView: UIView {
     private var filterTitleLabel = CustomLabel(text: "Sort & Filter", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
     private var seperatorView = CustomView(backgroundColor: .systemGray5)
     private var collectionTitlLabel = CustomLabel(text: "Categories", numberOfLines: 0, font: .boldSystemFont(ofSize: 17), textColor: .black, textAlignment: .left)
-    var filterCollection = CustomCollection(backgroundColor: .white, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .vertical, estimatedItemSize: UICollectionViewFlowLayout.automaticSize, minimumInteritemSpacing: 15, minimumLineSpacing: 5)
+    var filterCollection = CustomCollection(backgroundColor: .white, showsScrollIndicator: false, paging: false, layout: UICollectionViewFlowLayout(), scrollDirection: .vertical, estimatedItemSize: UICollectionViewFlowLayout.automaticSize, minimumInteritemSpacing: 5, minimumLineSpacing: 5)
     
     //MARK: - Init Methods
     

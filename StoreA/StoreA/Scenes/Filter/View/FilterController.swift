@@ -86,6 +86,8 @@ extension FilterController: UICollectionViewDelegate, UICollectionViewDataSource
     
 }
 
+//MARK: - FilterViewModelDelegate
+
 extension FilterController: FilterViewModelDelegate {
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)

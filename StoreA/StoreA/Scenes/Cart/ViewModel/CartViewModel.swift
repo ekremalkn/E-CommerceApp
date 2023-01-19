@@ -17,6 +17,8 @@ protocol CartViewModelDelegate: AnyObject {
     func didFetchProductsFromCartSuccessful()
     func didFetchSingleProduct(_ product: Product)
     func didFetchCostAccToItemCount()
+    func didCheckoutSuccessful()
+    func didCheckoutNotSuccessful()
 }
 
 final class CartViewModel {
@@ -37,7 +39,7 @@ final class CartViewModel {
     private let currentUser = Auth.auth().currentUser
     
     var singleProduct: Product?
-    
+        
     var cartsProducts: [Product] = [] {
         didSet {
             if cartsProducts.count == cart?.count {
@@ -94,6 +96,34 @@ final class CartViewModel {
         }
     }
     
+
+    //MARK: - Checkout
+    
+    func checkout() {
+        guard let currentUser = currentUser else { return }
+        
+        let userRef = database.collection("Users").document(currentUser.uid)
+        if cartsProducts.count == 0 {
+            self.delegate?.didCheckoutNotSuccessful()
+        } else {
+            for product in cartsProducts {
+                if let productId = product.id {
+                    userRef.updateData(["cart.\(productId)" : FieldValue.delete()]) { error in
+                        if let error = error {
+                            self.delegate?.didOccurError(error)
+                        } else {
+                            self.cartsProducts = []
+                            self.delegate?.didUpdateCartSuccessful()
+                            self.delegate?.didCheckoutSuccessful()
+                        }
+                    }
+                }
+
+            }
+        }
+       
+    }
+    
     
     //MARK: - Get Cart from Firestore
     
@@ -131,6 +161,8 @@ final class CartViewModel {
             
         }
     }
+    
+
     
     
     //MARK: - TotalCost
