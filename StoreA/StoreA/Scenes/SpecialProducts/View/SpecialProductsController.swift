@@ -8,12 +8,7 @@
 import UIKit
 
 final class SpecialProductsController: UIViewController {
-    
-    deinit {
-        print("deinit SpecialProductsController")
-    }
-    
-    
+
     //MARK: - Properties
     private let specialProductsViewModel = SpecialProductsViewModel()
     private let specialProductsView = SpecialProductsView()
@@ -24,6 +19,7 @@ final class SpecialProductsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        configureNavBar()
         collectionCellRegister()
         setupDelegates()
         specialProductsViewModel.fetchSpecialProducts()
@@ -37,6 +33,11 @@ final class SpecialProductsController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.tabBarController?.tabBar.backgroundColor = .white
         view = specialProductsView
+    }
+    
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     //MARK: - Register Custom Cell

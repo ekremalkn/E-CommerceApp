@@ -7,8 +7,7 @@
 
 import UIKit
 
-class ProfileController: UIViewController {
-
+final class ProfileController: UIViewController {
     
     //MARK: - Properties
     
@@ -20,11 +19,12 @@ class ProfileController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         profileViewModel.fetchUser()
-
+        profileViewModel.fetchProfilePhoto()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        configureNavBar()
         setupDelegates()
     }
     
@@ -34,6 +34,11 @@ class ProfileController: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .white
         view = profileView
+    }
+    
+    
+    private func configureNavBar() {
+        navigationController?.isNavigationBarHidden = true
     }
 
     
@@ -49,32 +54,71 @@ class ProfileController: UIViewController {
 
 }
 
-//MARK: - ProfileViewInterface
-
-extension ProfileController: ProfileViewInterface {
-    func profileView(_ view: ProfileView, signOutButtonTapped button: UIButton) {
-        profileViewModel.signOut()
-    }
-    
-    
-}
-
 //MARK: - ProfileViewModelDelegate
 
 extension ProfileController: ProfileViewModelDelegate {
+
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
     
     func didSignOutSuccessful() {
         let signInVC = SignInController()
-        navigationController?.pushViewController(signInVC, animated: true)
-        Alert.alertMessage(title: "Çıkış başarılı", message: "", vc: self)
+        signInVC.modalPresentationStyle = .fullScreen
+        present(signInVC, animated: true)
+       
     }
     
     func didFetchUserInfo() {
         profileView.configure(email: profileViewModel.email ?? "email yok", username: profileViewModel.username ?? "kullanıcı yok")
     }
     
+    func didFetchProfilePhotoSuccessful(_ url: String) {
+        profileView.profileImageView.downloadSetImage(url: url)
+    }
     
+
+    
+    
+}
+
+
+//MARK: - ProfileViewInterface
+
+extension ProfileController: ProfileViewInterface {
+
+    func profileView(_ view: ProfileView, signOutButtonTapped button: UIButton) {
+        profileViewModel.signOut()
+    }
+    
+    func profileView(_ view: ProfileView, addProfileButtonTapped button: UIButton) {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+    
+    func profileView(_ view: ProfileView, resetPasswordButtonTapped button: UIButton) {
+        let resetPasswordVC = ResetPasswordController()
+        present(resetPasswordVC, animated: true)
+    }
+
+}
+
+//MARK: - Profile Photo picker
+
+extension ProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        guard let imageData = image.pngData() else { return }
+        
+        profileViewModel.uploadImageDataToFirebaseStorage(imageData)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }

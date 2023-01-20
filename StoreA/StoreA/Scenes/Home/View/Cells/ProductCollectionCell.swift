@@ -21,10 +21,7 @@ protocol ProductCollectionCellInterface: AnyObject {
 }
 
 class ProductCollectionCell: UICollectionViewCell {
-    deinit {
-        print("deinit productcell")
-    }
-    
+
     //MARK: - Cell's Identifier
     
     static let identifier = "ProductCollectionCell"
@@ -34,7 +31,7 @@ class ProductCollectionCell: UICollectionViewCell {
     private var productImageView = CustomImageView(image: UIImage(systemName: "exclamationmark.circle"), tintColor: .black, backgroundColor: .white, contentMode: .scaleAspectFit, cornerRadius: 15, isUserInteractionEnabled: true)
     var addToWishListButton = CustomButton(image: UIImage(systemName: "heart"), tintColor: .black)
     private var titleLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 10), textColor: .black, textAlignment: .center)
-    private var ratingCountImageView = CustomImageView(image: UIImage(systemName: "star.leadinghalf.filled"), tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
+    private var ratingCountImageView = CustomImageView(image: UIImage(systemName: "star.lefthalf.fill"), tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleAspectFit, cornerRadius: 0, isUserInteractionEnabled: false)
     private var ratingCountLabel = CustomLabel(text: "", numberOfLines: 2, font: .systemFont(ofSize: 12), textColor: .black, textAlignment: .left)
     private var ratingStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 0)
     private var infoSeperatorView = CustomView(backgroundColor: .black)
@@ -101,12 +98,11 @@ class ProductCollectionCell: UICollectionViewCell {
         addToWishListButton.setImage(imageFilled, for: .selected)
     }
     
- 
+    
     
 }
 
-//MARK: - UI Elements Constraints
-
+//MARK: - UI Elements AddSubiew / Constraints
 
 extension ProductCollectionCell {
     
@@ -121,37 +117,25 @@ extension ProductCollectionCell {
         addProductInfosToStackView()
     }
     
-    //MARK: - AddButtonToImageView
-    
     private func addButtonToImageView() {
         productImageView.addSubview(addToWishListButton)
     }
     
-    //MARK: - AddRatingElementsToStackView
-
     private func addRatingElementsToStackView() {
         ratingStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
     }
     
-    
-    //MARK: - AddSalesAmountLabelToView
-    
     private func addSalesAmountLabelToView() {
         salesAmountView.addSubview(salesAmountLabel)
     }
-
-    //MARK: - AddRating/SalesInfosToView
     
     private func addRatingSalesInfosToView() {
         ratingSalesInfoView.addSubviews(ratingStackView, infoSeperatorView, salesAmountView)
     }
     
-    //MARK: - AddProductInfosToStackView
-    
     private func addProductInfosToStackView() {
         productInfoStackView.addArrangedSubviews(titleLabel, ratingSalesInfoView, priceLabel)
     }
-
     
     //MARK: - Setup Constraints
     
@@ -168,8 +152,6 @@ extension ProductCollectionCell {
         salesAmountLabelConstraints()
     }
     
-    //MARK: - UI Elements Constraints
-   
     private func productImageConstraints() {
         productImageView.snp.makeConstraints { make in
             make.height.equalTo(safeAreaLayoutGuide.snp.width).multipliedBy(0.7)
@@ -190,7 +172,7 @@ extension ProductCollectionCell {
             make.height.equalTo(15)
         }
     }
- 
+    
     private func ratingStackViewConstraints() {
         ratingStackView.snp.makeConstraints { make in
             make.centerY.equalTo(ratingSalesInfoView.snp.centerY)

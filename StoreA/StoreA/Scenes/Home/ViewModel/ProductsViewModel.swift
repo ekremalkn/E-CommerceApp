@@ -16,14 +16,12 @@ protocol ProductsViewModelDelegate: AnyObject {
     func didFetchAllCategories()
     func didFetchProductsByCategorySuccessful()
     func didFetchSingleProduct(_ product: Product)
+    func didFetchCartCountSuccessful()
     func didUpdateWishListSuccessful(productId: Int)
 }
 
 final class ProductsViewModel {
     
-    deinit {
-        print("deinit ProductsViewModel")
-    }
     weak var delegate: ProductsViewModelDelegate?
     
     let manager = Service.shared
@@ -37,6 +35,9 @@ final class ProductsViewModel {
     var allCategories = Categories()
     
     var wishList: [String: Int]? = [:]
+
+    
+    var cart: [String : Int]? = [:]
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
@@ -130,6 +131,22 @@ final class ProductsViewModel {
             }
         }
     }
+    
+    //MARK: -  //MARK: - Get Cart from Firestore
+    
+    func fetchCart() {
+        guard let currentUser = currentUser else { return }
+        
+        let cartRef = database.collection("Users").document(currentUser.uid)
+        cartRef.getDocument(source: .default) { documentData, error in
+            if let documentData = documentData {
+                self.cart = documentData.get("cart") as? [String : Int]
+                self.delegate?.didFetchCartCountSuccessful()
+            }
+        }
+    }
+    
+    
     
     //MARK: - FetchWishList
     

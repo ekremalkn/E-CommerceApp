@@ -9,10 +9,7 @@ import UIKit
 
 
 final class ProductDetailController: UIViewController {
-    deinit {
-        print("deinit product detail controller")
-    }
-    
+
     //MARK: - Properties
     private let productsViewModel = ProductsViewModel()
     private let productDetailViewModel = ProductDetailViewModel()
@@ -68,8 +65,7 @@ final class ProductDetailController: UIViewController {
 //MARK: - ProductDetailViewModelDelegate
 
 extension ProductDetailController: ProductDetailViewModelDelegate {
-    
-    
+   
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -79,6 +75,16 @@ extension ProductDetailController: ProductDetailViewModelDelegate {
             productDetailViewModel.fetchCart(productId: productId)
         }
         
+    }
+    
+    func didFetchCartCountSuccessful() {
+        if let cartCount = productDetailViewModel.cart?.count {
+            if cartCount == 0 {
+                tabBarController?.tabBar.items?[2].badgeValue = nil
+            } else {
+                tabBarController?.tabBar.items?[2].badgeValue = "\(cartCount)"
+            }
+        }
     }
     
     func didFetchCartCostSuccessful(productId: Int, quantity: Int) {

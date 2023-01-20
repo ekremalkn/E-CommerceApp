@@ -9,10 +9,7 @@ import UIKit
 import SnapKit
 
 final class SearchView: UIView {
-    deinit {
-        print("deinit searchview")
-    }
-    
+  
     var searchController = CustomSearchController(searchPlaceHolder: "Search Products", showsBookmarkButton: true)
     lazy var searchResultsLabel = CustomLabel(text: "Results for SearchTextField", numberOfLines: 0, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .left)
     lazy var searchResultCountLabel = CustomLabel(text: "", numberOfLines: 1, font: .boldSystemFont(ofSize: 15), textColor: .black, textAlignment: .right)
@@ -46,13 +43,9 @@ final class SearchView: UIView {
         searchController.searchBar.setImage(UIImage(systemName: "slider.horizontal.3"), for: .bookmark, state: .normal)
     }
     
-    //MARK: - AddSearchResultLabelsToStackView
-    
-    private func addSearchResultLabelsToStackView() {
-        searchResultLabelsStackView.addArrangedSubviews(searchResultsLabel, searchResultCountLabel)
-    }
-    
 }
+
+//MARK: - UI Elements AddSubiew / Constraints
 
 extension SearchView {
     
@@ -63,14 +56,16 @@ extension SearchView {
         addSearchResultLabelsToStackView()
     }
     
+    private func addSearchResultLabelsToStackView() {
+        searchResultLabelsStackView.addArrangedSubviews(searchResultsLabel, searchResultCountLabel)
+    }
+    
     //MARK: - SetupConstraints
     
     private func setupConstraint() {
         searchLabelStackViewConstraints()
         searchCollectionConsraints()
     }
-    
-    //MARK: - UI Elements Constraints
     
     private func searchLabelStackViewConstraints()  {
         searchResultLabelsStackView.snp.makeConstraints { make in

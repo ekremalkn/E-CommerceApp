@@ -9,10 +9,6 @@ import UIKit
 
 final class FilterView: UIView {
     
-    deinit {
-        print("deinit FilterView")
-    }
-    
     //MARK: - Creating UI Elements
     
     private var customGrabber = CustomView(backgroundColor: .systemGray4, cornerRadius: 5)
@@ -36,6 +32,8 @@ final class FilterView: UIView {
     
 }
 
+//MARK: - UI Elements AddSubiew / Constraints
+
 extension FilterView {
     
     //MARK: - AddSubview
@@ -54,8 +52,6 @@ extension FilterView {
         filterCollectionConstraints()
         
     }
-    
-    //MARK: - UI Elements Constraints
     
     private func grabberConstraints() {
         customGrabber.snp.makeConstraints { make in

@@ -22,9 +22,8 @@ protocol CartCollectionCellInterface: AnyObject {
 
 final class CartCollectionCell: UICollectionViewCell {
     deinit {
-        print("deinit cartcel")
+        print("CartCollectionCell deinit")
     }
-    
     //MARK: - Cell's Identifier
     
     static let identifier = "CartCollectionCell"
@@ -81,7 +80,7 @@ final class CartCollectionCell: UICollectionViewCell {
     
     //MARK: - AddAction
     
-    private func addTarget() {
+    private func addTarget() {
         removeButton.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         stepperMinusButton.addTarget(self, action: #selector(stepperMinusButtonTapped), for: .touchUpInside)
         stepperPlusButton.addTarget(self, action: #selector(stepperPlusButtonTapped), for: .touchUpInside)
@@ -119,22 +118,26 @@ final class CartCollectionCell: UICollectionViewCell {
         productId = data.cartCellProductId
     }
     
+}
+
+//MARK: - UI Elements AddSubiew / Constraints
+
+extension CartCollectionCell {
     
+    //MARK: - AddSubview
     
-    //MARK: - AddProductTitle/RemoveButtonToStackView
+    private func addSubview() {
+        addSubviews(productImage, allInOneStackView)
+    }
     
     private func addTitleButtonToTopView() {
         topView.addSubview(productTitle)
         topView.addSubview(removeButton)
     }
     
-    //MARK: - AddCustomStepperElementsToStackView
-    
     private func addStepperElementsToStackView() {
         stepperStackView.addArrangedSubviews(stepperPlusButton, stepperLabel, stepperMinusButton)
     }
-    
-    //MARK: - AddPriceStepperElementsToStackView
     
     private func addPriceStepperToBottomStackView() {
         bottomView.addSubviews(priceLabel, stepperStackView)
@@ -142,14 +145,6 @@ final class CartCollectionCell: UICollectionViewCell {
     
     private func addAllStackViewToOne() {
         allInOneStackView.addArrangedSubviews(topView, categoryLabel, bottomView)
-    }
-    
-    
-    
-    //MARK: - AddSubview
-    
-    private func addSubview() {
-        addSubviews(productImage, allInOneStackView)
     }
     
     //MARK: - Setup Constraints

@@ -12,15 +12,13 @@ import FirebaseFirestore
 protocol ProductDetailViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didUpdateCartSuccessful(quantity: Int)
+    func didFetchCartCountSuccessful()
     func didFetchCartCostSuccessful(productId: Int, quantity: Int)
     func didFetchWishListSuccessful(productId: Int)
 }
 
 final class ProductDetailViewModel {
-    deinit {
-        print("deinit productdeteailviewmodel")
-    }
-    
+
     weak var delegate: ProductDetailViewModelDelegate?
     
     private let database = Firestore.firestore()
@@ -41,6 +39,7 @@ final class ProductDetailViewModel {
         cartRef.getDocument(source: .default) { documentData, error in
             if let documentData = documentData {
                 self.cart = documentData.get("cart") as? [String: Int]
+                self.delegate?.didFetchCartCountSuccessful()
                 if let cart = self.cart {
                     self.fetchProductCostInCart(productId: productId, cart: cart)
                 }
@@ -87,7 +86,7 @@ final class ProductDetailViewModel {
                     if id == String(productId) {
                         self.delegate?.didFetchWishListSuccessful(productId: productId)
                     } else {
-                        print("bu ürün wishlist'te yok")
+                        print("WishList içerisindeki \(wishList.count) adet ürün içerisinden hiçbir ürün ile eşleşmedi")
                     }
                 }
             }

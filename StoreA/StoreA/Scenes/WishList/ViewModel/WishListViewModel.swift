@@ -94,7 +94,7 @@ final class WishListViewModel {
     func fetchQuantity(wishList: [String: Int]) {
         let productRef = database.collection("products")
         
-        for (id, quantity) in wishList{
+        for (id, _) in wishList{
             let product = productRef.document(id)
             
             product.getDocument(source: .default) { documentData, error in

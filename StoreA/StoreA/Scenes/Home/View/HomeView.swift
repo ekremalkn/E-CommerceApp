@@ -14,18 +14,21 @@ protocol HomeViewInterface: AnyObject {
 }
 
 final class HomeView: UIView {
-    deinit {
-        print("deinit home view")
-    }
-    
+ 
     //MARK: - Creating UI Elements
-    
-    private var profilePhotoImage = CustomImageView(image: UIImage(systemName: "person.circle")!, tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleToFill, cornerRadius: 20, isUserInteractionEnabled: false)
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
+    private var contentView = CustomView()
+    var profilePhotoImage = CustomImageView(image: UIImage(systemName: "person.circle")!, tintColor: .black, backgroundColor: .systemGray6, contentMode: .scaleToFill, maskedToBounds: true, cornerRadius: 25, isUserInteractionEnabled: false)
     var hiLabel = CustomLabel(text: "Good morning👋", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .systemGray, textAlignment: .left)
     var usernameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
-    private var wishListButton = CustomButton(cornerRadius: 15,image: UIImage(systemName: "heart"), tintColor: .black)
-    private var cartButton = CustomButton(cornerRadius: 15, image: UIImage(systemName: "cart"), tintColor: .black)
+    private var wishListButton = CustomButton(backgroundColor: .white, cornerRadius: 15,image: UIImage(systemName: "heart"),tintColor: .black)
+    private var cartButton = CustomButton(backgroundColor: .white, cornerRadius: 15, image: UIImage(systemName: "cart"), tintColor: .black)
     private var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, isHidden: false)
     var searcBar = CustomSearchBar(showsBookmarkButton: false, placeHolder: "Search Products")
     private var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
@@ -93,24 +96,6 @@ final class HomeView: UIView {
     }
     
     
-    //MARK: - TopLabelsAddToStackView
-    
-    private func addTopLabelsToStackView() {
-        labelStackView.addArrangedSubviews(hiLabel, usernameLabel)
-    }
-    
-    //MARK: - TopButtonsAddToStackView
-    
-    private func addTopButtonsToStackView() {
-        buttonStackView.addArrangedSubviews(wishListButton, cartButton)
-    }
-    
-    //MARK: - SpecialLabel / SeeAll Button AddToView
-    
-    private func addSpecialLblSeeBtnToView() {
-        specialLblSeeBtnView.addSubviews(specialProductsLabel, seeAllButton)
-    }
-    
     
     //MARK: - Configure SearchBar
     
@@ -121,20 +106,38 @@ final class HomeView: UIView {
 }
 
 
+//MARK: - UI Elements AddSubiew / Constraints
+
 extension HomeView {
     
     //MARK: - AddSubView
     
     private func addSubview() {
-        addSubviews(profilePhotoImage, labelStackView, buttonStackView, searcBar, specialLblSeeBtnView, specialCollection, pageControl, categoryCollection, productCollection)
+        addSubviews(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubviews(profilePhotoImage, labelStackView, buttonStackView, searcBar, specialLblSeeBtnView, specialCollection, pageControl, categoryCollection, productCollection)
         addTopLabelsToStackView()
         addTopButtonsToStackView()
         addSpecialLblSeeBtnToView()
     }
     
+    private func addTopLabelsToStackView() {
+        labelStackView.addArrangedSubviews(hiLabel, usernameLabel)
+    }
+    
+    private func addTopButtonsToStackView() {
+        buttonStackView.addArrangedSubviews(wishListButton, cartButton)
+    }
+    
+    private func addSpecialLblSeeBtnToView() {
+        specialLblSeeBtnView.addSubviews(specialProductsLabel, seeAllButton)
+    }
+    
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
+        scrollViewConstraints()
+        contentViewConstraints()
         profilePhotoImageConstraints()
         topLabelsStackViewConstraints()
         topButtonsStackViewConstraints()
@@ -148,20 +151,33 @@ extension HomeView {
         productsCollectionConstraint()
     }
     
+    private func scrollViewConstraints() {
+        scrollView.snp.makeConstraints { make in
+            make.top.bottom.equalTo(safeAreaLayoutGuide)
+            make.leading.trailing.equalTo(safeAreaLayoutGuide)
+        }
+    }
     
-    //MARK: - UI Elements Constranints
+    private func contentViewConstraints() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.snp.makeConstraints { make in
+            make.top.bottom.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+            make.height.equalTo(2500)
+        }
+    }
     
     private func profilePhotoImageConstraints() {
         profilePhotoImage.snp.makeConstraints { make in
             make.height.width.equalTo(50)
-            make.top.equalTo(safeAreaLayoutGuide).offset(15)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(15)
+            make.top.equalTo(scrollView).offset(15)
+            make.leading.equalTo(scrollView).offset(15)
         }
     }
     
     private func topLabelsStackViewConstraints() {
         labelStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(15)
+            make.top.equalTo(scrollView).offset(15)
             make.centerY.equalTo(profilePhotoImage.snp.centerY)
             make.leading.equalTo(profilePhotoImage.snp.trailing).offset(5)
         }
@@ -173,7 +189,7 @@ extension HomeView {
             make.height.equalTo(labelStackView.snp.height)
             make.centerY.equalTo(profilePhotoImage.snp.centerY)
             make.leading.equalTo(labelStackView.snp.trailing)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
+            make.trailing.equalTo(scrollView).offset(-15)
         }
     }
     
@@ -214,7 +230,7 @@ extension HomeView {
     private func specialCollectionConstraints() {
         specialCollection.snp.makeConstraints { make in
             make.top.equalTo(specialLblSeeBtnView.snp.bottom).offset(10)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.centerY)
+            make.bottom.equalTo(scrollView.snp.centerY)
             make.leading.equalTo(safeAreaLayoutGuide).offset(15)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
         }
@@ -245,7 +261,7 @@ extension HomeView {
             make.top.equalTo(categoryCollection.snp.bottom).offset(20)
             make.trailing.equalTo(searcBar.snp.trailing)
             make.leading.equalTo(searcBar.snp.leading)
-            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
     }
     

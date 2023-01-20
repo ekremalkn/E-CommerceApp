@@ -8,10 +8,7 @@
 import UIKit
 
 final class SearchController: UIViewController {
-    deinit {
-        print("deinit searchcontroller")
-    }
-    
+   
     //MARK: - Properties
     private let productsViewModel = ProductsViewModel()
     private let searchViewModel = SearchViewModel()
@@ -41,6 +38,7 @@ final class SearchController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        configureNavBar()
         collectionCellRegister()
         setupDelegates()
         searchViewModel.fetchAllProducts()
@@ -57,6 +55,12 @@ final class SearchController: UIViewController {
     private func configureViewController() {
         view = searchView
         navigationItem.searchController = searchController
+    }
+    
+    
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     //MARK: - FilterForSearchText

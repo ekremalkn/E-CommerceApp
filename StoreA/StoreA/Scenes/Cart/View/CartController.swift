@@ -8,11 +8,9 @@
 import UIKit
 
 final class CartController: UIViewController {
-    
     deinit {
-        print("deinit cart controller")
+        print("CartController deinit")
     }
-    
     //MARK: - Properties
     private let cartViewModel = CartViewModel()
     private let cartView = CartView()
@@ -131,7 +129,7 @@ extension CartController: CartCollectionCellInterface {
 //MARK: - CartViewModelDelegate
 
 extension CartController: CartViewModelDelegate {
-  
+
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -146,6 +144,16 @@ extension CartController: CartViewModelDelegate {
     
     func didFetchCostAccToItemCount() {
         cartView.priceLabel.text = "$\(cartViewModel.totalCost)"
+    }
+    
+    func didFetchCartCountSuccessful() {
+        if let cartCount = cartViewModel.cart?.count {
+            if cartCount == 0 {
+                tabBarController?.tabBar.items?[2].badgeValue = nil
+            } else {
+                tabBarController?.tabBar.items?[2].badgeValue = "\(cartCount)"
+            }
+        }
     }
     
     func didFetchSingleProduct(_ product: Product) {
@@ -168,7 +176,7 @@ extension CartController: CartViewModelDelegate {
         self.present(checkoutVC, animated: true, completion: nil)
     }
     
-
+    
     
 }
 

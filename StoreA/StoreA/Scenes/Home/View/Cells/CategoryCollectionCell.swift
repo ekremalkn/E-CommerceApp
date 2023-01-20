@@ -9,10 +9,7 @@ import UIKit
 
 
 class CategoryCollectionCell: UICollectionViewCell {
-    deinit {
-        print("deinit categorycell")
-    }
-    
+
     //MARK: - Cell's Identifier
     
     static let identifier = "CategoryCollectionCell"
@@ -51,22 +48,25 @@ class CategoryCollectionCell: UICollectionViewCell {
         categoryLabel.text = data[indexPath.row].capitalized
     }
     
-    //MARK: - Add label to View
-    
-    private func addCategoryLabelToView() {
-        labelView.addSubview(categoryLabel)
-    }
-    
-    
-    
-    
-    //MARK: - UI Elements Constraints
-    
+}
+
+//MARK: - UI Elements AddSubiew / Constraints
+
+extension CategoryCollectionCell {
+
+    //MARK: - Addsubview
+
     private func addSubview() {
         addSubview(labelView)
         addCategoryLabelToView()
     }
     
+    private func addCategoryLabelToView() {
+        labelView.addSubview(categoryLabel)
+    }
+    
+    //MARK: - Setup Constraints
+
     private func setupConstraints() {
         labelViewConstraints()
         categoryLabelConstraints()

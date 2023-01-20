@@ -18,10 +18,7 @@ protocol AuthViewModelDelegate: AnyObject {
 }
 
 final class AuthViewModel {
-    deinit {
-        print("deinit authviewmodel")
-    }
-    
+ 
     weak var delegate: AuthViewModelDelegate?
     
     private let database = Firestore.firestore()

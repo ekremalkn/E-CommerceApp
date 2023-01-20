@@ -9,10 +9,7 @@ import UIKit
 import SnapKit
 
 final class SignUpController: UIViewController {
-    deinit {
-        print("deinit signup controller")
-    }
-    
+ 
     //MARK: - Properties
     private let authViewModel = AuthViewModel()
     private let signUpView = SignUpView()
@@ -76,7 +73,7 @@ final class SignUpController: UIViewController {
 extension SignUpController: SignUpViewInterface {
     func signUpView(_ view: SignUpView, signUpButtonTapped button: UIButton) {
         
-        guard checkPasswordMatch() == true else { return }
+        guard checkPasswordMatch() == true else { Alert.alertMessage(title: "Passwords do not match.", message: "", vc: self); return }
         
         authViewModel.signUp(username: username, email: email, password: password)
     }
@@ -90,7 +87,7 @@ extension SignUpController: SignUpViewInterface {
 
 extension SignUpController: AuthViewModelDelegate {
     func didOccurError(_ error: Error) {
-        print(error.localizedDescription)
+        Alert.alertMessage(title: "\(error.localizedDescription)", message: "", vc: self)
     }
     
     func didSignUpSuccessful() {

@@ -32,6 +32,8 @@ final class WishListView: UIView {
     
 }
 
+//MARK: - UI Elements AddSubiew / Constraints
+
 extension WishListView {
     
     //MARK: - AddSubview

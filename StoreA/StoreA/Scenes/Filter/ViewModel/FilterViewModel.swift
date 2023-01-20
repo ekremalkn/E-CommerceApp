@@ -14,10 +14,6 @@ protocol FilterViewModelDelegate: AnyObject {
 
 final class FilterViewModel {
     
-    deinit {
-        print("deinit FilterViewModel ")
-    }
-    
     //MARK: - FilterViewModelDelegate
     
     weak var delegate: FilterViewModelDelegate?

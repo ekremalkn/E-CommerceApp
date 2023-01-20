@@ -8,12 +8,7 @@
 import UIKit
 
 final class SpecialProductsView: UIView {
-    
-    deinit {
-        print("deinit SpecialProductsView")
-    }
-    
-    
+  
     var specialProductsCollection = CustomCollection(backgroundColor: .systemGray6, showsScrollIndicator: false, paging: false ,layout: UICollectionViewFlowLayout(), scrollDirection: .vertical)
     
     //MARK: - Init methods
@@ -32,6 +27,8 @@ final class SpecialProductsView: UIView {
     
 }
 
+//MARK: - UI Elements AddSubiew / Constraints
+
 extension SpecialProductsView {
     
     //MARK: - AddSubview
@@ -45,8 +42,6 @@ extension SpecialProductsView {
     private func setupConstraints() {
         specialProductsCollectionConstraints()
     }
-    
-    //MARK: - UI Elements Constraints
     
     private func specialProductsCollectionConstraints() {
         specialProductsCollection.snp.makeConstraints { make in

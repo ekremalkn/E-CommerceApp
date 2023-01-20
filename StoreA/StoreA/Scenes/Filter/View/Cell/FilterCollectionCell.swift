@@ -8,12 +8,7 @@
 import UIKit
 
 final class FilterCollectionCell: UICollectionViewCell {
-    
-    deinit {
-        print("deinit FilterTableViewCell")
-    }
-    
-    
+ 
     //MARK: - Cell's Identifier
     
     static let identifier = "FilterTableViewCell"

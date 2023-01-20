@@ -12,7 +12,7 @@ final class CheckoutView: UIView {
     //MARK: - CheckoutModel Array
     
     var checkoutModel: [CheckoutModel] = []
-
+    
     //MARK: - Creating UI Elements
     
     private var customGrabber = CustomView(backgroundColor: .systemGray4, cornerRadius: 5)
@@ -21,7 +21,7 @@ final class CheckoutView: UIView {
     private var label1 = CustomLabel(text: "Order Successful!", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .center)
     private var label2 = CustomLabel(text: "You have successfully made order", numberOfLines: 0, font: .systemFont(ofSize: 14), textColor: .black, textAlignment: .center)
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 15)
-
+    
     
     //MARK: - Init Methods
     
@@ -47,15 +47,12 @@ final class CheckoutView: UIView {
     
     
     func setCheckoutModel() {
-        checkoutModel = [CheckoutModel(image: UIImage(systemName: "cart.fill.badge.questionmark")!, label1: "Your cart is currently empty", label2: "You can checkout when there is a product in your cart.")]
+        checkoutModel = [CheckoutModel(image: UIImage(systemName: "cart.fill.badge.plus")!, label1: "Your cart is currently empty", label2: "You can checkout when there is a product in your cart.")]
     }
-
     
-
-
 }
 
-//MARK: - UI Elements Constraints
+//MARK: - UI Elements AddSubiew / Constraints
 
 extension CheckoutView {
     
@@ -74,7 +71,7 @@ extension CheckoutView {
     private func addLabelsToStackView() {
         labelStackView.addArrangedSubviews(label1, label2)
     }
-
+    
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
@@ -108,7 +105,7 @@ extension CheckoutView {
             make.height.width.equalTo(75)
         }
     }
-
+    
     private func labelStackViewConstraints() {
         labelStackView.snp.makeConstraints { make in
             make.top.equalTo(viewForImage.snp.bottom).offset(20)
@@ -116,7 +113,7 @@ extension CheckoutView {
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
         }
     }
-
-
-
+    
+    
+    
 }

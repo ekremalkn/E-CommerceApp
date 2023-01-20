@@ -8,10 +8,7 @@
 import UIKit
 
 final class SignInController: UIViewController {
-    deinit {
-        print("deinit signin controller")
-    }
-    
+ 
     //MARK: - Properties
     
     private let authViewModel = AuthViewModel()
@@ -58,6 +55,11 @@ final class SignInController: UIViewController {
 }
 
 extension SignInController: SignInViewInterface {
+    
+    func signInView(_ view: SignInView, forgotPasswordButtonTapped button: UIButton) {
+        let resetPasswordVC = ResetPasswordController()
+        present(resetPasswordVC, animated: true)
+    }
     func signInView(_ view: SignInView, signInButtonTapped button: UIButton) {
         authViewModel.signIn(email: email, password: password)
     }
@@ -71,7 +73,7 @@ extension SignInController: SignInViewInterface {
 
 extension SignInController: AuthViewModelDelegate {
     func didOccurError(_ error: Error) {
-        print(error.localizedDescription)
+        Alert.alertMessage(title: "\(error.localizedDescription)", message: "", vc: self)
     }
     
     func didSignUpSuccessful() {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -15,6 +15,7 @@ protocol CartViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didUpdateCartSuccessful()
     func didFetchProductsFromCartSuccessful()
+    func didFetchCartCountSuccessful()
     func didFetchSingleProduct(_ product: Product)
     func didFetchCostAccToItemCount()
     func didCheckoutSuccessful()
@@ -22,11 +23,10 @@ protocol CartViewModelDelegate: AnyObject {
 }
 
 final class CartViewModel {
-    
+   
     deinit {
-        print("deinit cartviewmodel")
+        print("CartViewModel deinit")
     }
-    
     //MARK: - CartViewModelDelegate
     
     weak var delegate: CartViewModelDelegate?
@@ -52,6 +52,7 @@ final class CartViewModel {
         didSet {
             if costAccToItemCount.count == cart?.count {
                 delegate?.didFetchCostAccToItemCount()
+                
             }
         }
     }
@@ -134,6 +135,7 @@ final class CartViewModel {
         cartRef.getDocument(source: .default) { documentData, error in
             if let documentData = documentData {
                 self.cart = documentData.get("cart") as? [String : Int]
+                self.delegate?.didFetchCartCountSuccessful()
             }
         }
     }

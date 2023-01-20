@@ -14,11 +14,7 @@ protocol SpecialProductsViewModelDelegate: AnyObject {
     func didFetchSingleProduct(_ product: Product)
 }
 final class SpecialProductsViewModel {
-    
-    deinit {
-        print("deinit SpecialProductsViewModel")
-    }
-    
+ 
     weak var delegate: SpecialProductsViewModelDelegate?
     
     let manager = Service.shared

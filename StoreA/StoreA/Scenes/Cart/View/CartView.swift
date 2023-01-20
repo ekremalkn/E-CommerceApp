@@ -9,15 +9,13 @@ import UIKit
 
 protocol CartViewInterface: AnyObject {
     func cartView(_ view: CartView, checkoutButtonTapped button: UIButton )
-
+    
 }
 
 final class CartView: UIView {
-    
     deinit {
-        print("deinit cartview")
+        print("CartView deinit")
     }
-    
     weak var interface: CartViewInterface?
     
     //MARK: - Creating UI Elements
@@ -52,21 +50,11 @@ final class CartView: UIView {
     @objc private func checkoutButtonTapped(_ button: UIButton) {
         interface?.cartView(self, checkoutButtonTapped: button)
     }
-
     
-    //MARK: - AddPriceLabelsToStackView
-    
-    private func addPriceLabelsToStackView() {
-        priceStackView.addArrangedSubviews(priceTitle, priceLabel)
-    }
-    
-    //MARK: - AddCheckoutViewElementsToCheckoutView
-    
-    private func addCheckoutElementsToCheckoutView() {
-        checkoutView.addSubviews(priceStackView, checkoutButton)
-    }
     
 }
+
+//MARK: - UI Elements AddSubiew / Constraints
 
 extension CartView {
     
@@ -74,6 +62,14 @@ extension CartView {
     
     private func addSubview() {
         addSubviews(cartCollection, checkoutView)
+    }
+    
+    private func addPriceLabelsToStackView() {
+        priceStackView.addArrangedSubviews(priceTitle, priceLabel)
+    }
+    
+    private func addCheckoutElementsToCheckoutView() {
+        checkoutView.addSubviews(priceStackView, checkoutButton)
     }
     
     //MARK: - Setup Constraints
@@ -86,8 +82,6 @@ extension CartView {
         checkoutButtonConstraints()
         checkoutViewConstraints()
     }
-    
-    //MARK: - UI Elements Constraints
     
     private func cartCollectionConstraints() {
         cartCollection.snp.makeConstraints { make in

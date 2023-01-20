@@ -110,7 +110,19 @@ final class OnboardingView: UIView {
         interface?.onboardingView(self, signInButtonTapped: button)
     }
     
-    //MARK: - StackView AddSubview
+    
+}
+
+
+//MARK: - UI Elements AddSubiew / Constraints
+
+extension OnboardingView {
+    
+    //MARK: - Addsubview
+    
+    private func addSubview() {
+        addSubviews(collection, pageControl, contiuneButton, skipButton, pageControlButtonsStackView, signInLbl, signInButton, signInStackView)
+    }
     
     private func addSignInElementsToStackView() {
         signInStackView.addArrangedSubviews(signInLbl, signInButton)
@@ -119,17 +131,8 @@ final class OnboardingView: UIView {
     private func addPageControlButtonsToStackView() {
         pageControlButtonsStackView.addArrangedSubviews(pageControl, contiuneButton, skipButton)
     }
-}
-
-
-
-//MARK: - UI Elements Constraints
-
-extension OnboardingView {
     
-    private func addSubview() {
-        addSubviews(collection, pageControl, contiuneButton, skipButton, pageControlButtonsStackView, signInLbl, signInButton, signInStackView)
-    }
+    //MARK: - Setup Constraints
     
     private func setupConstraints() {
         collectionConstraints()

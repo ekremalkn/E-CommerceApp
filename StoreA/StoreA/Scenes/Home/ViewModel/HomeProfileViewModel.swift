@@ -7,9 +7,11 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseStorage
 
 protocol HomeProfileViewModelDelegate: AnyObject {
     func didFetchUserInfro()
+    func didFetchProfilePhotoSuccessful(_ url: String)
     func didGotCurrentTime()
 }
 
@@ -23,6 +25,8 @@ final class HomeProfileViewModel {
     
     private let currentUser = Auth.auth().currentUser
     
+    private let storage = Storage.storage().reference()
+    
     var email: String?
     var username: String?
     
@@ -34,13 +38,25 @@ final class HomeProfileViewModel {
         }
     }
     
+    
+    func fetchProfilePhoto() {
+        if let currentUser = currentUser {
+            let profileImageRef = storage.child("profileImages/file.png").child(currentUser.uid)
+            profileImageRef.downloadURL { [weak self] url, error in
+                guard let url = url , error == nil else { return }
+                let urlString = url.absoluteString
+                self?.delegate?.didFetchProfilePhotoSuccessful(urlString)
+            }
+        }
+    }
+    
     //MARK: - Change hi label according to current time
     
     func getTime()  {
         
         switch currentHour {
             
-        case (5 ..< 11):
+        case (6 ..< 11):
             hiText = "Good Morning ☀️"
             self.delegate?.didGotCurrentTime()
         case (12 ..< 15):
@@ -49,6 +65,10 @@ final class HomeProfileViewModel {
             
         case (16 ..< 22):
             hiText = "Good Evening 👋"
+            self.delegate?.didGotCurrentTime()
+            
+        case (0..<5):
+            hiText = "Good Night 🌑"
             self.delegate?.didGotCurrentTime()
             
         default:

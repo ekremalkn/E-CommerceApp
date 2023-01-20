@@ -16,15 +16,12 @@ protocol SignUpViewInterface: AnyObject {
 } 
 
 final class SignUpView: UIView {
-    deinit {
-        print("deinit signup view")
-    }
-    
+
     weak var interface: SignUpViewInterface?
     
     //MARK: - Creating UI Elements
     
-    private var titleLabel = CustomLabel(text: "SignUp", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .systemOrange, textAlignment: .left)
+    private var titleLabel = CustomLabel(text: "SignUp", numberOfLines: 0, font: .boldSystemFont(ofSize: 45), textColor: .black, textAlignment: .left)
     private var descLabel = CustomLabel(text: "Sign up to exploring our amazing products.", numberOfLines: 0, font: .systemFont(ofSize: 20), textColor: .systemGray, textAlignment: .left)
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 20, isHidden: false)
     var usernameTextField = CustomTextField(attributedPlaceholder: NSAttributedString(string: "Username", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray]), image: UIImage(systemName: "person")!)
@@ -34,7 +31,7 @@ final class SignUpView: UIView {
     private var signUpButton = CustomButton(title: "Sign Up", titleColor: .white, font: .boldSystemFont(ofSize: 19), backgroundColor: .black, cornerRadius: 16)
     private var textFieldStackView = CustomStackView(axis: .vertical, distiribution: .fillEqually, spacing: 25, isHidden: false)
     private var signInLabel = CustomLabel(text: "Already have an account?", numberOfLines: 1, font: .systemFont(ofSize: 18), textColor: .systemGray, textAlignment: .center)
-    private var signInButton = CustomButton(title: "Sign In", titleColor: .systemOrange, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
+    private var signInButton = CustomButton(title: "Sign In", titleColor: .blue, font: .systemFont(ofSize: 15), backgroundColor: .systemGray6, cornerRadius: 16)
     private var signInStackView = CustomStackView(axis: .horizontal, distiribution: .fill, spacing: 10, isHidden: false)
     
     
@@ -71,7 +68,18 @@ final class SignUpView: UIView {
         interface?.signUpView(self, signUpButtonTapped: button)
     }
     
-    //MARK: - StackView AddSubview
+    
+}
+
+//MARK: - UI Elements AddSubiew / Constraints
+
+extension SignUpView {
+    
+    //MARK: - Addsubview
+    
+    private func addSubviews() {
+        addSubviews(labelStackView, usernameTextField, textFieldStackView, signUpButton, signInStackView)
+    }
     
     private func addLabelsToStackView() {
         labelStackView.addArrangedSubviews(titleLabel, descLabel)
@@ -85,12 +93,7 @@ final class SignUpView: UIView {
         signInStackView.addArrangedSubviews(signInLabel, signInButton)
     }
     
-    
-    //MARK: - UI Elements Constraints
-    
-    private func addSubviews() {
-        addSubviews(labelStackView, usernameTextField, textFieldStackView, signUpButton, signInStackView)
-    }
+    //MARK: - Setup Constraints
     
     private func setupConstraints() {
         labelStackViewConstraints()
@@ -117,7 +120,7 @@ final class SignUpView: UIView {
     
     private func textFieldStackViewConstraints() {
         textFieldStackView.snp.makeConstraints { make in
-            make.top.equalTo(labelStackView.snp.bottom).offset(40)
+            make.top.equalTo(labelStackView.snp.bottom).offset(35)
             make.leading.equalTo(labelStackView.snp.leading)
             make.trailing.equalTo(labelStackView.snp.trailing)
         }
@@ -125,7 +128,7 @@ final class SignUpView: UIView {
     
     private func signUpButtonConstraints() {
         signUpButton.snp.makeConstraints { make in
-            make.top.equalTo(textFieldStackView.snp.bottom).offset(50)
+            make.top.equalTo(textFieldStackView.snp.bottom).offset(35)
             make.leading.trailing.equalTo(textFieldStackView)
             make.height.equalTo(56)
         }
@@ -133,11 +136,11 @@ final class SignUpView: UIView {
     
     private func signInStackViewConstraints() {
         signInStackView.snp.makeConstraints { make in
-            make.top.equalTo(signUpButton.snp.bottom).offset(35)
+            make.top.equalTo(signUpButton.snp.bottom).offset(25)
+            make.bottom.equalTo(safeAreaLayoutGuide)
             make.centerX.equalTo(textFieldStackView.snp.centerX)
         }
     }
-    
     
 }
 

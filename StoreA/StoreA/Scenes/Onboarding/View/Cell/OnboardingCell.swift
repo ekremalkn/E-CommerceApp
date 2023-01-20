@@ -20,7 +20,7 @@ final class OnboardingCell: UICollectionViewCell {
     private var slideTitleLbl = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 25), textColor: .black, textAlignment: .center)
     private var slideDescLbl = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 20), textColor: .systemGray, textAlignment: .center)
     private var slideLblStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 45, isHidden: false)
-
+    
     //MARK: - override method
     
     override init(frame: CGRect) {
@@ -42,17 +42,23 @@ final class OnboardingCell: UICollectionViewCell {
         slideDescLbl.text = data.description
     }
     
-    //MARK: - StackView AddSubviews
+}
+
+
+//MARK: - UI Elements AddSubiew / Constraints
+
+extension OnboardingCell {
+    
+    //MARK: - AddSubview
+    
+    private func addSubview() {
+        addSubviews(onboardingImage, slideTitleLbl, slideDescLbl, slideLblStackView)
+    }
     
     private func addSlideLblsToStackView() {
         slideLblStackView.addArrangedSubviews(slideTitleLbl, slideDescLbl)
     }
     
-    //MARK: - UI Elements Constraints
-    
-    private func addSubview() {
-        addSubviews(onboardingImage, slideTitleLbl, slideDescLbl, slideLblStackView)
-    }
     
     private func setupConstraint() {
         onboardinImageConstraint()

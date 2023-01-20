@@ -9,11 +9,7 @@ import UIKit
 
 
 final class FilterController: UIViewController {
-    
-    deinit {
-        print("deinit FilterController")
-    }
-    
+   
     //MARK: - Properties
     
     private let searchViewModel = SearchViewModel()

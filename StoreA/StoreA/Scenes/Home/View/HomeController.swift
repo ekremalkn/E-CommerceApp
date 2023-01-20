@@ -9,12 +9,6 @@ import UIKit
 
 final class HomeController: UIViewController {
     
-    deinit {
-        print("deinit home controller")
-    }
-    
-
-    
     //MARK: - Properties
     private let homeProfileViewModel = HomeProfileViewModel()
     private let productsViewModel = ProductsViewModel()
@@ -26,9 +20,9 @@ final class HomeController: UIViewController {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
         homeProfileViewModel.fetchUser()
+        homeProfileViewModel.fetchProfilePhoto()
         homeProfileViewModel.getTime()
-        productsViewModel.fetchOnlyCategory()
-        productsViewModel.fetchAllProducts()
+        productsViewModel.fetchCart()
     }
     
     override func viewDidLoad() {
@@ -37,6 +31,8 @@ final class HomeController: UIViewController {
         configureNavBar()
         collectionCellRegister()
         setupDelegates()
+        productsViewModel.fetchOnlyCategory()
+        productsViewModel.fetchAllProducts()
     }
     
     
@@ -201,7 +197,7 @@ extension HomeController: HomeViewInterface {
 //MARK: - ProductsViewModelDelegate
 
 extension HomeController: ProductsViewModelDelegate {
-    
+ 
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -225,8 +221,19 @@ extension HomeController: ProductsViewModelDelegate {
         homeView.productCollection.reloadData()
     }
     
+    func didFetchCartCountSuccessful() {
+        if let cartCount = productsViewModel.cart?.count {
+            if cartCount == 0 {
+                tabBarController?.tabBar.items?[2].badgeValue = nil
+            } else {
+                tabBarController?.tabBar.items?[2].badgeValue = "\(cartCount)"
+            }
+        }
+        
+    }
+    
+    
     func didUpdateWishListSuccessful(productId: Int) {
-        homeView.productCollection.reloadData()
     }
     
     func didFetchWishListSuccessful(_ product: [Product]) {
@@ -248,6 +255,7 @@ extension HomeController: ProductCollectionCellInterface {
 
 
 extension HomeController: HomeProfileViewModelDelegate {
+
     func didGotCurrentTime() {
         homeView.hiLabel.text = homeProfileViewModel.hiText
     }
@@ -255,6 +263,11 @@ extension HomeController: HomeProfileViewModelDelegate {
     func didFetchUserInfro() {
         homeView.usernameLabel.text = homeProfileViewModel.username
     }
+    
+    func didFetchProfilePhotoSuccessful(_ url: String) {
+        homeView.profilePhotoImage.downloadSetImage(url: url)
+    }
+    
     
     
 }

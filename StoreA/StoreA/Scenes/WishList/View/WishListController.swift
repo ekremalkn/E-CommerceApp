@@ -24,6 +24,7 @@ final class WishListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        configureNavBar()
         collectionCellRegister()
         setupDelegates()
         wishListViewModel.fetchWishList()
@@ -35,12 +36,18 @@ final class WishListController: UIViewController {
     
     //MARK: - ConfigureViewController
     
-    private func configureViewController() {
+    private func configureViewController() {
         title = "My Wishlist"
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.tabBarController?.tabBar.backgroundColor = .white
         view = wishListView
+    }
+    
+    
+    private func configureNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     //MARK: - Register Custom Cell

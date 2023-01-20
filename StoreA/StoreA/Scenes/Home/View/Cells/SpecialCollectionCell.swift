@@ -14,10 +14,7 @@ protocol SpecialCollectionCellProtocol {
 }
 
 class SpecialCollectionCell: UICollectionViewCell {
-    deinit {
-        print("deinit specialcel")
-    }
-    
+  
     //MARK: - Cell's Identifier
     static let identifier = "SpecialCollectionCell"
     
@@ -56,22 +53,22 @@ class SpecialCollectionCell: UICollectionViewCell {
 }
 
 
-//MARK: - UI
+//MARK: - UI Elements AddSubiew / Constraints
 
 extension SpecialCollectionCell {
     
-    //MARK: - AddLabelToStackView
+    //MARK: - Addsubview
+    
+    private func addSubview() {
+        addSubviews(specialImage, specialLabelStackView)
+    }
     
     private func addSpecialLabelsToStackView() {
         specialLabelStackView.addArrangedSubview(specialTitleLabel)
         specialLabelStackView.addArrangedSubview(specialDetailLabel)
     }
     
-    //MARK: - UI Elements Constraints
-    
-    private func addSubview() {
-        addSubviews(specialImage, specialLabelStackView)
-    }
+    //MARK: - Setup Constraints
     
     private func setupConstraints() {
         specialImageConstraints()

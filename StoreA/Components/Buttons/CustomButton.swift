@@ -18,7 +18,7 @@ final class CustomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(title: String? = nil, titleColor: UIColor? = nil, font: UIFont? = nil, backgroundColor: UIColor? = nil, cornerRadius: CGFloat? = nil, image: UIImage? = nil, contentMode: ContentMode? = nil, tintColor: UIColor? = nil, imageEdgeInsets: UIEdgeInsets? = nil, titleEdgeInsets: UIEdgeInsets? = nil) {
+    convenience init(title: String? = nil, titleColor: UIColor? = nil, font: UIFont? = nil, backgroundColor: UIColor? = nil, cornerRadius: CGFloat? = nil, image: UIImage? = nil, contentHorizontalAlignment: UIControl.ContentHorizontalAlignment? = nil , contentVerticalAignment: UIControl.ContentVerticalAlignment? = nil, tintColor: UIColor? = nil, imageEdgeInsets: UIEdgeInsets? = nil, titleEdgeInsets: UIEdgeInsets? = nil) {
         self.init(frame: .zero)
         set(title: title, titleColor: titleColor, font: font, backgroundColor: backgroundColor, cornerRadius: cornerRadius, image: image, tintColor: tintColor, imageEdgeInsets: imageEdgeInsets, titleEdgeInsets: titleEdgeInsets)
     }
@@ -27,7 +27,7 @@ final class CustomButton: UIButton {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func set(title: String? = nil, titleColor: UIColor? = nil, font: UIFont? = nil, backgroundColor: UIColor? = nil, cornerRadius: CGFloat? = nil, image: UIImage? = nil, contentMode: ContentMode? = nil, tintColor: UIColor? = nil, imageEdgeInsets: UIEdgeInsets? = nil, titleEdgeInsets: UIEdgeInsets? = nil) {
+    private func set(title: String? = nil, titleColor: UIColor? = nil, font: UIFont? = nil, backgroundColor: UIColor? = nil, cornerRadius: CGFloat? = nil, image: UIImage? = nil, tintColor: UIColor? = nil, imageEdgeInsets: UIEdgeInsets? = nil, titleEdgeInsets: UIEdgeInsets? = nil) {
         if let title = title {
             setTitle(title, for: .normal)
         }
@@ -48,9 +48,6 @@ final class CustomButton: UIButton {
         }
         if let image = image {
             setImage(image, for: .normal)
-        }
-        if let contentMode = contentMode {
-            self.contentMode = contentMode
         }
         if let imageEdgeInsets = imageEdgeInsets {
             self.imageEdgeInsets = imageEdgeInsets

@@ -26,10 +26,7 @@ protocol ProductDetailViewProtocol {
 }
 
 final class ProductDetailView: UIView {
-    deinit {
-        print("deinit productdetail view")
-    }
-    
+
     //MARK: - Creating UI Elements
     
     private var productImage = CustomImageView(backgroundColor: .white,contentMode: .scaleAspectFit)
@@ -157,51 +154,10 @@ final class ProductDetailView: UIView {
         
     }
     
-    //MARK: - AddFavButtonTitleLabelToStackView
-    
-    private func addFavBtnTitleLblToStackView() {
-        favButtonTitleStackView.addArrangedSubviews(productTitle, addToWishListButton)
-    }
-    
-    //MARK: - AddRatingElementsToStackView
-    
-    private func addRatingElementsToStackView() {
-        ratingCountStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
-    }
-    
-    //MARK: - AddAmountLabelToStackView
-    
-    private func addAmountLabelToStackView() {
-        salesAmountView.addSubview(salesAmountLabel)
-    }
-    
-    
-    //MARK: - AddDescriptonLabelsToStackView
-    
-    private func addDescriptionLabelsToView() {
-        descriptionView.addSubviews(descriptionTitle, descriptionLabel)
-    }
-    
-    //MARK: - AddPriceLabelsToStackView
-    
-    private func addPriceLabelsToStackView() {
-        priceStackView.addArrangedSubviews(priceTitle, priceLabel)
-    }
-    
-    //MARK: - AddCartBtnPriceLabelsToStackView
-    
-    private func addCartBtnPriceLblToStackView() {
-        cartBtnPriceLblView.addSubviews(priceStackView, addToCartButton)
-    }
-    
-    //MARK: - AddCustomStepperElementsToStackView
-    
-    private func addStepperElementsToStackView() {
-        stepperStackView.addArrangedSubviews(stepperPlusButton, stepperLabel, stepperMinusButton)
-    }
-    
 }
 
+
+//MARK: - UI Elements AddSubiew / Constraints
 
 extension ProductDetailView {
     
@@ -215,6 +171,35 @@ extension ProductDetailView {
         addStepperElementsToStackView()
         addPriceLabelsToStackView()
         addCartBtnPriceLblToStackView()
+    }
+    
+    private func addFavBtnTitleLblToStackView() {
+        favButtonTitleStackView.addArrangedSubviews(productTitle, addToWishListButton)
+    }
+    
+    
+    private func addRatingElementsToStackView() {
+        ratingCountStackView.addArrangedSubviews(ratingCountImageView, ratingCountLabel)
+    }
+    
+    private func addAmountLabelToStackView() {
+        salesAmountView.addSubview(salesAmountLabel)
+    }
+    
+    private func addDescriptionLabelsToView() {
+        descriptionView.addSubviews(descriptionTitle, descriptionLabel)
+    }
+    
+    private func addPriceLabelsToStackView() {
+        priceStackView.addArrangedSubviews(priceTitle, priceLabel)
+    }
+    
+    private func addCartBtnPriceLblToStackView() {
+        cartBtnPriceLblView.addSubviews(priceStackView, addToCartButton)
+    }
+    
+    private func addStepperElementsToStackView() {
+        stepperStackView.addArrangedSubviews(stepperPlusButton, stepperLabel, stepperMinusButton)
     }
     
     
@@ -381,7 +366,7 @@ extension ProductDetailView {
             make.centerY.equalTo(cartBtnPriceLblView.snp.centerY)
         }
     }
- 
+    
     private func cartBtnPriceLblViewConstraints() {
         cartBtnPriceLblView.snp.makeConstraints { make in
             make.height.equalTo(addToCartButton.snp.height)

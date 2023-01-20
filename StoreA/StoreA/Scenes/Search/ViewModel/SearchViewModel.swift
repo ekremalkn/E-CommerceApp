@@ -16,10 +16,7 @@ protocol SearchViewModelDelegate: AnyObject {
 }
 
 final class SearchViewModel {
-    deinit {
-        print("deinit searchviewmodel")
-    }
-    
+
     //MARK: - SearchViewModelDelegate
     
     weak var delegate: SearchViewModelDelegate?
