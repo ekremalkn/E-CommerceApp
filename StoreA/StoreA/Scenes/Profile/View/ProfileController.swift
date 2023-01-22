@@ -13,9 +13,9 @@ final class ProfileController: UIViewController {
     
     private let profileViewModel = ProfileViewModel()
     private let profileView = ProfileView()
-
+    
     //MARK: - Lifecycle
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         profileViewModel.fetchUser()
@@ -30,7 +30,7 @@ final class ProfileController: UIViewController {
     
     
     //MARK: - Configure ViewController
-
+    
     private func configureViewController() {
         view.backgroundColor = .white
         view = profileView
@@ -40,7 +40,7 @@ final class ProfileController: UIViewController {
     private func configureNavBar() {
         navigationController?.isNavigationBarHidden = true
     }
-
+    
     
     //MARK: - Setup Delegates
     
@@ -49,15 +49,15 @@ final class ProfileController: UIViewController {
         
         profileViewModel.delegate = self
     }
-
     
-
+    
+    
 }
 
 //MARK: - ProfileViewModelDelegate
 
 extension ProfileController: ProfileViewModelDelegate {
-
+    
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
@@ -66,18 +66,22 @@ extension ProfileController: ProfileViewModelDelegate {
         let signInVC = SignInController()
         signInVC.modalPresentationStyle = .fullScreen
         present(signInVC, animated: true)
-       
+        
     }
     
     func didFetchUserInfo() {
         profileView.configure(email: profileViewModel.email ?? "email yok", username: profileViewModel.username ?? "kullanıcı yok")
     }
     
-    func didFetchProfilePhotoSuccessful(_ url: String) {
-        profileView.profileImageView.downloadSetImage(url: url)
+    func didUploadProfilePhotoSuccessful() {
+        profileViewModel.fetchProfilePhoto()
     }
     
-
+    func didFetchProfilePhotoSuccessful(_ url: String) {
+        profileView.profileImageView.downloadSetImage(url: url)
+        profileView.profileImageActivityIndicator.stopAnimating()
+    }
+    
     
     
 }
@@ -86,7 +90,7 @@ extension ProfileController: ProfileViewModelDelegate {
 //MARK: - ProfileViewInterface
 
 extension ProfileController: ProfileViewInterface {
-
+    
     func profileView(_ view: ProfileView, signOutButtonTapped button: UIButton) {
         profileViewModel.signOut()
     }
@@ -103,7 +107,7 @@ extension ProfileController: ProfileViewInterface {
         let resetPasswordVC = ResetPasswordController()
         present(resetPasswordVC, animated: true)
     }
-
+    
 }
 
 //MARK: - Profile Photo picker
@@ -111,11 +115,14 @@ extension ProfileController: ProfileViewInterface {
 extension ProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        profileView.activiyIndicator.stopAnimating()
         picker.dismiss(animated: true)
+        
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         guard let imageData = image.pngData() else { return }
         
         profileViewModel.uploadImageDataToFirebaseStorage(imageData)
+        profileView.profileImageActivityIndicator.startAnimating()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

@@ -14,6 +14,7 @@ protocol ProfileViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
     func didSignOutSuccessful()
     func didFetchUserInfo()
+    func didUploadProfilePhotoSuccessful()
     func didFetchProfilePhotoSuccessful(_ url: String)
 }
 
@@ -50,14 +51,7 @@ final class ProfileViewModel {
             let profileImageRef = storage.child("profileImages/file.png").child(currentUser.uid)
             profileImageRef.putData(imageData) { storageData, error in
                 guard  error == nil else { return }
-    
-                profileImageRef.downloadURL { url, error in
-                    guard let url = url, error == nil else { return }
-                    
-                    let urlString = url.absoluteString
-                    self.delegate?.didFetchProfilePhotoSuccessful(urlString)
-                }
-                
+                self.delegate?.didUploadProfilePhotoSuccessful()
             }
         }
     }

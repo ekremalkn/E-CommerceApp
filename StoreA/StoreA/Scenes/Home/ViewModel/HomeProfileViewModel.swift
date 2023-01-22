@@ -56,10 +56,10 @@ final class HomeProfileViewModel {
         
         switch currentHour {
             
-        case (6 ..< 11):
+        case (6 ..< 12):
             hiText = "Good Morning ☀️"
             self.delegate?.didGotCurrentTime()
-        case (12 ..< 15):
+        case (12 ..< 16):
             hiText = "Good Afternoon 👋"
             self.delegate?.didGotCurrentTime()
             

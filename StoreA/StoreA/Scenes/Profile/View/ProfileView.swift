@@ -22,6 +22,7 @@ final class ProfileView: UIView {
     private var profileTitleView = CustomView(backgroundColor: .white, cornerRadius: 0)
     private var moreInfoButton = CustomButton(image: UIImage(systemName: "ellipsis.circle"), tintColor: .black)
     var profileImageView = CustomImageView(image: UIImage(systemName: "person")!, tintColor: .black, backgroundColor: .white, contentMode: .scaleToFill, maskedToBounds: true, cornerRadius: 75, isUserInteractionEnabled: false)
+    var profileImageActivityIndicator = UIActivityIndicatorView(style: .large)
     private var userNameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .center)
     private var emailLabel = CustomLabel(text: "", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .black, textAlignment: .center)
     private var userInfoStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10)
@@ -30,7 +31,7 @@ final class ProfileView: UIView {
     private var seperatorView2 = CustomView(backgroundColor: .systemGray5)
     private var resetPasswordButton = CustomButton(title: "Change password", titleColor: .white, backgroundColor: .black, cornerRadius: 28)
     private var signOutButton = CustomButton(title: "Sign Out", titleColor: .white, backgroundColor: .red, cornerRadius: 15, image: UIImage(systemName: "multiply"), tintColor: .white, imageEdgeInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10), titleEdgeInsets: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
-    
+    var activiyIndicator = UIActivityIndicatorView()
     //MARK: - Propertis
     
     weak var interface: ProfileViewInterface?
@@ -68,6 +69,7 @@ final class ProfileView: UIView {
     //MARK: - AddAction
     
     @objc private func addProfileButtonTapped(_ button: UIButton) {
+        activiyIndicator.startAnimating()
         interface?.profileView(self, addProfileButtonTapped: button)
     }
     
@@ -88,9 +90,14 @@ extension ProfileView {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubviews(profileTitleView, moreInfoButton, profileImageView, userInfoStackView, seperatorView, addProfilPhotoButton, seperatorView2, resetPasswordButton, signOutButton)
+        addSubviews(activiyIndicator, profileTitleView, moreInfoButton, profileImageView, userInfoStackView, seperatorView, addProfilPhotoButton, seperatorView2, resetPasswordButton, signOutButton)
+        activityIndicatorToProfileImage()
         profileTitleAddToView()
         addUserInfosToStackView()
+    }
+    
+    private func activityIndicatorToProfileImage() {
+        profileImageView.addSubview(profileImageActivityIndicator)
     }
     
     private func profileTitleAddToView() {
@@ -104,11 +111,13 @@ extension ProfileView {
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
+        activityIndicatorConstraints()
         profileTitleViewConstraints()
         profileTitleImageConstraints()
         profileTitleConstraints()
         moreInfoButtonConstraints()
         profileImageViewConstraints()
+        profileImageActivityIndicatorConstraints()
         userInfosStackViewConstraints()
         seperatorViewConstraints()
         addProfilePhotoButtonConstraints()
@@ -118,6 +127,12 @@ extension ProfileView {
     }
     
     //MARK: - UI Elements Constraints
+    
+    private func activityIndicatorConstraints() {
+        activiyIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(safeAreaLayoutGuide)
+        }
+    }
     
     private func profileTitleViewConstraints() {
         profileTitleView.snp.makeConstraints { make in
@@ -156,6 +171,12 @@ extension ProfileView {
             make.width.height.equalTo(150)
             make.top.equalTo(profileTitleView.snp.bottom).offset(25)
             make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
+        }
+    }
+    
+    private func profileImageActivityIndicatorConstraints() {
+        profileImageActivityIndicator.snp.makeConstraints { make in
+            make.centerY.centerX.equalTo(profileImageView)
         }
     }
     

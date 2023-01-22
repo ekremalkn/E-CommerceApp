@@ -8,7 +8,7 @@
 import UIKit
 
 final class SearchController: UIViewController {
-   
+    
     //MARK: - Properties
     private let productsViewModel = ProductsViewModel()
     private let searchViewModel = SearchViewModel()
@@ -54,6 +54,7 @@ final class SearchController: UIViewController {
     
     private func configureViewController() {
         view = searchView
+        navigationController?.tabBarController?.tabBar.backgroundColor = .white
         navigationItem.searchController = searchController
     }
     
@@ -181,7 +182,6 @@ extension SearchController: SearchViewModelDelegate {
     func didFetchProductsByCategorySuccessful() {
         searchView.searchCollection.reloadData()
     }
-    
     
 }
 

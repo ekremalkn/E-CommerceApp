@@ -27,8 +27,8 @@ final class HomeView: UIView {
     var hiLabel = CustomLabel(text: "Good morning👋", numberOfLines: 0, font: .systemFont(ofSize: 15), textColor: .systemGray, textAlignment: .left)
     var usernameLabel = CustomLabel(text: "", numberOfLines: 0, font: .boldSystemFont(ofSize: 20), textColor: .black, textAlignment: .left)
     private var labelStackView = CustomStackView(axis: .vertical, distiribution: .fill, spacing: 10, isHidden: false)
-    private var wishListButton = CustomButton(backgroundColor: .white, cornerRadius: 15,image: UIImage(systemName: "heart"),tintColor: .black)
-    private var cartButton = CustomButton(backgroundColor: .white, cornerRadius: 15, image: UIImage(systemName: "cart"), tintColor: .black)
+    private var wishListButton = CustomButton(backgroundColor: .systemGray6, cornerRadius: 15,image: UIImage(systemName: "heart"),tintColor: .black)
+    private var cartButton = CustomButton(backgroundColor: .systemGray6, cornerRadius: 15, image: UIImage(systemName: "cart"), tintColor: .black)
     private var buttonStackView = CustomStackView(axis: .horizontal, distiribution: .fillEqually, isHidden: false)
     var searcBar = CustomSearchBar(showsBookmarkButton: false, placeHolder: "Search Products")
     private var specialProductsLabel = CustomLabel(text: "Special Products", numberOfLines: 0, font: .boldSystemFont(ofSize: 18), textColor: .black, textAlignment: .left)
@@ -159,11 +159,10 @@ extension HomeView {
     }
     
     private func contentViewConstraints() {
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.snp.makeConstraints { make in
             make.top.bottom.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.equalTo(2500)
+            make.height.equalTo(2000)
         }
     }
     

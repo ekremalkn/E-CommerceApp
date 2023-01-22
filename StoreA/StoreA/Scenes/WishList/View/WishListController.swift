@@ -96,8 +96,8 @@ extension WishListController: UICollectionViewDelegate, UICollectionViewDataSour
 extension WishListController: ProductCollectionCellInterface {
     func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, wishButtonTapped button: UIButton) {
         let indexPath = wishListViewModel.getProductIndexPath(productId: productId)
-        wishListView.wishListCollection.deleteItems(at: [indexPath])
         wishListViewModel.removeProduct(index: indexPath.row)
+        wishListView.wishListCollection.deleteItems(at: [indexPath])
         wishListViewModel.updateWishList(productId: productId, quantity: 0)
     }
     

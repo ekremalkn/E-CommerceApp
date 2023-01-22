@@ -28,7 +28,7 @@ class MainTabBarController: UITabBarController {
     
     private func homeController() -> UINavigationController {
         let homeVC = HomeController()
-        homeVC.title = "Home"
+        homeVC.title = "StoreA"
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
         
         return UINavigationController(rootViewController: homeVC)

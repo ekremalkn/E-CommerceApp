@@ -71,6 +71,13 @@ class ProductCollectionCell: UICollectionViewCell {
         priceLabel.text = data.productPrice
         productId = data.productId
     }
+ 
+    //MARK: - CheckWishListProductsMatch
+    
+    private func checkWishList() {
+        
+    }
+
     
     //MARK: - AddAction
     

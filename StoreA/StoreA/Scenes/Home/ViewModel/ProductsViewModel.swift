@@ -12,12 +12,13 @@ import FirebaseFirestore
 
 protocol ProductsViewModelDelegate: AnyObject {
     func didOccurError(_ error: Error)
+    func didFetchSpecialProductsSuccessful()
     func didFetchAllProductsSuccessful()
     func didFetchAllCategories()
     func didFetchProductsByCategorySuccessful()
     func didFetchSingleProduct(_ product: Product)
     func didFetchCartCountSuccessful()
-    func didUpdateWishListSuccessful(productId: Int)
+    func didUpdateWishListSuccessful()
 }
 
 final class ProductsViewModel {
@@ -29,20 +30,18 @@ final class ProductsViewModel {
     private let database = Firestore.firestore()
     private let currentUser = Auth.auth().currentUser
     
-    var allProducts: [Product] = []
+    var specialProducts: [Product] = []
     var productsByCategory: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
     
     var wishList: [String: Int]? = [:]
-
-    
+        
     var cart: [String : Int]? = [:]
     
     func fetchAllProducts() {
         manager.fetchProducts(type: .fetchAllProducts){ products in
             if let products = products {
-                self.allProducts = products.shuffled()
                 self.productsByCategory = products
                 self.allProductsToFirestore(products: products)
                 self.delegate?.didFetchAllProductsSuccessful()
@@ -51,6 +50,18 @@ final class ProductsViewModel {
             self.delegate?.didOccurError(error)
         }
         
+    }
+    
+    func fetchSpecialProducts() {
+        manager.fetchProducts(type: .fetchAllProducts) { products in
+            if let products = products {
+                self.specialProducts = products.shuffled()
+                self.delegate?.didFetchSpecialProductsSuccessful()
+            }
+        } onError: { error in
+            self.delegate?.didOccurError(error)
+        }
+
     }
     
     func fetchSingleProduct(productId id: Int) {
@@ -118,7 +129,7 @@ final class ProductsViewModel {
                 if let error = error {
                     self.delegate?.didOccurError(error)
                 } else {
-                    self.delegate?.didUpdateWishListSuccessful(productId: productId)
+                    self.delegate?.didUpdateWishListSuccessful()
                 }
             }
         } else {
@@ -126,7 +137,7 @@ final class ProductsViewModel {
                 if let error = error {
                     self.delegate?.didOccurError(error)
                 } else {
-                    self.delegate?.didUpdateWishListSuccessful(productId: productId)
+                    self.delegate?.didUpdateWishListSuccessful()
                 }
             }
         }
@@ -149,22 +160,25 @@ final class ProductsViewModel {
     
     
     //MARK: - FetchWishList
-    
-    func fetchWishList(products: [Product]) {
+    // home view product collectiondaki cell'leri wishliste göre wishlist buttonunu doldurmak için buradan devam edeceğim
+    func fetchWishList() {
         guard let currentUser = currentUser else { return }
         
         let wishListRef = database.collection("Users").document(currentUser.uid)
         wishListRef.getDocument(source: .default) { documentData, error in
-            guard let documentData = documentData else { return }
-            self.wishList = documentData.get("wishList") as? [String: Int]
-            if let wishList = self.wishList {
-                //wishlitteki ürünlere göre homveviewdaki productcollection cellerin wishlistbuttonlarını seçilmiş hale getirmek için buradan devam edecğeim.
-                
+            if let documentData = documentData {
+                self.wishList = documentData.get("wishList") as? [String: Int]
             }
         }
-        
     }
+
+
+ 
+  
 }
+
+
+
 
 
 

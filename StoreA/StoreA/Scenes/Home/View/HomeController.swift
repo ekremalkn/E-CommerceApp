@@ -18,7 +18,6 @@ final class HomeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.isNavigationBarHidden = true
         homeProfileViewModel.fetchUser()
         homeProfileViewModel.fetchProfilePhoto()
         homeProfileViewModel.getTime()
@@ -31,20 +30,24 @@ final class HomeController: UIViewController {
         configureNavBar()
         collectionCellRegister()
         setupDelegates()
-        productsViewModel.fetchOnlyCategory()
+        productsViewModel.fetchSpecialProducts()
         productsViewModel.fetchAllProducts()
+        productsViewModel.fetchOnlyCategory()
     }
     
     
     //MARK: - Configure ViewController
     
     private func configureViewController() {
-        title = "Home"
+        self.navigationController?.tabBarController?.tabBar.backgroundColor = .white
         view = homeView
     }
     
+    
     private func configureNavBar() {
+        navigationController?.isNavigationBarHidden = false
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.backBarButtonItem?.tintColor = .black
     }
     
@@ -93,7 +96,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case homeView.specialCollection:
-            return productsViewModel.allProducts.count
+            return productsViewModel.specialProducts.count
         case homeView.categoryCollection:
             return productsViewModel.allCategories.count
         case homeView.productCollection:
@@ -108,7 +111,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
         switch collectionView {
         case homeView.specialCollection:
             guard let cell = homeView.specialCollection.dequeueReusableCell(withReuseIdentifier: SpecialCollectionCell.identifier, for: indexPath) as? SpecialCollectionCell else { return UICollectionViewCell() }
-            cell.configure(data: productsViewModel.allProducts[indexPath.row])
+            cell.configure(data: productsViewModel.specialProducts[indexPath.row])
             return cell
         case homeView.categoryCollection:
             guard let cell = homeView.categoryCollection.dequeueReusableCell(withReuseIdentifier: CategoryCollectionCell.identifier, for: indexPath) as? CategoryCollectionCell else { return UICollectionViewCell()}
@@ -134,7 +137,7 @@ extension HomeController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case homeView.specialCollection:
-            guard let productId = productsViewModel.allProducts[indexPath.row].id else { return }
+            guard let productId = productsViewModel.specialProducts[indexPath.row].id else { return }
             productsViewModel.fetchSingleProduct(productId: productId)
         case homeView.categoryCollection:
             let category = productsViewModel.allCategories[indexPath.row]
@@ -198,6 +201,7 @@ extension HomeController: HomeViewInterface {
 
 extension HomeController: ProductsViewModelDelegate {
  
+
     func didFetchSingleProduct(_ product: Product) {
         let controller = ProductDetailController(product: product)
         navigationController?.pushViewController(controller, animated: true)
@@ -206,10 +210,12 @@ extension HomeController: ProductsViewModelDelegate {
     func didOccurError(_ error: Error) {
         print(error.localizedDescription)
     }
+    func didFetchSpecialProductsSuccessful() {
+        homeView.pageControl.numberOfPages = productsViewModel.specialProducts.count
+        homeView.specialCollection.reloadData()
+    }
     
     func didFetchAllProductsSuccessful() {
-        homeView.pageControl.numberOfPages = productsViewModel.allProducts.count
-        homeView.specialCollection.reloadData()
         homeView.productCollection.reloadData()
     }
     
@@ -221,6 +227,9 @@ extension HomeController: ProductsViewModelDelegate {
         homeView.productCollection.reloadData()
     }
     
+    func didUpdateWishListSuccessful() {
+    }
+   
     func didFetchCartCountSuccessful() {
         if let cartCount = productsViewModel.cart?.count {
             if cartCount == 0 {
@@ -233,14 +242,6 @@ extension HomeController: ProductsViewModelDelegate {
     }
     
     
-    func didUpdateWishListSuccessful(productId: Int) {
-    }
-    
-    func didFetchWishListSuccessful(_ product: [Product]) {
-        print("ekrem alkan")
-    }
-    
-    
     
 }
 
@@ -249,13 +250,14 @@ extension HomeController: ProductsViewModelDelegate {
 extension HomeController: ProductCollectionCellInterface {
     func productCollectionCell(_ view: ProductCollectionCell, productId: Int, quantity: Int, wishButtonTapped button: UIButton) {
         productsViewModel.updateWishList(productId: productId, quantity: quantity)
+        
     }
     
 }
 
 
 extension HomeController: HomeProfileViewModelDelegate {
-
+    
     func didGotCurrentTime() {
         homeView.hiLabel.text = homeProfileViewModel.hiText
     }

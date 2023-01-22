@@ -31,6 +31,7 @@ final class SearchViewModel {
     var products: [Product] = []
     var singleProduct: Product?
     var allCategories = Categories()
+
     
     
     func fetchAllProducts() {
