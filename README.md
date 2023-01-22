@@ -5,7 +5,7 @@
 
 -**Architecture:** MVVM
 
--**UI:** Full Programmatic(SnapKit)
+-**UI:** Custom Components - Full Programmatic(SnapKit)
 
 -**Memory:** No Retain Cycles
 
