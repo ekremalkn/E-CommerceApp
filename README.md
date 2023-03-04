@@ -1,4 +1,5 @@
 # E-CommerceApp---MVVM(No Storyboard, Full Programmatic, Memory Management)
+I developed my skills by creating a Programmatic user interface that I strongly emphasize, which differs from the common e-commerce applications built in bootcamps. Using the MVVM design pattern, I built a project with 12 scenes and utilized the fakestoreapi.com API. I retrieved data in JSON format and used the Alamofire library to create a generic Network structure. For user creation and login, I followed the Firebase documentation. This allowed me to write user data to the FirestoreDatabase and upload user profile photos to FirebaseStorage, making them accessible to the user. I delivered these features to the user by leveraging the functions presented in Firebase's documentation.
 
 ## Key Features
 --**Support:** iOS 13+
